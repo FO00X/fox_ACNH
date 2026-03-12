@@ -1,0 +1,76 @@
+@import "tailwindcss";
+
+@plugin "daisyui" {
+  themes: light --default, dark --prefersdark;
+}
+
+/* 动森风格自定义主题变量 */
+:root {
+  --acnh-green: #7CB342;
+  --acnh-green-light: #9CCC65;
+  --acnh-green-dark: #558B2F;
+  --acnh-sky: #B3E5FC;
+  --acnh-sand: #FFF8E1;
+  --acnh-coral: #FFAB91;
+  --acnh-leaf: #8BC34A;
+  --font-acnh: 'Nunito', 'Microsoft YaHei', sans-serif;
+}
+
+body {
+  font-family: var(--font-acnh);
+  background: linear-gradient(180deg, #E8F5E9 0%, #FFF8E1 50%, #E3F2FD 100%);
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+/* 深色模式背景 */
+html[data-theme="dark"] body {
+  background: radial-gradient(1200px 600px at 10% 0%, rgba(124, 179, 66, 0.18), transparent 60%),
+    radial-gradient(900px 500px at 100% 20%, rgba(100, 181, 246, 0.14), transparent 60%),
+    linear-gradient(180deg, #0B1020 0%, #0B1B14 50%, #0A1220 100%);
+}
+
+/* 安全区域 - 刘海屏/底部横条 */
+.pb-safe {
+  padding-bottom: env(safe-area-inset-bottom, 0);
+}
+.safe-area-pb {
+  padding-bottom: env(safe-area-inset-bottom, 0);
+}
+.safe-area-pt {
+  padding-top: env(safe-area-inset-top, 0);
+}
+.safe-area-pr {
+  padding-right: env(safe-area-inset-right, 0);
+}
+
+/* 有底部导航时，主内容留出空间 */
+main.pb-20 {
+  padding-bottom: calc(5rem + env(safe-area-inset-bottom, 0));
+}
+
+/* 动森风格卡片 - 移动端优化 */
+.acnh-card {
+  border-radius: 20px;
+  box-shadow: 0 2px 8px rgba(124, 179, 66, 0.12);
+  border: 2px solid rgba(255, 255, 255, 0.9);
+}
+
+/* 触摸友好按钮 */
+.acnh-btn {
+  border-radius: 14px;
+  min-height: 44px;
+  transition: all 0.2s ease;
+}
+.acnh-btn:active {
+  transform: scale(0.98);
+}
+
+/* 隐藏横向滚动条 */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}

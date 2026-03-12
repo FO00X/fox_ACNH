@@ -1,0 +1,112 @@
+<template>
+  <Teleport to="body">
+    <div v-if="uiStore.sidebarOpen" class="fixed inset-0 z-60">
+      <!-- 遮罩 -->
+      <div class="absolute inset-0 bg-black/40 backdrop-blur-[1px]" @click="uiStore.closeSidebar"></div>
+
+      <!-- 抽屉面板 -->
+      <div
+        class="absolute right-0 top-0 h-full w-[320px] max-w-[85vw] bg-base-100 shadow-2xl border-l border-base-300 safe-area-pr"
+      >
+        <div class="h-12 flex items-center justify-between px-4 border-b border-base-300">
+          <div class="flex items-center gap-2">
+            <Icon icon="mdi:leaf" class="w-5 h-5 text-[#558B2F]" />
+            <span class="font-semibold">菜单</span>
+          </div>
+          <button class="btn btn-ghost btn-sm min-h-0 h-9 w-9 rounded-full" @click="uiStore.closeSidebar" aria-label="close">
+            <Icon icon="mdi:close" class="w-5 h-5" />
+          </button>
+        </div>
+
+        <div class="p-4 space-y-4 overflow-auto h-[calc(100%-3rem)]">
+          <!-- 用户信息 -->
+          <div class="rounded-2xl bg-base-200/50 p-3 border border-base-300">
+            <div class="flex items-center gap-3">
+              <div class="w-11 h-11 rounded-2xl bg-base-100 border border-base-300 flex items-center justify-center overflow-hidden">
+                <img v-if="authStore.profile?.avatar_url" :src="authStore.profile.avatar_url" alt="avatar" class="w-full h-full object-cover" />
+                <Icon v-else icon="mdi:account-circle" class="w-9 h-9 text-base-content/60" />
+              </div>
+              <div class="min-w-0">
+                <p class="font-semibold truncate">{{ authStore.profile?.display_name || '岛民' }}</p>
+                <p class="text-xs text-base-content/60 truncate" :title="authStore.user?.email">{{ authStore.user?.email }}</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- 主题切换 -->
+          <button
+            class="w-full flex items-center justify-between gap-3 px-3 py-2 rounded-2xl border border-base-300 bg-base-100 hover:bg-base-200/60 transition-colors"
+            @click="uiStore.toggleTheme"
+          >
+            <span class="flex items-center gap-2 text-sm">
+              <Icon :icon="uiStore.isDark ? 'mdi:weather-night' : 'mdi:white-balance-sunny'" class="w-5 h-5" />
+              {{ uiStore.isDark ? '暗色模式' : '亮色模式' }}
+            </span>
+            <span class="text-xs text-base-content/60">点击切换</span>
+          </button>
+
+          <!-- 入口 -->
+          <div>
+            <p class="text-xs text-base-content/60 mb-2 px-1">功能</p>
+            <nav class="space-y-1">
+              <RouterLink
+                v-for="link in sideLinks"
+                :key="link.to"
+                :to="link.to"
+                :class="[
+                  'flex items-center gap-2 px-3 py-2 rounded-2xl text-sm transition-colors',
+                  isActive(link.to) ? 'bg-[#7CB342] text-white' : 'hover:bg-base-200/60'
+                ]"
+                @click="uiStore.closeSidebar"
+              >
+                <Icon :icon="link.icon" class="w-5 h-5 shrink-0" />
+                {{ link.label }}
+              </RouterLink>
+            </nav>
+          </div>
+
+          <div class="pt-2 border-t border-base-300">
+            <button
+              class="flex items-center gap-2 w-full px-3 py-2 rounded-2xl text-sm text-base-content/70 hover:bg-red-50 hover:text-red-700 transition-colors"
+              @click="signOut"
+            >
+              <Icon icon="mdi:logout" class="w-5 h-5" />
+              退出登录
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </Teleport>
+</template>
+
+<script setup>
+import { Icon } from '@iconify/vue'
+import { RouterLink, useRoute } from 'vue-router'
+import { useAuthStore } from '../stores/auth'
+import { useUiStore } from '../stores/ui'
+
+const route = useRoute()
+const authStore = useAuthStore()
+const uiStore = useUiStore()
+
+const sideLinks = [
+  { to: '/', label: '首页', icon: 'mdi:palm-tree' },
+  { to: '/dashboard', label: '我的小岛', icon: 'mdi:island' },
+  { to: '/calendar', label: '日历', icon: 'mdi:calendar' },
+  { to: '/catalogue', label: '图鉴', icon: 'mdi:book-open-page-variant' },
+  { to: '/turnips', label: '大头菜', icon: 'mdi:sprout' },
+  { to: '/board', label: '好友看板', icon: 'mdi:pin' },
+  { to: '/friends', label: '好友', icon: 'mdi:account-group' }
+]
+
+function isActive(path) {
+  if (path === '/') return route.path === '/'
+  return route.path === path || route.path.startsWith(path + '/')
+}
+
+async function signOut() {
+  await authStore.signOut()
+  uiStore.closeSidebar()
+}
+</script>
