@@ -1,15 +1,15 @@
 <template>
   <div class="space-y-4">
-    <div class="acnh-card bg-white/95 p-4">
-      <h2 class="text-lg font-bold text-[#558B2F] mb-2 flex items-center gap-2">
-        <Icon icon="mdi:pin" class="w-5 h-5" />
+    <div class="acnh-card bg-white/95 p-4 sm:p-5">
+      <h2 class="page-title mb-2 flex items-center gap-2">
+        <Icon icon="mdi:pin" class="w-5 h-5 shrink-0" />
         好友看板
       </h2>
-      <p class="text-gray-600 text-sm mb-4">查看好友缺少的，送完后可划掉～</p>
+      <p class="page-desc">查看好友缺少的，送完后可划掉～</p>
 
       <select
         v-model="selectedFriend"
-        class="select select-bordered w-full rounded-xl h-11 text-base"
+        class="select select-bordered w-full rounded-2xl h-12 text-base"
       >
         <option :value="null">选择好友</option>
         <option v-for="f in friends" :key="f.id" :value="f">{{ f.display_name }} - {{ f.island_name }}</option>
@@ -50,10 +50,10 @@
               v-model="newPostContent"
               type="text"
               placeholder="给 TA 留个言..."
-              class="input input-bordered flex-1 rounded-xl h-11"
+              class="input input-bordered flex-1 min-w-0 rounded-2xl h-12 text-base"
               @keyup.enter="addPost"
             />
-            <button class="btn bg-[#7CB342] hover:bg-[#558B2F] text-white border-0 rounded-xl h-11 min-h-0 px-4" @click="addPost">
+            <button class="btn bg-[#7CB342] hover:bg-[#558B2F] text-white border-0 rounded-2xl h-12 min-h-(--touch-min) px-4 shrink-0" @click="addPost">
               发送
             </button>
           </div>

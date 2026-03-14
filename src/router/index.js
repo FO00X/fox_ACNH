@@ -39,6 +39,12 @@ const routes = [
     meta: { requiresAuth: true }
   },
   {
+    path: '/catalogue/:category/:itemId',
+    name: 'CatalogueDetail',
+    component: () => import('../views/CatalogueDetailView.vue'),
+    meta: { requiresAuth: true }
+  },
+  {
     path: '/calendar',
     name: 'Calendar',
     component: () => import('../views/CalendarView.vue'),
@@ -57,14 +63,33 @@ const router = createRouter({
   routes
 })
 
+/** 校验 redirect 为站内路径，防止开放重定向 */
+function isValidRedirect(path) {
+  if (!path || typeof path !== 'string') return false
+  const p = path.trim()
+  if (!p.startsWith('/') || p.startsWith('//')) return false
+  if (/^\/\w+:/.test(p)) return false // 禁止 javascript: 等协议
+  return true
+}
+
 router.beforeEach((to, from, next) => {
   const authStore = useAuthStore()
   const isPublic = to.meta.requiresAuth === false
+
+  // 已登录用户访问登录页 → 重定向到目标页或首页
+  if (to.name === 'Login' && authStore.user) {
+    const redirect = to.query.redirect
+    next(isValidRedirect(redirect) ? redirect : { name: 'Dashboard' })
+    return
+  }
+
+  // 未登录访问需认证页面 → 跳转登录并携带 redirect
   if (!isPublic && !authStore.user) {
     next({ name: 'Login', query: { redirect: to.fullPath } })
-  } else {
-    next()
+    return
   }
+
+  next()
 })
 
 export default router

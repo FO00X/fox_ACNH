@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
 import { supabase } from '../lib/supabase'
+import { useCatalogueStore } from './catalogue'
 
 export const useAuthStore = defineStore('auth', () => {
   const user = ref(null)
@@ -11,7 +12,10 @@ export const useAuthStore = defineStore('auth', () => {
   async function init() {
     const { data: { user: u } } = await supabase.auth.getUser()
     user.value = u
-    if (u) await fetchProfile(u.id)
+    if (u) {
+      await fetchProfile(u.id)
+      useCatalogueStore().prefetch().catch(() => {})
+    }
   }
 
   async function fetchProfile(userId) {
@@ -29,6 +33,7 @@ export const useAuthStore = defineStore('auth', () => {
     if (error) throw error
     user.value = data.user
     await fetchProfile(data.user.id)
+    useCatalogueStore().prefetch().catch(() => {})
     return data
   }
 
@@ -39,9 +44,11 @@ export const useAuthStore = defineStore('auth', () => {
     })
     if (error) throw error
     user.value = data.user
-    // Trigger 会自动创建 profile，稍等后获取
-    await new Promise(r => setTimeout(r, 500))
-    await fetchProfile(data.user.id)
+    if (data.user) {
+      await new Promise(r => setTimeout(r, 500))
+      await fetchProfile(data.user.id)
+      useCatalogueStore().prefetch().catch(() => {})
+    }
     return data
   }
 
@@ -62,11 +69,17 @@ export const useAuthStore = defineStore('auth', () => {
     await supabase.auth.signOut()
     user.value = null
     profile.value = null
+    useCatalogueStore().clear()
   }
 
   supabase.auth.onAuthStateChange((event, session) => {
     user.value = session?.user ?? null
-    if (session?.user) fetchProfile(session.user.id)
+    if (session?.user) {
+      fetchProfile(session.user.id)
+      useCatalogueStore().prefetch().catch(() => {})
+    } else {
+      useCatalogueStore().clear()
+    }
   })
 
   return {

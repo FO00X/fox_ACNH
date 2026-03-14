@@ -1,46 +1,134 @@
 <template>
   <div class="space-y-4">
-    <div class="acnh-card bg-white/95 p-4">
-      <h1 class="text-xl font-bold text-[#558B2F] mb-1 flex items-center gap-2">
-        <Icon icon="mdi:sprout" class="w-6 h-6" />
+    <div class="acnh-card bg-white/95 p-4 sm:p-5">
+      <h1 class="page-title mb-1 flex items-center gap-2">
+        <Icon icon="mdi:sprout" class="w-6 h-6 shrink-0" />
         大头菜价格预测
       </h1>
-      <p class="text-gray-600 text-sm mb-4">输入本周价格，给出建议与剩余时段区间预测</p>
+      <p class="page-desc">输入本周价格，给出建议与剩余时段区间预测</p>
 
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <div class="rounded-2xl border border-base-300 bg-base-100 px-4 py-3 min-h-[60px]">
+          <p class="text-xs text-base-content/60 mb-0.5">本周起始（自动）</p>
+          <p class="font-semibold text-base">{{ weekStart }}</p>
+        </div>
         <label class="form-control">
-          <span class="label-text text-sm">周日起始（可选）</span>
-          <input v-model="weekStart" type="date" class="input input-bordered rounded-xl h-11" />
-        </label>
-        <label class="form-control">
-          <span class="label-text text-sm">周日买入价</span>
-          <input v-model.number="buyPrice" type="number" min="30" max="200" class="input input-bordered rounded-xl h-11" />
+          <span class="label-text text-sm">本岛买入价（周日）</span>
+          <input v-model.number="buyPrice" type="number" min="30" max="200" class="input input-bordered rounded-2xl h-12 text-base" />
         </label>
       </div>
 
-      <div class="mt-4">
-        <p class="text-sm font-medium text-gray-700 mb-2">本周价格（铃钱）</p>
-        <div class="grid grid-cols-2 sm:grid-cols-3 gap-2">
-          <template v-for="slot in slots" :key="slot.key">
-            <label class="form-control">
-              <span class="label-text text-xs text-gray-500">{{ slot.label }}</span>
-              <input
-                v-model.number="prices[slot.key]"
-                type="number"
-                min="0"
-                class="input input-bordered rounded-xl h-11"
-                placeholder="未填则跳过"
-              />
-            </label>
-          </template>
+      <!-- 走势概率标签：移动端可换行、大触控 -->
+      <div class="mt-4 flex flex-wrap gap-2">
+        <div class="badge badge-lg gap-1.5 py-3 px-4 rounded-2xl bg-blue-100 text-blue-800 border-0">
+          普通波动型 {{ patternPercents.fluctuating }}%
         </div>
-        <div class="flex flex-wrap gap-2 mt-3">
-          <button class="btn btn-sm bg-[#7CB342] text-white" :disabled="saving" @click="saveWeek">
-            {{ saving ? '保存中...' : '保存到云端' }}
+        <div class="badge badge-lg gap-1.5 py-3 px-3 rounded-2xl bg-red-100 text-red-800 border-0">
+          大高峰型 {{ patternPercents.large_spike }}%
+        </div>
+        <div class="badge badge-lg gap-1.5 py-3 px-3 rounded-2xl bg-emerald-100 text-emerald-800 border-0">
+          递减型 {{ patternPercents.decreasing }}%
+        </div>
+        <div class="badge badge-lg gap-1.5 py-3 px-3 rounded-2xl bg-amber-100 text-amber-800 border-0">
+          小高峰型 {{ patternPercents.small_spike }}%
+        </div>
+      </div>
+
+      <!-- 预测图表 -->
+      <div class="mt-4 rounded-2xl border border-base-300 bg-base-100 overflow-hidden">
+        <div class="px-4 py-3 border-b border-base-300 flex items-center justify-between">
+          <p class="font-semibold text-sm">预测曲线</p>
+          <p class="text-xs text-base-content/60">匹配样本：{{ matchedCount }} / {{ simulationCount }}</p>
+        </div>
+        <div class="px-2 pt-2 pb-3">
+          <div class="flex flex-wrap gap-3 px-2 pb-2 text-xs text-base-content/70">
+            <span class="inline-flex items-center gap-1">
+              <span class="w-2.5 h-2.5 rounded-full bg-red-500"></span> 最高价
+            </span>
+            <span class="inline-flex items-center gap-1">
+              <span class="w-2.5 h-0.5 bg-blue-500"></span> 最低价
+            </span>
+            <span class="inline-flex items-center gap-1">
+              <span class="w-2.5 h-0.5 bg-emerald-500"></span> 平均价
+            </span>
+            <span class="inline-flex items-center gap-1">
+              <span class="w-2.5 h-0.5 bg-amber-500"></span> 买入价
+            </span>
+            <span class="inline-flex items-center gap-1">
+              <span class="w-2 h-2 rounded-full bg-base-content/70"></span> 输入价
+            </span>
+          </div>
+
+          <svg :viewBox="`0 0 ${chartW} ${chartH}`" class="w-full h-[220px]">
+            <!-- grid -->
+            <g opacity="0.18">
+              <line v-for="g in 6" :key="g" :x1="0" :x2="chartW" :y1="(g-1)*chartH/5" :y2="(g-1)*chartH/5" stroke="currentColor" />
+            </g>
+
+            <!-- max area -->
+            <path v-if="chartPathArea" :d="chartPathArea" fill="rgba(239,68,68,0.25)" stroke="none" />
+
+            <!-- min line -->
+            <path v-if="chartPathMin" :d="chartPathMin" fill="none" stroke="rgb(59,130,246)" stroke-width="2" />
+            <!-- avg line -->
+            <path v-if="chartPathAvg" :d="chartPathAvg" fill="none" stroke="rgb(16,185,129)" stroke-width="2" />
+            <!-- buy line -->
+            <path v-if="chartPathBuy" :d="chartPathBuy" fill="none" stroke="rgb(245,158,11)" stroke-width="2" stroke-dasharray="4 4" />
+
+            <!-- known dots -->
+            <g v-for="pt in chartKnownPoints" :key="pt.key">
+              <circle :cx="pt.x" :cy="pt.y" r="3.5" fill="rgba(0,0,0,0.65)" />
+              <circle :cx="pt.x" :cy="pt.y" r="2" fill="rgba(255,255,255,0.9)" />
+            </g>
+          </svg>
+
+          <div class="px-2 pt-1 grid grid-cols-6 gap-1 text-[10px] text-base-content/60">
+            <div class="text-center">周一</div>
+            <div class="text-center">周二</div>
+            <div class="text-center">周三</div>
+            <div class="text-center">周四</div>
+            <div class="text-center">周五</div>
+            <div class="text-center">周六</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 输入面板（按天） -->
+      <div class="mt-4">
+        <div class="flex items-center justify-between mb-2">
+          <p class="text-sm font-medium text-gray-700">本周卖价（周一~周六）</p>
+          <button class="btn btn-sm bg-red-500 hover:bg-red-600 text-white border-0 rounded-2xl" @click="clearAllPrices">
+            清空
           </button>
-          <button class="btn btn-sm" :disabled="loading" @click="loadWeek">从云端加载</button>
-          <button class="btn btn-sm btn-outline" @click="fillUnknownAsNull">清空未填</button>
-          <button class="btn btn-sm" @click="resetAll">重置全部</button>
+        </div>
+
+        <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+          <div v-for="d in dayInputs" :key="d.day" class="rounded-2xl border border-base-300 bg-base-100 p-3">
+            <p class="text-sm font-semibold mb-2">{{ d.day }}</p>
+            <div class="grid grid-cols-1 gap-2">
+              <label class="form-control">
+                <span class="label-text text-xs text-base-content/60">上午</span>
+                <input v-model.number="prices[d.am]" type="number" min="0" class="input input-bordered rounded-2xl h-11 text-base" />
+              </label>
+              <label class="form-control">
+                <span class="label-text text-xs text-base-content/60">下午</span>
+                <input v-model.number="prices[d.pm]" type="number" min="0" class="input input-bordered rounded-2xl h-11 text-base" />
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex flex-wrap gap-2 mt-3">
+          <div class="flex items-center gap-2 text-xs text-base-content/60">
+            <span v-if="saving" class="inline-flex items-center gap-1">
+              <span class="loading loading-spinner loading-xs"></span> 自动保存中...
+            </span>
+            <span v-else-if="autoSavedAt">已自动保存（{{ autoSavedAt }}）</span>
+            <span v-else>自动保存已开启</span>
+          </div>
+          <button class="btn btn-sm rounded-2xl ml-auto" :disabled="loading" @click="loadWeek">从云端重新加载</button>
+          <button class="btn btn-sm btn-outline rounded-2xl" @click="fillUnknownAsNull">规范空值</button>
+          <button class="btn btn-sm rounded-2xl" @click="resetAll">重置</button>
         </div>
         <p v-if="saveMessage" class="text-xs mt-2" :class="saveMessageType === 'ok' ? 'text-[#558B2F]' : 'text-amber-700'">
           {{ saveMessage }}
@@ -140,6 +228,9 @@ const loading = ref(false)
 const saving = ref(false)
 const saveMessage = ref('')
 const saveMessageType = ref('ok')
+const autoSavedAt = ref('')
+const isHydrating = ref(false)
+const autoSaveTimer = ref(null)
 
 const authStore = useAuthStore()
 
@@ -160,6 +251,15 @@ const slots = [
 
 const prices = reactive(Object.fromEntries(slots.map(s => [s.key, null])))
 
+const dayInputs = [
+  { day: '周一', am: 'mon_am', pm: 'mon_pm' },
+  { day: '周二', am: 'tue_am', pm: 'tue_pm' },
+  { day: '周三', am: 'wed_am', pm: 'wed_pm' },
+  { day: '周四', am: 'thu_am', pm: 'thu_pm' },
+  { day: '周五', am: 'fri_am', pm: 'fri_pm' },
+  { day: '周六', am: 'sat_am', pm: 'sat_pm' }
+]
+
 function formatDateYYYYMMDD(d) {
   const yyyy = d.getFullYear()
   const mm = String(d.getMonth() + 1).padStart(2, '0')
@@ -178,8 +278,13 @@ function getMostRecentSunday(date = new Date()) {
 
 function fillUnknownAsNull() {
   for (const s of slots) {
-    if (prices[s.key] === '' || prices[s.key] === undefined) prices[s.key] = null
+    const v = prices[s.key]
+    if (v === '' || v === undefined || v === 0) prices[s.key] = null
   }
+}
+
+function clearAllPrices() {
+  for (const s of slots) prices[s.key] = null
 }
 
 function resetAll() {
@@ -187,6 +292,7 @@ function resetAll() {
   buyPrice.value = 0
   for (const s of slots) prices[s.key] = null
   saveMessage.value = ''
+  autoSavedAt.value = ''
 }
 
 function snapshotPrices() {
@@ -203,6 +309,7 @@ async function loadWeek() {
   if (!weekStart.value) weekStart.value = formatDateYYYYMMDD(getMostRecentSunday())
   loading.value = true
   saveMessage.value = ''
+  isHydrating.value = true
   try {
     const { data, error } = await supabase
       .from('turnip_weeks')
@@ -215,12 +322,13 @@ async function loadWeek() {
     const p = data?.prices || {}
     for (const s of slots) prices[s.key] = p[s.key] ?? null
     saveMessageType.value = 'ok'
-    saveMessage.value = data ? '已从云端加载本周数据' : '云端暂无该周记录（可直接保存创建）'
+    saveMessage.value = data ? '已从云端加载本周数据' : '云端暂无该周记录（输入后会自动创建并保存）'
   } catch (err) {
     console.error(err)
     saveMessageType.value = 'warn'
     saveMessage.value = err?.message || '从云端加载失败'
   } finally {
+    isHydrating.value = false
     loading.value = false
   }
 }
@@ -244,6 +352,7 @@ async function saveWeek() {
     if (error) throw error
     saveMessageType.value = 'ok'
     saveMessage.value = '已保存到云端'
+    autoSavedAt.value = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
   } catch (err) {
     console.error(err)
     saveMessageType.value = 'warn'
@@ -550,6 +659,100 @@ const forecastRows = computed(() => {
   })
 })
 
+// 图表数据（min/max/avg + 买入价 + 已输入点）
+const chartW = 360
+const chartH = 180
+
+const chartSeries = computed(() => {
+  const buy = Number(buyPrice.value)
+  const samples = matched.value.samples
+  const knownMap = snapshotPrices()
+
+  const points = slots.map((s, idx) => {
+    const known = knownMap[s.key]
+    if (known != null) {
+      return { idx, key: s.key, min: known, max: known, avg: known, known }
+    }
+    if (!samples.length) {
+      return { idx, key: s.key, min: null, max: null, avg: null, known: null }
+    }
+    const arr = samples.map(sm => sm.series[idx]).sort((a, b) => a - b)
+    const min = arr[0]
+    const max = arr[arr.length - 1]
+    const avg = Math.round(arr.reduce((a, b) => a + b, 0) / arr.length)
+    return { idx, key: s.key, min, max, avg, known: null }
+  })
+
+  const maxY = Math.max(
+    200,
+    buy || 0,
+    ...points.map(p => p.max || 0),
+    ...points.map(p => p.known || 0)
+  )
+  const paddedMax = Math.ceil(maxY / 50) * 50
+
+  return { points, buy: buy || null, yMax: paddedMax }
+})
+
+function toXY(idx, value) {
+  const x = (idx / 11) * chartW
+  const y = chartH - (value / chartSeries.value.yMax) * chartH
+  return { x, y }
+}
+
+function makePath(values) {
+  const pts = values.map((v, idx) => (v == null ? null : toXY(idx, v)))
+  const first = pts.findIndex(Boolean)
+  if (first === -1) return ''
+  let d = `M ${pts[first].x} ${pts[first].y}`
+  for (let i = first + 1; i < pts.length; i++) {
+    if (!pts[i]) continue
+    d += ` L ${pts[i].x} ${pts[i].y}`
+  }
+  return d
+}
+
+const chartPathMin = computed(() => makePath(chartSeries.value.points.map(p => p.min)))
+const chartPathAvg = computed(() => makePath(chartSeries.value.points.map(p => p.avg)))
+const chartPathBuy = computed(() => {
+  if (!chartSeries.value.buy) return ''
+  return makePath(new Array(12).fill(chartSeries.value.buy))
+})
+const chartPathArea = computed(() => {
+  const maxs = chartSeries.value.points.map(p => p.max)
+  const mins = chartSeries.value.points.map(p => p.min)
+  const maxPts = maxs.map((v, idx) => (v == null ? null : toXY(idx, v)))
+  const minPts = mins.map((v, idx) => (v == null ? null : toXY(idx, v)))
+  const first = maxPts.findIndex(Boolean)
+  const last = (() => {
+    for (let i = maxPts.length - 1; i >= 0; i--) if (maxPts[i]) return i
+    return -1
+  })()
+  if (first === -1 || last === -1) return ''
+
+  let d = `M ${maxPts[first].x} ${maxPts[first].y}`
+  for (let i = first + 1; i <= last; i++) {
+    if (!maxPts[i]) continue
+    d += ` L ${maxPts[i].x} ${maxPts[i].y}`
+  }
+  for (let i = last; i >= first; i--) {
+    if (!minPts[i]) continue
+    d += ` L ${minPts[i].x} ${minPts[i].y}`
+  }
+  d += ' Z'
+  return d
+})
+
+const chartKnownPoints = computed(() => {
+  const pts = []
+  for (const p of chartSeries.value.points) {
+    if (p.known == null) continue
+    const { x, y } = toXY(p.idx, p.known)
+    pts.push({ key: p.key, x, y })
+  }
+  return pts
+})
+
 const bestSellSuggestion = computed(() => {
   const buy = Number(buyPrice.value)
   if (!buy || !matchedCount.value) return ''
@@ -580,10 +783,38 @@ watch(weekStart, () => {
   saveMessage.value = ''
 })
 
+function scheduleAutoSave() {
+  if (!authStore.user) return
+  if (loading.value || isHydrating.value) return
+  // 没有任何输入就不保存
+  const hasAnyPrice = Object.values(snapshotPrices()).some(v => v != null)
+  if (!buyPrice.value && !hasAnyPrice) return
+
+  if (autoSaveTimer.value) clearTimeout(autoSaveTimer.value)
+  autoSaveTimer.value = setTimeout(() => {
+    // 防止刚好在保存中重复触发
+    if (saving.value) return
+    saveWeek()
+  }, 600)
+}
+
+watch(buyPrice, scheduleAutoSave)
+watch(
+  () => ({ ...prices }),
+  () => scheduleAutoSave(),
+  { deep: true }
+)
+watch(
+  () => authStore.user,
+  (u) => {
+    if (!weekStart.value) weekStart.value = formatDateYYYYMMDD(getMostRecentSunday())
+    if (u) loadWeek()
+  },
+  { immediate: true }
+)
+
 onMounted(() => {
   if (!weekStart.value) weekStart.value = formatDateYYYYMMDD(getMostRecentSunday())
-  // 登录状态由全局控制；这里直接尝试加载即可
-  if (authStore.user) loadWeek()
 })
 </script>
 

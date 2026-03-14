@@ -1,19 +1,19 @@
 <template>
   <div class="space-y-4">
-    <div class="acnh-card bg-white/95 p-4">
-      <h2 class="text-lg font-bold text-[#558B2F] mb-4 flex items-center gap-2">
-        <Icon icon="mdi:account-group" class="w-5 h-5" />
+    <div class="acnh-card bg-white/95 p-4 sm:p-5">
+      <h2 class="page-title mb-4 flex items-center gap-2">
+        <Icon icon="mdi:account-group" class="w-5 h-5 shrink-0" />
         好友
       </h2>
 
-      <div class="flex flex-col gap-2 mb-4">
+      <div class="flex flex-col gap-3 mb-4">
         <input
           v-model="searchInput"
           type="text"
           placeholder="好友邮箱或昵称"
-          class="input input-bordered w-full rounded-xl h-11"
+          class="input input-bordered w-full rounded-2xl h-12 text-base"
         />
-        <button class="btn w-full bg-[#7CB342] hover:bg-[#558B2F] text-white border-0 acnh-btn" @click="searchAndAddFriend">
+        <button class="btn w-full bg-[#7CB342] hover:bg-[#558B2F] text-white border-0 acnh-btn min-h-(--touch-min)" @click="searchAndAddFriend">
           发送好友请求
         </button>
       </div>
@@ -26,7 +26,7 @@
           <div
             v-for="f in acceptedFriends"
             :key="f.id"
-            class="flex items-center justify-between p-3 rounded-xl bg-[#E8F5E9]/50 border-2 border-[#9CCC65]/30"
+            class="flex items-center justify-between p-4 rounded-xl bg-[#E8F5E9]/50 border-2 border-[#9CCC65]/30 min-h-(--touch-min)"
           >
             <div class="min-w-0 flex-1">
               <p class="font-semibold text-sm truncate">{{ f.display_name }}</p>
@@ -34,7 +34,7 @@
             </div>
             <RouterLink
               :to="{ name: 'Board', query: { friend: f.id } }"
-              class="btn btn-sm bg-[#7CB342] text-white border-0 rounded-xl flex-shrink-0 ml-2 min-h-0 h-8 text-xs"
+              class="btn bg-[#7CB342] text-white border-0 rounded-xl flex-shrink-0 ml-2 min-h-[44px] px-4"
             >
               看板
             </RouterLink>
@@ -53,8 +53,8 @@
           >
             <span class="text-sm">{{ req.display_name }} ({{ req.island_name }}) 想加你</span>
             <div class="flex gap-2">
-              <button class="btn btn-sm btn-success flex-1 min-h-0 h-9" @click="respondRequest(req.friendshipId, 'accepted')">接受</button>
-              <button class="btn btn-sm btn-ghost flex-1 min-h-0 h-9" @click="respondRequest(req.friendshipId, 'rejected')">拒绝</button>
+              <button class="btn btn-success flex-1 min-h-(--touch-min)" @click="respondRequest(req.friendshipId, 'accepted')">接受</button>
+              <button class="btn btn-ghost flex-1 min-h-(--touch-min)" @click="respondRequest(req.friendshipId, 'rejected')">拒绝</button>
             </div>
           </div>
         </div>
