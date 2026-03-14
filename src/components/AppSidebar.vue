@@ -97,8 +97,7 @@ const sideLinks = [
   { to: '/calendar', label: '日历', icon: 'mdi:calendar' },
   { to: '/catalogue', label: '图鉴', icon: 'mdi:book-open-page-variant' },
   { to: '/turnips', label: '大头菜', icon: 'mdi:sprout' },
-  { to: '/board', label: '好友看板', icon: 'mdi:pin' },
-  { to: '/friends', label: '好友', icon: 'mdi:account-group' }
+  { to: '/board', label: '看板', icon: 'mdi:pin' }
 ]
 
 function isActive(path) {

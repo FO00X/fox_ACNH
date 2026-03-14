@@ -1,19 +1,25 @@
 <template>
-  <nav class="fixed bottom-0 left-0 right-0 bg-base-100/95 backdrop-blur-md border-t border-[#9CCC65]/30 safe-area-pb z-50 shadow-[0_-2px_12px_rgba(0,0,0,0.06)]">
+  <nav class="fixed bottom-0 left-0 right-0 bg-base-100/92 backdrop-blur-md border-t border-[#9CCC65]/30 safe-area-pb z-50 shadow-[0_-2px_12px_rgba(0,0,0,0.06)]">
     <div class="flex justify-around items-stretch max-w-lg mx-auto" style="min-height: var(--nav-height);">
       <RouterLink
         v-for="link in navLinks"
         :key="link.to"
         :to="link.to"
         :class="[
-          'flex flex-col items-center justify-center flex-1 min-h-(--touch-min) py-2 transition-colors relative',
+          'flex flex-col items-center justify-center flex-1 min-h-(--touch-min) py-2 transition-colors relative tap-lift',
           isActive(link.to) ? 'text-[#558B2F] font-medium' : 'text-gray-400'
         ]"
       >
-        <span :class="['inline-flex items-center justify-center w-10 h-10 rounded-xl transition-colors', isActive(link.to) ? 'bg-[#7CB342]/15' : '']">
+        <span :class="['inline-flex items-center justify-center w-10 h-10 rounded-xl transition-all', isActive(link.to) ? 'bg-[#7CB342]/15 scale-105' : '']">
           <Icon :icon="link.icon" class="w-6 h-6" />
         </span>
         <span class="text-xs mt-1">{{ link.label }}</span>
+        <span
+          :class="[
+            'absolute top-0 left-1/2 h-0.5 w-8 -translate-x-1/2 rounded-full transition-opacity',
+            isActive(link.to) ? 'opacity-100 bg-[#7CB342]' : 'opacity-0'
+          ]"
+        ></span>
       </RouterLink>
     </div>
   </nav>

@@ -1,11 +1,120 @@
 <template>
-  <div class="space-y-4">
-    <div class="acnh-card bg-white/95 p-4 sm:p-5">
+  <div class="plaza-page space-y-4 motion-rise">
+
+    <!-- 日期与时间 -->
+    <div class="flex items-center justify-between gap-2 flex-wrap">
+      <p class="text-lg font-bold text-base-content">{{ dateLabel }}</p>
+      <span class="badge badge-lg rounded-2xl bg-[#EFE0E0] text-base-content border-0 px-4 py-2">
+        {{ timeLabel }}
+      </span>
+    </div>
+
+    <!-- 每日事项 -->
+    <div class="rounded-3xl border border-base-300 bg-base-100 shadow-sm overflow-hidden">
+      <div class="flex items-center justify-between p-4 border-b border-base-200/80">
+        <h2 class="font-bold text-base flex items-center gap-2 text-base-content">
+          <Icon icon="mdi:format-list-checks" class="w-5 h-5 text-[#558B2F]" />
+          每日事项
+        </h2>
+        <div class="flex items-center gap-1">
+          <button
+            type="button"
+            class="btn btn-ghost btn-sm btn-circle min-h-0 h-9 w-9"
+            title="贴便签"
+            aria-label="贴便签"
+            @click="scrollToNotes"
+          >
+            <Icon icon="mdi:plus" class="w-5 h-5" />
+          </button>
+          <RouterLink to="/dashboard" class="btn btn-ghost btn-sm btn-circle min-h-0 h-9 w-9" title="我的小岛" aria-label="我的小岛">
+            <Icon icon="mdi:cog-outline" class="w-5 h-5" />
+          </RouterLink>
+          <RouterLink to="/dashboard" class="btn btn-ghost btn-sm btn-circle min-h-0 h-9 w-9" title="更多" aria-label="更多">
+            <Icon icon="mdi:chevron-right" class="w-5 h-5" />
+          </RouterLink>
+        </div>
+      </div>
+      <div class="p-4 grid grid-cols-5 gap-3">
+        <RouterLink
+          v-for="task in dailyTasks"
+          :key="task.to"
+          :to="task.to"
+          class="flex flex-col items-center gap-1.5 rounded-2xl p-2 hover:bg-base-200/60 active:scale-95 transition-transform tap-lift"
+        >
+          <div class="w-12 h-12 rounded-full border-2 border-[#FFE082] bg-[#FFFDE7] flex items-center justify-center overflow-hidden shrink-0">
+            <Icon :icon="task.icon" class="w-6 h-6 text-[#F9A825]" />
+          </div>
+          <span class="text-xs font-medium text-center leading-tight">{{ task.label }}</span>
+        </RouterLink>
+      </div>
+    </div>
+
+    <!-- 来访者（本周活动） -->
+    <div class="rounded-3xl border border-base-300 bg-base-100 shadow-sm overflow-hidden">
+      <div class="p-4 border-b border-base-200/80">
+        <h2 class="font-bold text-base flex items-center gap-2 text-base-content">
+          <Icon icon="mdi:map-marker" class="w-5 h-5 text-[#E53935]" />
+          来访者
+        </h2>
+      </div>
+      <div class="p-4 flex flex-wrap items-center justify-between gap-2">
+        <div
+          v-for="day in weekDays"
+          :key="day.key"
+          class="flex flex-col items-center gap-1 min-w-[56px]"
+        >
+          <span class="text-xs font-medium text-base-content/70">{{ day.label }}</span>
+          <RouterLink
+            :to="'/calendar'"
+            class="w-10 h-10 rounded-full bg-base-200 flex items-center justify-center hover:bg-base-300 transition-colors"
+            :title="'查看' + day.label + '活动'"
+          >
+            <Icon icon="mdi:calendar-blank" class="w-5 h-5 text-base-content/60" />
+          </RouterLink>
+        </div>
+      </div>
+      <div class="px-4 pb-4">
+        <RouterLink to="/calendar" class="btn btn-sm btn-ghost text-[#1976D2] gap-1">
+          查看日历与活动
+          <Icon icon="mdi:chevron-right" class="w-4 h-4" />
+        </RouterLink>
+      </div>
+    </div>
+
+    <!-- 图鉴进度（昆虫 / 鱼类 / 潜水） -->
+    <div class="rounded-3xl border border-base-300 bg-base-100 shadow-sm overflow-hidden">
+      <div class="flex items-center justify-between p-4 border-b border-base-200/80">
+        <h2 class="font-bold text-base flex items-center gap-2 text-base-content">
+          <Icon icon="mdi:plus-circle" class="w-5 h-5 text-[#1976D2]" />
+          图鉴进度
+        </h2>
+        <RouterLink to="/catalogue" class="btn btn-ghost btn-sm gap-1 min-h-0">
+          去图鉴
+          <Icon icon="mdi:chevron-right" class="w-4 h-4" />
+        </RouterLink>
+      </div>
+      <div class="p-4 grid grid-cols-3 gap-3">
+        <div
+          v-for="c in collectionSummary"
+          :key="c.id"
+          class="rounded-2xl bg-[#E3F2FD]/50 border border-[#64B5F6]/30 p-3 text-center"
+        >
+          <div class="flex items-center justify-center gap-1.5 mb-1">
+            <Icon :icon="c.icon" class="w-4 h-4 text-[#1976D2]" />
+            <span class="font-semibold text-sm text-[#1976D2]">{{ c.label }}</span>
+          </div>
+          <p class="text-lg font-bold text-base-content">{{ c.count }} <span class="text-xs font-normal">/ {{ c.total }}</span></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 广场便签板（保留原功能） -->
+    <div ref="notesSectionRef" class="acnh-card bg-base-100 p-3.5 sm:p-5">
       <div class="flex items-center justify-between mb-3 gap-2">
-        <h1 class="page-title flex items-center gap-2 shrink-0">
-          <Icon icon="mdi:palm-tree" class="w-6 h-6 shrink-0" />
+        <h2 class="page-title flex items-center gap-2 shrink-0">
+          <Icon icon="mdi:note-text-outline" class="w-6 h-6 shrink-0" />
           广场便签板
-        </h1>
+        </h2>
         <RouterLink
           to="/dashboard"
           class="btn rounded-2xl bg-base-100 border-base-300 hover:bg-base-200/60 text-sm min-h-(--touch-min) shrink-0"
@@ -14,19 +123,19 @@
         </RouterLink>
       </div>
       <p class="page-desc mb-4">
-        把你缺的东西写在便签上，让好友帮忙；看到能帮的，也可以撕掉别人的便签。
+        把你缺的东西写在便签上，大家互相帮忙；看到能帮的，也可以撕掉别人的便签。
       </p>
 
       <!-- 统计 -->
-      <div class="grid grid-cols-2 gap-3 mb-4 text-sm">
-        <div class="rounded-2xl bg-[#E8F5E9] border border-[#C5E1A5] px-4 py-3 flex items-center justify-between min-h-[52px]">
+      <div class="grid grid-cols-1 min-[400px]:grid-cols-2 gap-3 mb-4 text-sm motion-stagger">
+        <div class="rounded-2xl bg-[#E8F5E9] border border-[#C5E1A5] px-4 py-3 flex items-center justify-between min-h-[52px] motion-pop">
           <span class="text-[#558B2F] flex items-center gap-1.5">
             <Icon icon="mdi:note-text" class="w-5 h-5 shrink-0" />
             我想要
           </span>
           <span class="font-bold text-lg">{{ myOpenCount }}</span>
         </div>
-        <div class="rounded-2xl bg-[#E3F2FD] border border-[#90CAF9] px-4 py-3 flex items-center justify-between min-h-[52px]">
+        <div class="rounded-2xl bg-[#E3F2FD] border border-[#90CAF9] px-4 py-3 flex items-center justify-between min-h-[52px] motion-pop">
           <span class="text-[#1565C0] flex items-center gap-1.5">
             <Icon icon="mdi:hand-heart" class="w-5 h-5 shrink-0" />
             我已帮忙完成
@@ -69,12 +178,12 @@
         </div>
       </div>
 
-      <!-- 便签墙（按类型分列，移动端单列） -->
+      <!-- 便签墙（按类型分列，支持搜索过滤） -->
       <div class="relative min-h-[120px]">
         <div
           class="absolute inset-2 rounded-3xl border border-dashed border-base-300 bg-[url('/leaf.svg')] bg-size-[160px_160px] bg-repeat opacity-20 pointer-events-none"
         ></div>
-        <div class="relative grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div class="relative grid grid-cols-1 sm:grid-cols-3 gap-4 motion-stagger">
           <!-- 材料 -->
           <div class="space-y-2">
             <div class="flex items-center gap-2 text-xs text-[#558B2F]">
@@ -129,8 +238,8 @@
             </div>
           </div>
 
-          <div v-if="notes.length === 0" class="col-span-1 sm:col-span-3 text-center text-sm text-base-content/60 py-6">
-            还没有便签，先贴一张自己的需求吧～
+          <div v-if="filteredNotes.length === 0" class="col-span-1 sm:col-span-3 text-center text-sm text-base-content/60 py-6">
+            {{ searchQuery.trim() ? '没有匹配的便签' : '还没有便签，先贴一张自己的需求吧～' }}
           </div>
         </div>
       </div>
@@ -144,29 +253,92 @@ import { computed, ref, onMounted } from 'vue'
 import { RouterLink } from 'vue-router'
 import { useAuthStore } from '../stores/auth'
 import { supabase } from '../lib/supabase'
+import { CATALOGUE_CATEGORIES } from '../lib/acnh-api'
 
 const authStore = useAuthStore()
+const notesSectionRef = ref(null)
 
+const searchQuery = ref('')
 const notes = ref([])
 const newNoteName = ref('')
 const newNoteType = ref('material')
 const newNoteQty = ref(1)
+const collectedCounts = ref({})
+
+// 日期与时间
+const weekDayNames = ['周日', '周一', '周二', '周三', '周四', '周五', '周六']
+const dateLabel = computed(() => {
+  const d = new Date()
+  return `${weekDayNames[d.getDay()]}，${d.getMonth() + 1}月${d.getDate()}日`
+})
+const timeLabel = computed(() => {
+  const d = new Date()
+  return d.toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit', hour12: false })
+})
+
+// 每日事项：5 列，链接到对应功能页
+const dailyTasks = [
+  { icon: 'mdi:account-group', label: '对话', to: '/dashboard' },
+  { icon: 'mdi:bone', label: '挖化石', to: '/catalogue' },
+  { icon: 'mdi:hammer', label: '敲石头', to: '/dashboard' },
+  { icon: 'mdi:sprout', label: '大头菜', to: '/turnips' },
+  { icon: 'mdi:leaf-maple', label: '摇钱树', to: '/dashboard' },
+  { icon: 'mdi:file-document-outline', label: '找DIY', to: '/board' }
+]
+
+// 来访者：周一～周五
+const weekDays = [
+  { key: 'mon', label: '周一' },
+  { key: 'tue', label: '周二' },
+  { key: 'wed', label: '周三' },
+  { key: 'thu', label: '周四' },
+  { key: 'fri', label: '周五' }
+]
+
+// 图鉴进度：昆虫、鱼类、海洋生物
+const collectionSummary = computed(() => {
+  const ids = ['bugs', 'fish', 'sea']
+  const map = { bugs: '昆虫', fish: '鱼类', sea: '潜水' }
+  const cats = CATALOGUE_CATEGORIES.filter(c => ids.includes(c.id))
+  return cats.map(c => ({
+    id: c.id,
+    label: map[c.id] || c.label,
+    icon: c.icon,
+    count: collectedCounts.value[c.id] || 0,
+    total: c.total || 0
+  }))
+})
 
 const myOpenCount = computed(() => notes.value.filter(n => n.isMine && !n.is_fulfilled).length)
 const myHelpCount = computed(() => notes.value.filter(n => n.fulfilled_by === authStore.user?.id).length)
 
+const filteredNotes = computed(() => {
+  const q = searchQuery.value.trim().toLowerCase()
+  if (!q) return notes.value
+  return notes.value.filter(n => (n.item_name || '').toLowerCase().includes(q))
+})
+
 const groupedNotes = computed(() => {
-  const groups = {
-    material: [],
-    furniture: [],
-    other: []
-  }
-  for (const n of notes.value) {
+  const groups = { material: [], furniture: [], other: [] }
+  for (const n of filteredNotes.value) {
     const t = n.item_type === 'material' ? 'material' : n.item_type === 'furniture' ? 'furniture' : 'other'
     groups[t].push(n)
   }
   return groups
 })
+
+async function loadCollectedCounts() {
+  if (!authStore.user) return
+  const { data } = await supabase
+    .from('catalogue_collected')
+    .select('category')
+    .eq('user_id', authStore.user.id)
+  const map = {}
+  for (const row of data || []) {
+    map[row.category] = (map[row.category] || 0) + 1
+  }
+  collectedCounts.value = map
+}
 
 async function loadNotes() {
   const { data } = await supabase
@@ -212,7 +384,6 @@ async function addNote() {
 async function handleNoteClick(note) {
   if (note.is_fulfilled) return
   if (note.isMine) {
-    // 自己的：标记已完成/撕掉
     await supabase
       .from('wishlist_items')
       .update({
@@ -222,7 +393,6 @@ async function handleNoteClick(note) {
       })
       .eq('id', note.id)
   } else {
-    // 别人的：帮忙完成
     await supabase
       .from('wishlist_items')
       .update({
@@ -235,25 +405,27 @@ async function handleNoteClick(note) {
   await loadNotes()
 }
 
-function formatShortDate(d) {
-  if (!d) return ''
-  const date = new Date(d)
-  return date.toLocaleDateString('zh-CN', { month: 'numeric', day: 'numeric' })
+function scrollToNotes() {
+  notesSectionRef.value?.scrollIntoView({ behavior: 'smooth', block: 'start' })
 }
 
 onMounted(() => {
   if (authStore.isLoggedIn) {
     loadNotes()
+    loadCollectedCounts()
   }
 })
 </script>
 
 <script>
+import { Icon } from '@iconify/vue'
 // 内联便签卡组件，用于分列显示不同类型
 export default {
   name: 'HomeView',
   components: {
+    Icon,
     NoteCard: {
+      components: { Icon },
       props: {
         note: { type: Object, required: true },
         color: { type: String, required: true }
@@ -263,7 +435,7 @@ export default {
         baseClasses() {
           const n = this.note
           const common =
-            'relative rounded-3xl p-3 shadow-md cursor-pointer transition-transform active:scale-95 border'
+            'relative rounded-3xl p-3 shadow-md cursor-pointer transition-transform active:scale-95 border tap-lift motion-pop'
           const byType =
             this.color === 'material'
               ? n.isMine
@@ -319,3 +491,9 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.plaza-page {
+  padding-bottom: 0.5rem;
+}
+</style>

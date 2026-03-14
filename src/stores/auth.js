@@ -9,13 +9,23 @@ export const useAuthStore = defineStore('auth', () => {
 
   const isLoggedIn = computed(() => !!user.value)
 
+  let initPromise = null
   async function init() {
-    const { data: { user: u } } = await supabase.auth.getUser()
-    user.value = u
-    if (u) {
-      await fetchProfile(u.id)
-      useCatalogueStore().prefetch().catch(() => {})
-    }
+    if (initPromise) return initPromise
+    initPromise = (async () => {
+      const { data: { session } } = await supabase.auth.getSession()
+      let u = session?.user ?? null
+      if (!u) {
+        const { data: { user: u2 } } = await supabase.auth.getUser()
+        u = u2 ?? null
+      }
+      user.value = u
+      if (u) {
+        await fetchProfile(u.id)
+        useCatalogueStore().loadOnce().catch(() => {})
+      }
+    })()
+    return initPromise
   }
 
   async function fetchProfile(userId) {
@@ -33,7 +43,7 @@ export const useAuthStore = defineStore('auth', () => {
     if (error) throw error
     user.value = data.user
     await fetchProfile(data.user.id)
-    useCatalogueStore().prefetch().catch(() => {})
+    useCatalogueStore().loadOnce().catch(() => {})
     return data
   }
 
@@ -47,7 +57,7 @@ export const useAuthStore = defineStore('auth', () => {
     if (data.user) {
       await new Promise(r => setTimeout(r, 500))
       await fetchProfile(data.user.id)
-      useCatalogueStore().prefetch().catch(() => {})
+      useCatalogueStore().loadOnce().catch(() => {})
     }
     return data
   }
@@ -76,7 +86,7 @@ export const useAuthStore = defineStore('auth', () => {
     user.value = session?.user ?? null
     if (session?.user) {
       fetchProfile(session.user.id)
-      useCatalogueStore().prefetch().catch(() => {})
+      useCatalogueStore().loadOnce().catch(() => {})
     } else {
       useCatalogueStore().clear()
     }

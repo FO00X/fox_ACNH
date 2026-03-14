@@ -1,33 +1,32 @@
 <template>
-  <div class="space-y-4">
-    <div class="acnh-card bg-white/95 p-4 sm:p-5">
+  <div class="space-y-4 motion-rise">
+    <div class="acnh-card bg-base-100 p-3.5 sm:p-5">
       <h2 class="page-title mb-2 flex items-center gap-2">
         <Icon icon="mdi:pin" class="w-5 h-5 shrink-0" />
-        好友看板
+        看板
       </h2>
-      <p class="page-desc">查看好友缺少的，送完后可划掉～</p>
+      <p class="page-desc">查看大家缺少的，送完后可划掉～</p>
 
       <select
-        v-model="selectedFriend"
+        v-model="selectedUser"
         class="select select-bordered w-full rounded-2xl h-12 text-base"
       >
-        <option :value="null">选择好友</option>
-        <option v-for="f in friends" :key="f.id" :value="f">{{ f.display_name }} - {{ f.island_name }}</option>
+        <option :value="null">选择岛民</option>
+        <option v-for="u in allUsers" :key="u.id" :value="u">{{ u.display_name }} - {{ u.island_name }}</option>
       </select>
 
-      <div v-if="selectedFriend" class="space-y-4 mt-4">
-        <!-- 好友的愿望清单 -->
+      <div v-if="selectedUser" class="space-y-4 mt-4 motion-stagger">
         <div>
           <h3 class="font-semibold text-[#558B2F] mb-2 flex items-center gap-1.5">
             <Icon icon="mdi:package-variant" class="w-4 h-4" />
-            {{ selectedFriend.display_name }} 缺少的
+            {{ selectedUser.display_name }} 缺少的
           </h3>
           <div class="flex flex-wrap gap-2">
             <div
               v-for="item in friendWishlist"
               :key="item.id"
               :class="[
-                'badge gap-1.5 py-2.5 px-3 rounded-xl text-sm cursor-pointer active:scale-95 transition-transform',
+                'badge gap-1.5 py-2.5 px-3 rounded-xl text-sm cursor-pointer active:scale-95 transition-transform tap-lift motion-pop',
                 item.is_fulfilled ? 'badge-success opacity-75 line-through' : 'badge-warning'
               ]"
               @click="toggleFulfill(item)"
@@ -45,7 +44,7 @@
             <Icon icon="mdi:comment-text" class="w-4 h-4" />
             留言
           </h3>
-          <div class="flex gap-2 mb-3">
+          <div class="flex flex-col min-[420px]:flex-row gap-2 mb-3">
             <input
               v-model="newPostContent"
               type="text"
@@ -53,7 +52,7 @@
               class="input input-bordered flex-1 min-w-0 rounded-2xl h-12 text-base"
               @keyup.enter="addPost"
             />
-            <button class="btn bg-[#7CB342] hover:bg-[#558B2F] text-white border-0 rounded-2xl h-12 min-h-(--touch-min) px-4 shrink-0" @click="addPost">
+            <button class="btn bg-[#7CB342] hover:bg-[#558B2F] text-white border-0 rounded-2xl h-12 min-h-(--touch-min) px-4 shrink-0 acnh-btn tap-lift" @click="addPost">
               发送
             </button>
           </div>
@@ -62,18 +61,18 @@
               v-for="post in boardPosts"
               :key="post.id"
               :class="[
-                'p-3 rounded-xl flex items-start justify-between gap-2',
+                'p-3 rounded-xl flex items-start justify-between gap-2 motion-pop',
                 post.is_resolved ? 'bg-gray-100 opacity-75' : 'bg-[#FFF8E1]/50'
               ]"
             >
               <div class="flex-1 min-w-0">
-                <p :class="{ 'line-through text-gray-500': post.is_resolved }" class="text-sm break-words">{{ post.content }}</p>
+                <p :class="{ 'line-through text-gray-500': post.is_resolved }" class="text-sm wrap-break-word">{{ post.content }}</p>
                 <p class="text-xs text-gray-500 mt-1">{{ post.author?.display_name }} · {{ formatDate(post.created_at) }}</p>
               </div>
               <button
                 v-if="!post.is_resolved && (post.target_id === authStore.user?.id || post.author_id === authStore.user?.id)"
                 @click="resolvePost(post)"
-                class="btn btn-sm btn-ghost text-[#7CB342] min-h-0 h-8 flex-shrink-0"
+                class="btn btn-sm btn-ghost text-[#7CB342] min-h-0 h-8 shrink-0"
               >
                 划掉 ✓
               </button>
@@ -83,7 +82,7 @@
       </div>
 
       <div v-else class="text-center py-12 text-gray-500 text-sm">
-        选择好友查看
+        选择岛民查看
       </div>
     </div>
   </div>
@@ -98,54 +97,39 @@ import { supabase } from '../lib/supabase'
 
 const route = useRoute()
 const authStore = useAuthStore()
-const friends = ref([])
-const selectedFriend = ref(null)
+const allUsers = ref([])
+const selectedUser = ref(null)
 const friendWishlist = ref([])
 const boardPosts = ref([])
 const newPostContent = ref('')
 
-async function loadFriends() {
-  const { data: sent } = await supabase
-    .from('friendships')
-    .select('friend_id')
-    .eq('user_id', authStore.user.id)
-    .eq('status', 'accepted')
-  const { data: received } = await supabase
-    .from('friendships')
-    .select('user_id')
-    .eq('friend_id', authStore.user.id)
-    .eq('status', 'accepted')
-
-  const ids = [...new Set([
-    ...(sent || []).map(f => f.friend_id),
-    ...(received || []).map(f => f.user_id)
-  ])]
-  if (ids.length === 0) {
-    friends.value = []
-    return
-  }
-  const { data: profiles } = await supabase.from('profiles').select('id, display_name, island_name').in('id', ids)
-  friends.value = profiles || []
+async function loadAllUsers() {
+  const { data } = await supabase
+    .from('profiles')
+    .select('id, display_name, island_name')
+    .neq('id', authStore.user.id)
+    .order('display_name')
+  allUsers.value = data || []
 }
 
 async function loadFriendWishlist() {
-  if (!selectedFriend.value) return
+  if (!selectedUser.value) return
   const { data } = await supabase
     .from('wishlist_items')
     .select('*')
-    .eq('user_id', selectedFriend.value.id)
+    .eq('user_id', selectedUser.value.id)
     .order('created_at', { ascending: false })
   friendWishlist.value = data || []
 }
 
 async function loadBoardPosts() {
-  if (!selectedFriend.value) return
+  if (!selectedUser.value) return
   const me = authStore.user.id
-  const friend = selectedFriend.value.id
+  const other = selectedUser.value.id
   const { data } = await supabase
     .from('board_posts')
     .select('*')
-    .or(`and(author_id.eq.${me},target_id.eq.${friend}),and(author_id.eq.${friend},target_id.eq.${me})`)
+    .or(`and(author_id.eq.${me},target_id.eq.${other}),and(author_id.eq.${other},target_id.eq.${me})`)
     .order('created_at', { ascending: false })
   const posts = data || []
   const authorIds = [...new Set(posts.map(p => p.author_id))]
@@ -171,10 +155,10 @@ async function toggleFulfill(item) {
 }
 
 async function addPost() {
-  if (!newPostContent.value.trim() || !selectedFriend.value) return
+  if (!newPostContent.value.trim() || !selectedUser.value) return
   await supabase.from('board_posts').insert({
     author_id: authStore.user.id,
-    target_id: selectedFriend.value.id,
+    target_id: selectedUser.value.id,
     content: newPostContent.value.trim(),
     post_type: 'message'
   })
@@ -205,17 +189,17 @@ function formatDate(d) {
   return date.toLocaleDateString('zh-CN')
 }
 
-watch(selectedFriend, () => {
+watch(selectedUser, () => {
   loadFriendWishlist()
   loadBoardPosts()
 })
 
 onMounted(async () => {
-  await loadFriends()
-  const friendId = route.query.friend
-  if (friendId && friends.value.length > 0) {
-    const f = friends.value.find(x => x.id === friendId)
-    if (f) selectedFriend.value = f
+  await loadAllUsers()
+  const userId = route.query.user || route.query.friend
+  if (userId && allUsers.value.length > 0) {
+    const u = allUsers.value.find(x => x.id === userId)
+    if (u) selectedUser.value = u
   }
 })
 </script>

@@ -1,15 +1,19 @@
 <template>
-  <div class="min-h-dvh pb-safe flex flex-col bg-gradient-to-b from-[#E8F5E9] via-[#FFF8E1] to-[#E3F2FD] dark:from-[#0B1020] dark:via-[#0B1B14] dark:to-[#0A1220]">
+  <div
+    :class="[
+      'min-h-dvh flex flex-col bg-linear-to-b from-[#E8F5E9] via-[#FFF8E1] to-[#E3F2FD] dark:from-[#0B1020] dark:via-[#0B1B14] dark:to-[#0A1220]',
+      isLoginPage ? 'h-dvh overflow-hidden' : 'pb-safe'
+    ]"
+  >
     <AppHeader v-if="authStore.isLoggedIn && !isLoginPage" />
     <main
       :class="[
-        'flex-1 overflow-auto w-full',
-        isLoginPage ? 'p-0 max-w-none' : 'app-page',
+        isLoginPage ? 'flex-1 w-full p-0 max-w-none overflow-hidden' : 'flex-1 overflow-auto w-full app-page',
         authStore.isLoggedIn && 'pb-20'
       ]"
     >
       <RouterView v-slot="{ Component }">
-        <Transition name="fade" mode="out-in">
+        <Transition name="page" mode="out-in">
           <component :is="Component" />
         </Transition>
       </RouterView>
@@ -39,12 +43,26 @@ const isLoginPage = computed(() => route.path === '/login')
 </script>
 
 <style scoped>
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.2s ease;
+.page-enter-active,
+.page-leave-active {
+  transition: opacity 220ms ease, transform 260ms cubic-bezier(0.22, 1, 0.36, 1);
 }
-.fade-enter-from,
-.fade-leave-to {
+
+.page-enter-from,
+.page-leave-to {
   opacity: 0;
+  transform: translateY(8px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page-enter-active,
+  .page-leave-active {
+    transition: opacity 1ms linear;
+  }
+
+  .page-enter-from,
+  .page-leave-to {
+    transform: none;
+  }
 }
 </style>

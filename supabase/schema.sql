@@ -16,6 +16,7 @@ CREATE TABLE profiles (
   island_name TEXT DEFAULT '未命名小岛',
   avatar_url TEXT,
   hemisphere TEXT CHECK (hemisphere IS NULL OR hemisphere IN ('north', 'south')),
+  birthday DATE,
   friend_code TEXT,
   account_name TEXT,
   created_at TIMESTAMPTZ DEFAULT NOW(),

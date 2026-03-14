@@ -27,12 +27,6 @@ const routes = [
     meta: { requiresAuth: true }
   },
   {
-    path: '/friends',
-    name: 'Friends',
-    component: () => import('../views/FriendsView.vue'),
-    meta: { requiresAuth: true }
-  },
-  {
     path: '/catalogue',
     name: 'Catalogue',
     component: () => import('../views/CatalogueView.vue'),
@@ -72,8 +66,11 @@ function isValidRedirect(path) {
   return true
 }
 
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to, from, next) => {
   const authStore = useAuthStore()
+  // 刷新或首次进入时先确保 auth 已从 storage 恢复，再判断是否跳登录
+  await authStore.init()
+
   const isPublic = to.meta.requiresAuth === false
 
   // 已登录用户访问登录页 → 重定向到目标页或首页

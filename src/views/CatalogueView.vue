@@ -1,6 +1,6 @@
 <template>
-  <div class="space-y-4 relative">
-    <div class="acnh-card bg-white/95 p-4 sm:p-5">
+  <div class="space-y-4 relative motion-rise">
+    <div class="acnh-card bg-base-100 p-3.5 sm:p-5">
       <h1 class="page-title mb-1 flex items-center gap-2">
         <Icon icon="mdi:book-open-page-variant" class="w-6 h-6 shrink-0" />
         动森图鉴
@@ -8,12 +8,12 @@
       <p class="page-desc">动森全图鉴清单 · 点亮数据同步至云端</p>
 
       <!-- 分类 Tab：横向滑动，大触控 -->
-      <div class="flex gap-2 overflow-x-auto pb-2 -mx-1 scrollbar-hide mb-4">
+      <div class="flex gap-2 overflow-x-auto pb-2 -mx-1 scrollbar-hide mb-4 snap-x snap-mandatory">
         <button
           v-for="cat in categories"
           :key="cat.id"
           :class="[
-            'shrink-0 px-4 py-3 rounded-xl text-sm font-medium flex items-center gap-2 min-h-(--touch-min)',
+            'shrink-0 px-4 py-3 rounded-xl text-sm font-medium flex items-center gap-2 min-h-(--touch-min) snap-start tap-lift',
             activeCategory === cat.id ? 'bg-[#7CB342] text-white' : 'bg-[#E8F5E9]/70 text-gray-600'
           ]"
           @click="selectCategory(cat.id)"
@@ -23,34 +23,9 @@
         </button>
       </div>
 
-      <!-- 筛选区域 -->
-      <div class="flex flex-wrap gap-2 mb-4">
-        <div class="flex gap-1 p-1.5 rounded-xl bg-base-200/50">
-          <button
-            v-for="opt in collectedFilterOptions"
-            :key="opt.value"
-            :class="[
-              'px-4 py-2.5 rounded-lg text-sm font-medium transition-colors min-h-[40px]',
-              collectedFilter === opt.value ? 'bg-[#7CB342] text-white' : 'hover:bg-base-300/60 text-base-content/70'
-            ]"
-            @click="collectedFilter = opt.value"
-          >
-            {{ opt.label }}
-          </button>
-        </div>
-        <select
-          v-if="activeCategory === 'villagers' && speciesOptions.length > 0"
-          v-model="speciesFilter"
-          class="select select-bordered rounded-xl h-11 text-base min-w-[120px]"
-        >
-          <option value="">全部物种</option>
-          <option v-for="s in speciesOptions" :key="s" :value="s">{{ getSpeciesName(s) }}</option>
-        </select>
-      </div>
-
-      <!-- 搜索 -->
-      <div class="mb-4">
-        <label class="input input-bordered rounded-2xl flex items-center gap-2 h-12">
+      <!-- 搜索 + 筛选按钮：页面只保留这两个入口 -->
+      <div class="mb-4 flex gap-2">
+        <label class="input input-bordered rounded-2xl flex items-center gap-2 h-12 flex-1">
           <Icon icon="mdi:magnify" class="w-5 h-5 opacity-60 shrink-0" />
           <input
             v-model.trim="searchQuery"
@@ -67,25 +42,20 @@
             <Icon icon="mdi:close" class="w-5 h-5" />
           </button>
         </label>
+        <button
+          type="button"
+          class="btn btn-outline rounded-2xl h-12 min-w-[80px] flex items-center gap-1 shrink-0"
+          @click="openFilterDrawer"
+        >
+          <Icon icon="mdi:filter-variant" class="w-5 h-5" />
+          <span class="hidden sm:inline">筛选</span>
+        </button>
       </div>
 
       <!-- 统计 -->
       <div class="flex flex-wrap gap-x-4 gap-y-1 mb-4 p-4 rounded-xl bg-[#E8F5E9]/50 text-sm">
         <span>{{ activeCategory === 'villagers' ? '曾拥有' : '已收集' }}: <strong class="text-base">{{ collectedCount }}</strong> / {{ totalCount }}</span>
         <span class="text-[#558B2F] font-semibold">{{ progressPercent }}%</span>
-      </div>
-
-      <!-- 每页数量 -->
-      <div class="flex items-center gap-2 mb-4">
-        <span class="text-sm text-gray-600">每页</span>
-        <select v-model="perPage" class="select select-bordered rounded-xl h-11 w-24 text-base">
-          <option :value="10">10</option>
-          <option :value="20">20</option>
-          <option :value="50">50</option>
-          <option :value="100">100</option>
-          <option :value="200">200</option>
-          <option :value="500">500</option>
-        </select>
       </div>
 
       <!-- 加载中 -->
@@ -101,18 +71,18 @@
       </div>
 
       <!-- 物品网格：移动端 3 列，触控友好 -->
-      <div v-else class="grid grid-cols-3 gap-2 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6">
+      <div v-else class="grid grid-cols-2 min-[380px]:grid-cols-3 gap-2 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 motion-stagger">
         <div
           v-for="item in paginatedItems"
           :key="getItemKey(item)"
           :class="[
-            'relative rounded-xl border-2 p-2 cursor-pointer transition-all flex flex-col items-center active:scale-[0.98]',
+            'relative rounded-xl border-2 p-2 cursor-pointer transition-all flex flex-col items-center active:scale-[0.98] tap-lift motion-pop',
             isCollected(item) ? 'bg-[#C8E6C9] border-[#7CB342] dark:bg-[#2E7D32]/40 dark:border-[#66BB6A]' : isInWishlist(item) ? 'bg-pink-100 border-pink-300 dark:bg-pink-900/30 dark:border-pink-600' : 'bg-white border-gray-200 dark:bg-base-200 dark:border-base-300',
             (catalogueMode === 'view' || catalogueMode === 'wish') && 'hover:ring-2 hover:ring-[#7CB342]/50'
           ]"
           @click="onItemClick(item)"
         >
-          <div class="w-full aspect-square flex items-center justify-center bg-gray-50 rounded-lg overflow-hidden">
+          <div class="w-full aspect-square flex items-center justify-center bg-base-200 rounded-lg overflow-hidden">
             <img
               :src="getIconUrl(item)"
               :alt="getName(item)"
@@ -160,13 +130,13 @@
     </div>
 
     <!-- FAB 模式切换：选中后自动收起 -->
-    <div ref="fabRef" class="fab fixed z-30" style="bottom: calc(var(--nav-height) + env(safe-area-inset-bottom, 0) + 1.5rem); right: max(var(--content-px), env(safe-area-inset-right, 0));">
-      <div tabindex="0" role="button" :class="['btn btn-lg btn-circle', catalogueMode === 'mark' ? 'btn-primary' : catalogueMode === 'view' ? 'btn-secondary' : 'btn-accent']">
+    <div ref="fabRef" class="fab fixed z-30 motion-pop" style="bottom: calc(var(--nav-height) + env(safe-area-inset-bottom, 0) + 1.5rem); right: max(var(--content-px), env(safe-area-inset-right, 0));">
+      <div tabindex="0" role="button" :class="['btn btn-md sm:btn-lg btn-circle', catalogueMode === 'mark' ? 'btn-primary' : catalogueMode === 'view' ? 'btn-secondary' : 'btn-accent']">
         <Icon :icon="catalogueMode === 'mark' ? 'mdi:checkbox-marked-circle-outline' : catalogueMode === 'view' ? 'mdi:eye-outline' : 'mdi:heart-outline'" class="w-6 h-6" />
       </div>
       <button
         type="button"
-        :class="['btn btn-lg btn-circle', catalogueMode === 'mark' ? 'btn-primary' : 'btn-ghost']"
+        :class="['btn btn-md sm:btn-lg btn-circle', catalogueMode === 'mark' ? 'btn-primary' : 'btn-ghost']"
         title="标记模式"
         @click="setCatalogueMode('mark')"
       >
@@ -174,7 +144,7 @@
       </button>
       <button
         type="button"
-        :class="['btn btn-lg btn-circle', catalogueMode === 'view' ? 'btn-secondary' : 'btn-ghost']"
+        :class="['btn btn-md sm:btn-lg btn-circle', catalogueMode === 'view' ? 'btn-secondary' : 'btn-ghost']"
         title="查看模式"
         @click="setCatalogueMode('view')"
       >
@@ -182,7 +152,7 @@
       </button>
       <button
         type="button"
-        :class="['btn btn-lg btn-circle', catalogueMode === 'wish' ? 'btn-accent' : 'btn-ghost']"
+        :class="['btn btn-md sm:btn-lg btn-circle', catalogueMode === 'wish' ? 'btn-accent' : 'btn-ghost']"
         title="心愿模式（选择后发到广场）"
         @click="setCatalogueMode('wish')"
       >
@@ -194,9 +164,158 @@
     <Transition name="fade">
       <div
         v-if="wishlistToast"
-        class="fixed bottom-32 left-1/2 -translate-x-1/2 px-4 py-2 rounded-xl bg-success/90 text-success-content text-sm shadow-lg z-40"
+        class="fixed bottom-28 sm:bottom-32 left-1/2 -translate-x-1/2 px-4 py-2 rounded-xl bg-success/90 text-success-content text-sm shadow-lg z-40"
       >
         {{ wishlistToast }}
+      </div>
+    </Transition>
+
+    <!-- 图鉴详情弹窗：DaisyUI modal -->
+    <dialog
+      ref="detailDialogRef"
+      class="modal catalogue-detail-modal"
+      aria-label="图鉴详情"
+      @close="onDetailDialogClose"
+    >
+      <div class="modal-box flex flex-col max-h-[90vh] p-0 overflow-hidden w-11/12 max-w-2xl">
+        <CatalogueDetailContent
+          :category="detailCategory"
+          :item-id="detailItemId"
+          @close="closeDetailDialog"
+        />
+      </div>
+      <form method="dialog" class="modal-backdrop">
+        <button type="submit" aria-label="关闭">关闭</button>
+      </form>
+    </dialog>
+
+    <!-- 图鉴筛选抽屉：从右侧滑出，集中所有筛选项 -->
+    <Transition name="fade">
+      <div v-if="showFilterDrawer" class="fixed inset-0 z-40">
+        <div class="absolute inset-0 bg-black/30" @click="closeFilterDrawer"></div>
+        <div
+          class="absolute right-0 top-0 h-full w-full max-w-sm bg-base-100 shadow-xl flex flex-col"
+        >
+          <div class="px-4 py-3 border-b border-base-300 flex items-center justify-between">
+            <h2 class="text-base font-semibold">筛选与排序</h2>
+            <button class="btn btn-ghost btn-sm rounded-full" @click="closeFilterDrawer" aria-label="关闭筛选">
+              <Icon icon="mdi:close" class="w-5 h-5" />
+            </button>
+          </div>
+          <div class="flex-1 overflow-y-auto px-4 py-3 space-y-4 text-sm">
+            <!-- 收集状态 -->
+            <section>
+              <h3 class="mb-2 font-medium">收集状态</h3>
+              <div class="flex flex-wrap gap-2">
+                <button
+                  v-for="opt in collectedFilterOptions"
+                  :key="opt.value"
+                  :class="[
+                    'px-4 py-2.5 rounded-lg text-sm font-medium transition-colors min-h-[40px]',
+                    collectedFilter === opt.value ? 'bg-[#7CB342] text-white' : 'bg-base-200 hover:bg-base-300/60 text-base-content/70'
+                  ]"
+                  @click="collectedFilter = opt.value"
+                >
+                  {{ opt.label }}
+                </button>
+              </div>
+            </section>
+
+            <!-- 物种（仅小动物） -->
+            <section v-if="activeCategory === 'villagers' && speciesOptions.length > 0">
+              <h3 class="mb-2 font-medium">物种</h3>
+              <select
+                v-model="speciesFilter"
+                class="select select-bordered rounded-xl h-11 text-base w-full"
+              >
+                <option value="">全部物种</option>
+                <option v-for="s in speciesOptions" :key="s" :value="s">
+                  {{ getSpeciesName(s) }}
+                </option>
+              </select>
+            </section>
+
+            <!-- 鱼/虫/海：半球、月份、活动 -->
+            <section v-if="isCritterCategory">
+              <h3 class="mb-2 font-medium">出现时间</h3>
+              <div class="space-y-3">
+                <div>
+                  <p class="mb-1 text-xs text-base-content/70">半球</p>
+                  <div class="flex flex-wrap gap-2">
+                    <button
+                      v-for="h in hemisphereOptions"
+                      :key="h.value"
+                      :class="[
+                        'px-3 py-2 rounded-lg text-sm font-medium min-h-[36px]',
+                        hemisphereFilter === h.value ? 'bg-[#7CB342] text-white' : 'bg-base-200 hover:bg-base-300/60 text-base-content/70'
+                      ]"
+                      @click="hemisphereFilter = h.value"
+                    >
+                      {{ h.label }}
+                    </button>
+                  </div>
+                </div>
+                <div>
+                  <p class="mb-1 text-xs text-base-content/70">月份</p>
+                  <select
+                    v-model="monthFilter"
+                    class="select select-bordered rounded-xl h-11 text-base w-full"
+                  >
+                    <option value="">全部月份</option>
+                    <option value="current">当前月</option>
+                    <option
+                      v-for="m in monthOptions"
+                      :key="m.value"
+                      :value="m.value"
+                    >
+                      {{ m.label }}
+                    </option>
+                  </select>
+                </div>
+                <div>
+                  <p class="mb-1 text-xs text-base-content/70">活动</p>
+                  <select
+                    v-model="eventFilter"
+                    class="select select-bordered rounded-xl h-11 text-base w-full"
+                  >
+                    <option value="">全部活动</option>
+                    <option
+                      v-for="ev in critterEventsList"
+                      :key="ev.id"
+                      :value="ev.id"
+                    >
+                      {{ ev.title }}
+                    </option>
+                  </select>
+                </div>
+              </div>
+            </section>
+
+            <!-- 每页数量 -->
+            <section>
+              <h3 class="mb-2 font-medium">每页数量</h3>
+              <div class="flex items-center gap-2">
+                <span class="text-xs text-gray-600">每页</span>
+                <select v-model="perPage" class="select select-bordered rounded-xl h-11 w-32 text-base">
+                  <option :value="10">10</option>
+                  <option :value="20">20</option>
+                  <option :value="50">50</option>
+                  <option :value="100">100</option>
+                  <option :value="200">200</option>
+                  <option :value="500">500</option>
+                </select>
+              </div>
+            </section>
+          </div>
+          <div class="px-4 py-3 border-t border-base-300 flex items-center justify-between gap-2">
+            <button class="btn btn-ghost btn-sm rounded-2xl" type="button" @click="resetFilters">
+              重置筛选
+            </button>
+            <button class="btn btn-primary btn-sm rounded-2xl" type="button" @click="closeFilterDrawer">
+              完成
+            </button>
+          </div>
+        </div>
       </div>
     </Transition>
   </div>
@@ -204,13 +323,23 @@
 
 <script setup>
 import { Icon } from '@iconify/vue'
-import { ref, computed, watch, onMounted, onUnmounted } from 'vue'
-import { useRouter } from 'vue-router'
-import { fetchAcnhData, CATALOGUE_CATEGORIES, getIconUrl as getIconUrlFromApi, flattenFurnitureData, VILLAGER_SPECIES_ZH } from '../lib/acnh-api'
+import { ref, computed, watch, onMounted, onUnmounted, nextTick } from 'vue'
+import CatalogueDetailContent from '../components/catalogue/CatalogueDetailContent.vue'
+import {
+  fetchAcnhData,
+  fetchCatalogueRaw,
+  CATALOGUE_CATEGORIES,
+  getIconUrl as getIconUrlFromApi,
+  flattenFurnitureData,
+  VILLAGER_SPECIES_ZH,
+  onImgError,
+  isCritterAvailableInMonth,
+  hasCritterEvent,
+  getCritterEventsList
+} from '../lib/acnh-api'
 import { useAuthStore } from '../stores/auth'
 import { supabase } from '../lib/supabase'
 
-const router = useRouter()
 const authStore = useAuthStore()
 const categories = CATALOGUE_CATEGORIES
 const activeCategory = ref('fish')
@@ -221,8 +350,17 @@ const page = ref(1)
 const speciesFilter = ref('')
 const searchQuery = ref('')
 const collectedFilter = ref('all') // all | collected | uncollected
+const hemisphereFilter = ref('north')
+const monthFilter = ref('')
+const eventFilter = ref('')
+const critterEventsList = ref([])
 const catalogueMode = ref('view') // view | mark | wish（默认查看模式）
 const fabRef = ref(null)
+const showDetailDialog = ref(false)
+const detailCategory = ref('')
+const detailItemId = ref('')
+const detailDialogRef = ref(null)
+const showFilterDrawer = ref(false)
 
 function setCatalogueMode(mode) {
   catalogueMode.value = mode
@@ -230,11 +368,42 @@ function setCatalogueMode(mode) {
   setTimeout(() => fabRef.value?.querySelector('[tabindex="0"]')?.blur(), 0)
 }
 
+function openFilterDrawer() {
+  showFilterDrawer.value = true
+}
+
+function closeFilterDrawer() {
+  showFilterDrawer.value = false
+}
+
 const collectedFilterOptions = [
   { value: 'all', label: '全部' },
   { value: 'collected', label: '已收集' },
   { value: 'uncollected', label: '未收集' }
 ]
+
+const isCritterCategory = computed(() =>
+  ['fish', 'bugs', 'sea'].includes(activeCategory.value)
+)
+const hemisphereOptions = [
+  { value: 'north', label: '北半球' },
+  { value: 'south', label: '南半球' }
+]
+const monthOptions = [
+  { value: '0', label: '1月' }, { value: '1', label: '2月' }, { value: '2', label: '3月' },
+  { value: '3', label: '4月' }, { value: '4', label: '5月' }, { value: '5', label: '6月' },
+  { value: '6', label: '7月' }, { value: '7', label: '8月' }, { value: '8', label: '9月' },
+  { value: '9', label: '10月' }, { value: '10', label: '11月' }, { value: '11', label: '12月' }
+]
+
+function resetFilters() {
+  collectedFilter.value = 'all'
+  speciesFilter.value = ''
+  hemisphereFilter.value = 'north'
+  monthFilter.value = ''
+  eventFilter.value = ''
+  page.value = 1
+}
 
 const collectedSet = ref(new Set())
 const wishlistNames = ref(new Set()) // 心愿单中的物品名称
@@ -399,14 +568,26 @@ function getIconUrl(item) {
   return fn ? getIconUrlFromApi(activeCategory.value, fn) : ''
 }
 
-function onImgError(e) {
-  e.target.src = 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="%23999" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>'
+function openDetailDialog(item) {
+  detailCategory.value = activeCategory.value
+  detailItemId.value = getItemId(item)
+  showDetailDialog.value = true
+  nextTick(() => {
+    detailDialogRef.value?.showModal()
+  })
+}
+
+function closeDetailDialog() {
+  detailDialogRef.value?.close()
+}
+
+function onDetailDialogClose() {
+  showDetailDialog.value = false
 }
 
 function onItemClick(item) {
   if (catalogueMode.value === 'view') {
-    const itemId = getItemId(item)
-    router.push({ name: 'CatalogueDetail', params: { category: activeCategory.value, itemId } })
+    openDetailDialog(item)
   } else if (catalogueMode.value === 'wish') {
     addToWishlist(item)
   } else {
@@ -438,6 +619,12 @@ async function loadCategoryData() {
         fileName: val['file-name'] || key
       }))
     }
+    if (isCritterCategory.value && critterEventsList.value.length === 0) {
+      try {
+        const catalogueRaw = await fetchCatalogueRaw()
+        if (catalogueRaw) critterEventsList.value = getCritterEventsList(catalogueRaw)
+      } catch (_) {}
+    }
   } catch (err) {
     console.error(err)
     catalogLoadError.value = err?.message || '图鉴数据加载失败，请检查网络后重试'
@@ -460,14 +647,32 @@ const filteredItems = computed(() => {
     base = base.filter(i => i.species === speciesFilter.value)
   }
 
-  // 2. 收集状态筛选
+  // 2. 鱼/虫/海：按半球、月份、活动筛选（参考 cav/nhd/shd、evt）
+  if (isCritterCategory.value) {
+    const hem = hemisphereFilter.value || 'north'
+    const monthVal = monthFilter.value
+    const monthIndex =
+      monthVal === 'current'
+        ? new Date().getMonth()
+        : (monthVal !== '' && monthVal !== undefined && Number(monthVal) >= 0 && Number(monthVal) <= 11)
+          ? Number(monthVal)
+          : null
+    const selectedEventIds = eventFilter.value ? [eventFilter.value] : []
+    base = base.filter((item) => {
+      if (monthIndex != null && !isCritterAvailableInMonth(item, hem, monthIndex)) return false
+      if (selectedEventIds.length > 0 && !hasCritterEvent(item.eventIds, selectedEventIds)) return false
+      return true
+    })
+  }
+
+  // 3. 收集状态筛选
   if (collectedFilter.value === 'collected') {
     base = base.filter(i => isCollected(i))
   } else if (collectedFilter.value === 'uncollected') {
     base = base.filter(i => !isCollected(i))
   }
 
-  // 3. 搜索
+  // 4. 搜索
   const q = (searchQuery.value || '').toLowerCase().trim()
   if (!q) return base
 
@@ -500,6 +705,9 @@ watch(perPage, () => { page.value = 1 })
 watch(speciesFilter, () => { page.value = 1 })
 watch(searchQuery, () => { page.value = 1 })
 watch(collectedFilter, () => { page.value = 1 })
+watch(hemisphereFilter, () => { page.value = 1 })
+watch(monthFilter, () => { page.value = 1 })
+watch(eventFilter, () => { page.value = 1 })
 watch(() => authStore.user, () => {
   loadCollected()
   loadWishlist()
@@ -515,3 +723,35 @@ onUnmounted(() => {
   if (wishlistToastTimeout) clearTimeout(wishlistToastTimeout)
 })
 </script>
+
+<style scoped>
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 180ms ease, transform 220ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+  transform: translateY(8px) scale(0.98);
+}
+
+/* 图鉴详情弹窗：DaisyUI modal 内内容区填满并支持内部滚动 */
+.catalogue-detail-modal :deep(.modal-box) {
+  max-height: 90vh;
+}
+
+.catalogue-detail-modal :deep(.catalogue-detail-content) {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+}
+
+.catalogue-detail-modal :deep(.dialog-container) {
+  box-shadow: none;
+  border: none;
+  flex: 1;
+  min-height: 0;
+}
+</style>

@@ -1,6 +1,6 @@
 <template>
   <div class="space-y-4">
-    <div class="acnh-card bg-white/95 p-4 sm:p-5">
+    <div class="acnh-card bg-base-100 p-4 sm:p-5">
       <h1 class="page-title mb-1 flex items-center gap-2">
         <Icon icon="mdi:sprout" class="w-6 h-6 shrink-0" />
         大头菜价格预测
@@ -136,7 +136,7 @@
       </div>
     </div>
 
-    <div class="acnh-card bg-white/95 p-4">
+    <div class="acnh-card bg-base-100 p-4">
       <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-2">
         <h2 class="text-lg font-bold text-[#558B2F]">结果</h2>
         <div class="text-sm text-gray-600">
@@ -145,15 +145,15 @@
         </div>
       </div>
 
-      <div class="p-3 rounded-xl bg-[#E8F5E9]/50 text-sm text-gray-700">
+      <div class="p-3 rounded-xl bg-[#E8F5E9]/50 text-sm">
         <p class="font-medium mb-1">建议</p>
         <p>{{ advice }}</p>
       </div>
 
       <div class="mt-4">
         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-2">
-          <p class="text-sm font-medium text-gray-700">预测（Turnip Prophet 风格）</p>
-          <p class="text-xs text-gray-500">
+          <p class="text-sm font-medium ">预测（Turnip Prophet 风格）</p>
+          <p class="text-xs ">
             匹配样本：{{ matchedCount }} / {{ simulationCount }}
           </p>
         </div>
