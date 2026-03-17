@@ -16,25 +16,17 @@
           <Icon icon="mdi:format-list-checks" class="w-5 h-5 text-[#558B2F]" />
           每日事项
         </h2>
-        <div class="flex items-center gap-1">
-          <button
-            type="button"
-            class="btn btn-ghost btn-sm btn-circle min-h-0 h-9 w-9"
-            title="贴便签"
-            aria-label="贴便签"
-            @click="scrollToNotes"
-          >
-            <Icon icon="mdi:plus" class="w-5 h-5" />
-          </button>
-          <RouterLink to="/dashboard" class="btn btn-ghost btn-sm btn-circle min-h-0 h-9 w-9" title="我的小岛" aria-label="我的小岛">
-            <Icon icon="mdi:cog-outline" class="w-5 h-5" />
-          </RouterLink>
-          <RouterLink to="/dashboard" class="btn btn-ghost btn-sm btn-circle min-h-0 h-9 w-9" title="更多" aria-label="更多">
-            <Icon icon="mdi:chevron-right" class="w-5 h-5" />
-          </RouterLink>
-        </div>
+        <button
+          type="button"
+          class="btn btn-ghost btn-sm btn-circle min-h-0 h-9 w-9 ml-auto"
+          title="设置每日事项"
+          aria-label="设置每日事项"
+          @click="showDailyTasksDrawer = true"
+        >
+          <Icon icon="mdi:cog-outline" class="w-5 h-5" />
+        </button>
       </div>
-      <div class="p-4 grid grid-cols-5 gap-3">
+      <div class="p-4 grid grid-cols-4 gap-3">
         <RouterLink
           v-for="task in dailyTasks"
           :key="task.to"
@@ -48,6 +40,70 @@
         </RouterLink>
       </div>
     </div>
+
+    <!-- 每日事项设置抽屉 -->
+    <Transition name="fade">
+      <div v-if="showDailyTasksDrawer" class="fixed inset-0 z-40">
+        <div class="absolute inset-0 bg-black/30" @click="showDailyTasksDrawer = false"></div>
+        <div class="absolute right-0 top-0 h-full w-full max-w-sm bg-base-100 shadow-xl flex flex-col">
+          <div class="px-4 py-3 border-b border-base-300 flex items-center justify-between">
+            <h2 class="text-base font-semibold">设置每日事项</h2>
+            <button type="button" class="btn btn-ghost btn-sm btn-circle" aria-label="关闭" @click="showDailyTasksDrawer = false">
+              <Icon icon="mdi:close" class="w-5 h-5" />
+            </button>
+          </div>
+          <div class="flex-1 overflow-y-auto px-4 py-3 space-y-4 text-sm">
+            <p class="text-base-content/70">点击移除已显示的事项，下方可添加回来。</p>
+            <section>
+              <h3 class="mb-2 font-medium">当前显示</h3>
+              <ul class="space-y-2">
+                <li
+                  v-for="task in dailyTasks"
+                  :key="task.id"
+                  class="flex items-center justify-between gap-2 rounded-xl border border-base-200 bg-base-200/50 px-3 py-2"
+                >
+                  <span class="flex items-center gap-2">
+                    <Icon :icon="task.icon" class="w-5 h-5 text-[#F9A825]" />
+                    <span>{{ task.label }}</span>
+                  </span>
+                  <button
+                    type="button"
+                    class="btn btn-ghost btn-xs min-h-0 h-8"
+                    title="移除此项"
+                    @click="removeDailyTask(task.id)"
+                  >
+                    移除
+                  </button>
+                </li>
+                <li v-if="dailyTasks.length === 0" class="rounded-xl border border-dashed border-base-300 px-3 py-4 text-center text-base-content/50">
+                  暂无事项，从下方添加
+                </li>
+              </ul>
+            </section>
+            <section v-if="availableDailyTasksToAdd.length > 0">
+              <h3 class="mb-2 font-medium">添加事项</h3>
+              <div class="flex flex-wrap gap-2">
+                <button
+                  v-for="t in availableDailyTasksToAdd"
+                  :key="t.id"
+                  type="button"
+                  class="btn btn-outline btn-sm rounded-xl gap-1"
+                  @click="addDailyTask(t.id)"
+                >
+                  <Icon :icon="t.icon" class="w-4 h-4" />
+                  {{ t.label }}
+                </button>
+              </div>
+            </section>
+          </div>
+          <div class="px-4 py-3 border-t border-base-300">
+            <button type="button" class="btn btn-primary btn-sm rounded-2xl w-full" @click="showDailyTasksDrawer = false">
+              完成
+            </button>
+          </div>
+        </div>
+      </div>
+    </Transition>
 
     <!-- 来访者（本周活动） -->
     <div class="rounded-3xl border border-base-300 bg-base-100 shadow-sm overflow-hidden">
@@ -78,33 +134,6 @@
           查看日历与活动
           <Icon icon="mdi:chevron-right" class="w-4 h-4" />
         </RouterLink>
-      </div>
-    </div>
-
-    <!-- 图鉴进度（昆虫 / 鱼类 / 潜水） -->
-    <div class="rounded-3xl border border-base-300 bg-base-100 shadow-sm overflow-hidden">
-      <div class="flex items-center justify-between p-4 border-b border-base-200/80">
-        <h2 class="font-bold text-base flex items-center gap-2 text-base-content">
-          <Icon icon="mdi:plus-circle" class="w-5 h-5 text-[#1976D2]" />
-          图鉴进度
-        </h2>
-        <RouterLink to="/catalogue" class="btn btn-ghost btn-sm gap-1 min-h-0">
-          去图鉴
-          <Icon icon="mdi:chevron-right" class="w-4 h-4" />
-        </RouterLink>
-      </div>
-      <div class="p-4 grid grid-cols-3 gap-3">
-        <div
-          v-for="c in collectionSummary"
-          :key="c.id"
-          class="rounded-2xl bg-[#E3F2FD]/50 border border-[#64B5F6]/30 p-3 text-center"
-        >
-          <div class="flex items-center justify-center gap-1.5 mb-1">
-            <Icon :icon="c.icon" class="w-4 h-4 text-[#1976D2]" />
-            <span class="font-semibold text-sm text-[#1976D2]">{{ c.label }}</span>
-          </div>
-          <p class="text-lg font-bold text-base-content">{{ c.count }} <span class="text-xs font-normal">/ {{ c.total }}</span></p>
-        </div>
       </div>
     </div>
 
@@ -276,15 +305,59 @@ const timeLabel = computed(() => {
   return d.toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit', hour12: false })
 })
 
-// 每日事项：5 列，链接到对应功能页
-const dailyTasks = [
-  { icon: 'mdi:account-group', label: '对话', to: '/dashboard' },
-  { icon: 'mdi:bone', label: '挖化石', to: '/catalogue' },
-  { icon: 'mdi:hammer', label: '敲石头', to: '/dashboard' },
-  { icon: 'mdi:sprout', label: '大头菜', to: '/turnips' },
-  { icon: 'mdi:leaf-maple', label: '摇钱树', to: '/dashboard' },
-  { icon: 'mdi:file-document-outline', label: '找DIY', to: '/board' }
+// 每日事项：可配置，持久化到 localStorage
+const DAILY_TASKS_STORAGE_KEY = 'acnh_daily_task_ids'
+const DAILY_TASKS_POOL = [
+  { id: 'dialogue', icon: 'mdi:account-group', label: '对话', to: '/dashboard' },
+  { id: 'fossil', icon: 'mdi:bone', label: '挖化石', to: '/catalogue' },
+  { id: 'rock', icon: 'mdi:hammer', label: '敲石头', to: '/dashboard' },
+  { id: 'turnips', icon: 'mdi:sprout', label: '大头菜', to: '/turnips' },
+  { id: 'tree', icon: 'mdi:leaf-maple', label: '摇钱树', to: '/dashboard' },
+  { id: 'diy', icon: 'mdi:file-document-outline', label: '找DIY', to: '/board' }
 ]
+const defaultTaskIds = DAILY_TASKS_POOL.map((t) => t.id)
+
+function loadDailyTaskIds() {
+  try {
+    const raw = localStorage.getItem(DAILY_TASKS_STORAGE_KEY)
+    if (raw) {
+      const parsed = JSON.parse(raw)
+      if (Array.isArray(parsed) && parsed.length > 0) return parsed
+    }
+  } catch (_) {}
+  return [...defaultTaskIds]
+}
+
+const dailyTaskIds = ref(loadDailyTaskIds())
+const showDailyTasksDrawer = ref(false)
+
+const dailyTasks = computed(() => {
+  const ids = new Set(dailyTaskIds.value)
+  return DAILY_TASKS_POOL.filter((t) => ids.has(t.id))
+})
+
+const availableDailyTasksToAdd = computed(() => {
+  const ids = new Set(dailyTaskIds.value)
+  return DAILY_TASKS_POOL.filter((t) => !ids.has(t.id))
+})
+
+function saveDailyTaskIds() {
+  try {
+    localStorage.setItem(DAILY_TASKS_STORAGE_KEY, JSON.stringify(dailyTaskIds.value))
+  } catch (_) {}
+}
+
+function removeDailyTask(id) {
+  dailyTaskIds.value = dailyTaskIds.value.filter((x) => x !== id)
+  saveDailyTaskIds()
+}
+
+function addDailyTask(id) {
+  if (!dailyTaskIds.value.includes(id)) {
+    dailyTaskIds.value = [...dailyTaskIds.value, id]
+    saveDailyTaskIds()
+  }
+}
 
 // 来访者：周一～周五
 const weekDays = [
@@ -294,20 +367,6 @@ const weekDays = [
   { key: 'thu', label: '周四' },
   { key: 'fri', label: '周五' }
 ]
-
-// 图鉴进度：昆虫、鱼类、海洋生物
-const collectionSummary = computed(() => {
-  const ids = ['bugs', 'fish', 'sea']
-  const map = { bugs: '昆虫', fish: '鱼类', sea: '潜水' }
-  const cats = CATALOGUE_CATEGORIES.filter(c => ids.includes(c.id))
-  return cats.map(c => ({
-    id: c.id,
-    label: map[c.id] || c.label,
-    icon: c.icon,
-    count: collectedCounts.value[c.id] || 0,
-    total: c.total || 0
-  }))
-})
 
 const myOpenCount = computed(() => notes.value.filter(n => n.isMine && !n.is_fulfilled).length)
 const myHelpCount = computed(() => notes.value.filter(n => n.fulfilled_by === authStore.user?.id).length)

@@ -1,7 +1,7 @@
 /**
  * ACNH 数据与图片 API
  *
- * 数据来源: catalogue.ac (https://catalogue.ac/data/data.json?v=3.405)
+ * 数据来源: 本地 public/data.json（由 catalogue 数据导出）
  * 图片 CDN: nh-cdn.catalogue.ac (https://nh-cdn.catalogue.ac/FtrIcon/xxx.png)
  */
 
@@ -64,7 +64,6 @@ export function getItemIconUrl(fileName) {
 
 export function getIconUrl(type, fileName) {
   if (!fileName) return ''
-  // 若 fileName 含路径（如 FtrIcon/xxx 或 NpcIcon/xxx），使用 catalogue CDN
   if (fileName.includes('/')) {
     const path = fileName.replace(/\.png$/, '')
     return `${FTR_ICON_CDN}/${path}.png`
@@ -184,9 +183,14 @@ export function getArtImageUrl(fileName) {
 export function resolveIconUri(item, type) {
   const path = item?.iconPath || item?.icon_uri
   if (path) {
-    const fullPath = path.startsWith('http') ? path : path.includes('/') ? `${FTR_ICON_CDN}/${path}.png`.replace('.png.png', '.png') : path
-    if (fullPath.startsWith('http')) return fullPath
-    return getIconUrl(type, path)
+    const p = String(path)
+    if (p.startsWith('http')) return p
+    // 已带目录的 catalogue 资源（如 FtrIcon/xxx、NpcIcon/xxx、BookFishIcon/xxx）
+    if (p.includes('/')) {
+      const clean = p.replace(/\.png$/i, '')
+      return `${FTR_ICON_CDN}/${clean}.png`
+    }
+    return getIconUrl(type, p)
   }
   const fn = item?.['file-name'] || item?.fileName
   if (fn) return getIconUrl(type, fn)
@@ -206,7 +210,8 @@ async function fetchCatalogueData() {
 
 // 转换家具类（housewares, misc, wall_mounted）
 // 列表只展示一件（首个变体图标），多颜色/变体在详情页展示
-function transformFurniture(raw, mapVar) {
+// metaForCategory：来自 meta.json/merged 顶层的同名分类（包含 cat / diy / bcu / sea 等标记）
+function transformFurniture(raw, metaForCategory) {
   const items = []
   for (const [key, obj] of Object.entries(raw)) {
     const ipf = (obj.ipf || '').replace('FtrIcon/', '')
@@ -216,13 +221,21 @@ function transformFurniture(raw, mapVar) {
     const firstSuffix = imgs[0] || ''
     const firstFileName = ipf + firstSuffix
     const variantCount = imgs.length
+    const metaEntry = metaForCategory && metaForCategory[key] ? metaForCategory[key] : {}
+
     items.push({
       'file-name': firstFileName,
       fileName: firstFileName,
       baseKey: key,
       name: baseName,
       iconPath: `FtrIcon/${firstFileName}`,
-      variantCount
+      variantCount,
+      // 物品属性标记（参考 catalogue.ac）
+      cat: !!metaEntry.cat, // 可通过目录购买
+      diy: !!metaEntry.diy, // 是否为 DIY 配方
+      bcu: !!(metaEntry.bcu || metaEntry.pcu || metaEntry.cpt), // 是否可自定义/有变体
+      sea: !!(metaEntry.sea || metaEntry.spt), // 季节限定/活动限定
+      isNew: !!metaEntry.nvo // 新增物品
     })
   }
   return items
@@ -234,15 +247,19 @@ function transformFurniture(raw, mapVar) {
  */
 function expandNhdShd(arr) {
   const set = new Set()
-  if (!arr || !Array.isArray(arr)) return set
+  if (!arr) return set
+
   // 若已是对象形式（如 { 1: true, 2: true }），取 key 作为月份
-  if (arr.length > 0 && typeof arr[0] === 'object' && !Array.isArray(arr[0])) {
-    Object.keys(arr).forEach((k) => {
+  if (typeof arr === 'object' && !Array.isArray(arr)) {
+    for (const k of Object.keys(arr)) {
       const n = parseInt(k, 10)
-      if (!isNaN(n) && n >= 0 && n <= 11) set.add(n)
-    })
+      if (!Number.isNaN(n) && n >= 0 && n <= 11) set.add(n)
+    }
     return set
   }
+
+  if (!Array.isArray(arr)) return set
+
   for (let s = 0; s < arr.length / 2; s++) {
     let a = arr[2 * s]
     let n = arr[2 * s + 1] + 1
@@ -370,18 +387,20 @@ function transformFossils(raw) {
 }
 
 export async function fetchAcnhData(category) {
-  const data = await fetchCatalogueData()
-  if (!data) return []
-  const dataObj = data.data || data
-  const maps = data.maps || {}
-  const locale = data.locale || {}
+  const full = await fetchCatalogueData()
+  if (!full) return []
+  const dataObj = full.data || full
+  const maps = full.maps || {}
+  const locale = full.locale || {}
 
   const catKey = CATEGORY_MAP[category] || category
 
   if (['housewares', 'misc', 'wall_mounted'].includes(catKey)) {
     const raw = dataObj[catKey]
     if (!raw) return []
-    return transformFurniture(raw, locale.var)
+    // 顶层同名分类（来自 meta.json）里包含 cat/diy/bcu/sea 等元信息
+    const metaForCategory = full[catKey]
+    return transformFurniture(raw, metaForCategory)
   }
 
   if (['fish', 'bugs', 'sea'].includes(catKey)) {
@@ -599,6 +618,66 @@ export function parseCalendarEvents(rawData, hemisphere = 'north') {
     }
   }
   return map
+}
+
+/**
+ * 从 catalogue 原始数据的 maps 中做索引/编码映射。
+ * - 若 value 为 number：返回 maps[mapKey][value]
+ * - 若 value 为 string：直接返回（表示已是编码）
+ * - 若为数组：逐个映射
+ */
+export function mapFromCatalogueMaps(rawData, mapKey, value) {
+  const maps = rawData?.maps || {}
+  const dict = maps?.[mapKey]
+  if (value == null) return null
+
+  if (Array.isArray(value)) return value.map((v) => mapFromCatalogueMaps(rawData, mapKey, v)).filter((v) => v != null && v !== '')
+
+  // 关键规则：
+  // 1) 数字 => maps[mapKey][index] 得到 code
+  // 2) code => 直接返回（后续再用 locale 映射成中文）
+  if (typeof value === 'number') {
+    if (Array.isArray(dict)) return dict[value] ?? null
+    if (dict && typeof dict === 'object') return dict[value] ?? null
+    return null
+  }
+
+  // 有些字段已经是 code（string），直接返回
+  if (typeof value === 'string') return value
+
+  // 兜底：其它类型（boolean/object）尽量转成 string，避免页面直接渲染 [object Object]
+  try {
+    return String(value)
+  } catch (_) {
+    return null
+  }
+}
+
+/**
+ * 从 catalogue 原始数据的 locale 中取某个 code 的本地化名称。
+ * localeKey 常与 mapKey 相同（如 clr/stl/src/hab/...），但也可传不同 key。
+ */
+export function getCatalogueLocaleLabel(rawData, localeKey, code, lang = 'zh-cn') {
+  if (code == null || code === '') return ''
+  const locale = rawData?.locale?.[localeKey] || {}
+  const v = locale?.[code]
+  if (!v) return String(code)
+  if (typeof v === 'string') return v
+  if (typeof v === 'object') return v?.[lang] || v?.zh || v?.['zh-cn'] || v?.en || v?.['en-us'] || Object.values(v)[0] || String(code)
+  return String(code)
+}
+
+/** maps + locale 一步到位：把索引/编码映射到最终展示文案 */
+export function mapToCatalogueLabel(rawData, mapKey, value, { localeKey = mapKey, lang = 'zh-cn' } = {}) {
+  const code = mapFromCatalogueMaps(rawData, mapKey, value)
+  if (Array.isArray(code)) return code.map((c) => getCatalogueLocaleLabel(rawData, localeKey, c, lang)).filter(Boolean)
+  return getCatalogueLocaleLabel(rawData, localeKey, code, lang)
+}
+
+/** 尺寸显示：把 maps.sze 的 1x1 形式转为 1×1 */
+export function formatSizeText(sizeCode) {
+  if (!sizeCode) return ''
+  return String(sizeCode).replace(/x/g, '×')
 }
 
 /**

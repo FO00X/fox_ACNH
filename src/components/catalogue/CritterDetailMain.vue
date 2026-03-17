@@ -12,12 +12,12 @@
       <div class="detail half flex items-center gap-2 flex-wrap">
         <span class="label text-base-content/70 shrink-0">卖价：</span>
         <span class="value font-semibold">{{ rawItem.sel ?? '—' }}</span>
-        <span class="text-[#7CB342] dark:text-[#9CCC65]">铃钱</span>
+        <img src="/bells.png" alt="铃钱" class="w-4 h-4 object-contain" loading="lazy" />
       </div>
       <div v-if="showSpecialBuyer" class="detail half flex items-center gap-2 flex-wrap">
         <span class="label text-base-content/70 shrink-0">卖价（{{ specialBuyerLabel }}）：</span>
         <span class="value font-semibold">{{ specialPrice }}</span>
-        <span class="text-[#7CB342] dark:text-[#9CCC65]">铃钱</span>
+        <img src="/bells.png" alt="铃钱" class="w-4 h-4 object-contain" loading="lazy" />
       </div>
     </div>
     <!-- 栖息地 / 天气 等 -->

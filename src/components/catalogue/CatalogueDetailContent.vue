@@ -17,6 +17,7 @@
             <VillagerDetailMain
               :item="item"
               :raw-item="rawItem"
+              :catalogue-raw="catalogueRaw"
               :display-name="displayName"
               :is-collected="isCollected"
               @close="$emit('close')"
@@ -73,11 +74,19 @@
             <FossilDetailMain
               v-if="category === 'fossils'"
               :raw-item="rawItem"
+              :catalogue-raw="catalogueRaw"
             />
             <ArtDetailMain
               v-if="category === 'art'"
               :raw-item="rawItem || {}"
               :is-fake="isArtFake"
+              :catalogue-raw="catalogueRaw"
+            />
+            <FurnitureDetailMain
+              v-if="['houseware','misc','wallmounted'].includes(category)"
+              :raw-item="rawItem || {}"
+              :catalogue-raw="catalogueRaw"
+              :category="category"
             />
             </div>
           </div>
@@ -85,7 +94,7 @@
       </DetailDialog>
     </template>
 
-    <!-- 非生物类：卡片布局（村民/家具等） -->
+    <!-- 非弹窗类：卡片布局（主要用于家具等） -->
     <div v-else class="acnh-card bg-base-100 dark:bg-base-100 p-4 sm:p-5">
       <button type="button" class="btn btn-ghost gap-2 mb-4 -ml-1 text-[#558B2F] min-h-(--touch-min)" @click="$emit('close')">
         <Icon icon="mdi:arrow-left" class="w-5 h-5 shrink-0" />
@@ -105,12 +114,42 @@
 
       <div v-else-if="item" class="space-y-6">
         <div class="flex flex-col sm:flex-row gap-4 items-center sm:items-start">
-          <div class="w-36 h-36 sm:w-40 sm:h-40 rounded-2xl bg-gray-50 dark:bg-base-200 flex items-center justify-center overflow-hidden shrink-0">
+          <div class="w-36 h-36 sm:w-40 sm:h-40 rounded-2xl bg-gray-50 dark:bg-base-200 flex items-center justify-center overflow-hidden shrink-0 relative">
+            <span v-if="item.isNew" class="new">新增</span>
             <img :src="getIconUrl(item)" :alt="displayName" class="w-full h-full object-contain" @error="onImgError" />
           </div>
           <div class="flex-1 min-w-0">
             <h1 class="text-xl font-bold text-[#558B2F] dark:text-[#9CCC65] mb-1">{{ displayName }}</h1>
             <p class="text-sm text-base-content/70">{{ categoryLabel }}</p>
+            <div
+              v-if="['houseware','misc','wallmounted'].includes(category) && (item.cat || item.diy || item.bcu || item.sea)"
+              class="properties mt-2 flex flex-wrap items-center gap-1 text-xs text-base-content/80"
+            >
+              <span
+                v-if="item.cat"
+                class="icon-catalog"
+                data-tt="details.cat"
+                tabindex="0"
+              />
+              <span
+                v-if="item.diy"
+                class="icon-crafting"
+                data-tt="details.diy"
+                tabindex="0"
+              />
+              <span
+                v-if="item.bcu"
+                class="icon-customize-variant"
+                data-tt="details.bcu"
+                tabindex="0"
+              />
+              <span
+                v-if="item.sea"
+                class="icon-seasonal"
+                data-tt="details.sea"
+                tabindex="0"
+              />
+            </div>
             <div v-if="isCollected" class="mt-2 inline-flex items-center gap-1 text-[#558B2F]">
               <Icon icon="mdi:check-circle" class="w-5 h-5" />
               <span class="text-sm font-medium">已收集</span>
@@ -125,12 +164,13 @@
           </div>
         </div>
 
-        <div v-if="category === 'villagers' && rawItem" class="rounded-xl border border-base-300 p-4 space-y-2">
-          <h3 class="text-sm font-medium text-gray-600 mb-2">小动物信息</h3>
-          <div v-if="speciesName" class="flex items-center gap-2"><Icon icon="mdi:cat" class="w-4 h-4 text-gray-500" /><span>物种：{{ speciesName }}</span></div>
-          <div v-if="birthdayText" class="flex items-center gap-2"><Icon icon="mdi:cake-variant" class="w-4 h-4 text-gray-500" /><span>生日：{{ birthdayText }}</span></div>
-          <div v-if="catchphrase" class="flex items-center gap-2"><Icon icon="mdi:chat-quote" class="w-4 h-4 text-gray-500" /><span>口头禅：{{ catchphrase }}</span></div>
-        </div>
+        <FurnitureDetailMain
+          v-if="['houseware','misc','wallmounted'].includes(category) && rawItem"
+          class="rounded-2xl border border-base-300 bg-base-200/30 p-3 mt-2"
+          :raw-item="rawItem"
+          :catalogue-raw="catalogueRaw"
+          :category="category"
+        />
 
         <div v-if="['houseware','misc','wallmounted'].includes(category) && furnitureVariants.length > 1" class="rounded-xl border border-base-300 p-4">
           <h3 class="text-sm font-medium text-gray-600 mb-2">全部颜色（{{ furnitureVariants.length }} 种）</h3>
@@ -155,9 +195,11 @@ import CritterDetailMain from './CritterDetailMain.vue'
 import FossilDetailMain from './FossilDetailMain.vue'
 import ArtDetailMain from './ArtDetailMain.vue'
 import VillagerDetailMain from './VillagerDetailMain.vue'
-import { fetchAcnhItem, fetchAcnhRawItem, getIconUrl as getIconUrlFromApi, getFishBookIconUrl, getFishTankIconUrl, getFishModelIconUrl, getBugsBookIconUrl, getBugsCageIconUrl, getBugsModelIconUrl, getSeaBookIconUrl, getSeaCageIconUrl, getSeaModelIconUrl, getFossilIconUrl, getArtIconUrl, CATALOGUE_CATEGORIES, VILLAGER_SPECIES_ZH } from '../../lib/acnh-api'
+import FurnitureDetailMain from './FurnitureDetailMain.vue'
+import { fetchAcnhItem, fetchAcnhRawItem, fetchCatalogueRaw, getIconUrl as getIconUrlFromApi, getFishBookIconUrl, getFishTankIconUrl, getFishModelIconUrl, getBugsBookIconUrl, getBugsCageIconUrl, getBugsModelIconUrl, getSeaBookIconUrl, getSeaCageIconUrl, getSeaModelIconUrl, getFossilIconUrl, getArtIconUrl, CATALOGUE_CATEGORIES, VILLAGER_SPECIES_ZH } from '../../lib/acnh-api'
 import { useAuthStore } from '../../stores/auth'
 import { supabase } from '../../lib/supabase'
+import { useCatalogueCollected } from '../../composables/useCatalogueCollected'
 
 const props = defineProps({
   category: { type: String, default: '' },
@@ -172,6 +214,7 @@ const authStore = useAuthStore()
 const item = ref(null)
 const loading = ref(true)
 const rawItem = ref(null)
+const catalogueRaw = ref(null)
 const category = computed(() => String(props.category ?? ''))
 const itemId = computed(() => String(props.itemId ?? ''))
 
@@ -232,6 +275,10 @@ const critterModelIconUrl = computed(() => {
 const detailSideBookIconUrl = computed(() => {
   if (category.value === 'fossils') return getFossilIconUrl(fossilFileName.value)
   if (category.value === 'art') return getArtIconUrl(artFileName.value, artVariant.value === 'fake')
+  if (['houseware', 'misc', 'wallmounted'].includes(category.value)) {
+    const fn = item.value?.['file-name'] || item.value?.fileName
+    return fn ? getIconUrlFromApi(category.value, fn) : ''
+  }
   return critterBookIconUrl.value
 })
 const detailSideCageIconUrl = computed(() => {
@@ -283,25 +330,12 @@ function onImgError(e) {
   e.target.src = 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="%23999" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>'
 }
 
+const { collectedSet, loadCollected, isCollected: isCollectedEntry } = useCatalogueCollected()
 const isCollected = computed(() => {
   if (!authStore.user || !item.value) return false
-  const key = `${category.value}:${item.value['file-name'] || item.value.fileName || item.value.id}`
-  return collectedSet.value.has(key)
+  const rawId = item.value['file-name'] || item.value.fileName || item.value.id
+  return isCollectedEntry(category.value, rawId)
 })
-const collectedSet = ref(new Set())
-
-async function loadCollected() {
-  if (!authStore.user) return
-  const { data } = await supabase
-    .from('catalogue_collected')
-    .select('category, item_id')
-    .eq('user_id', authStore.user.id)
-  const set = new Set()
-  for (const row of data || []) {
-    set.add(`${row.category}:${row.item_id}`)
-  }
-  collectedSet.value = set
-}
 
 const furnitureVariants = computed(() => {
   const raw = rawItem.value
@@ -316,7 +350,12 @@ const furnitureVariants = computed(() => {
 function getFurnitureVariantIcon(v) {
   const fn = v?.fileName || v?.suffix
   if (!fn) return ''
-  return `https://nh-cdn.catalogue.ac/FtrIcon/${fn}.png`
+  const name = String(fn)
+  // 若已包含目录（如 FtrIcon/FtrBonsaiKokedamaA），直接拼在 CDN 根路径下
+  if (name.includes('/')) {
+    return `https://nh-cdn.catalogue.ac/${name}.png`
+  }
+  return `https://nh-cdn.catalogue.ac/FtrIcon/${name}.png`
 }
 function onVariantImgError(e) {
   e.target.src = 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="%23999" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>'
@@ -325,6 +364,7 @@ function onVariantImgError(e) {
 async function loadItem() {
   loading.value = true
   rawItem.value = null
+  catalogueRaw.value = null
   const cat = category.value
   const id = itemId.value
   try {
@@ -333,9 +373,10 @@ async function loadItem() {
       const rid = item.value.baseKey ?? item.value['file-name'] ?? item.value.fileName ?? item.value.id
       rawItem.value = await fetchAcnhRawItem(cat, rid)
     }
+    catalogueRaw.value = await fetchCatalogueRaw()
     await loadCollected()
   } catch (err) {
-    console.error(err)
+    console.error('加载图鉴详情失败:', err)
     item.value = null
   } finally {
     loading.value = false
@@ -347,3 +388,19 @@ watch([() => props.category, () => props.itemId], () => {
   loadItem()
 }, { immediate: true })
 </script>
+
+<style scoped>
+.new {
+  position: absolute;
+  top: 8px;
+  left: 0;
+  padding: 4px 8px;
+  line-height: 12px;
+  font-size: 12px;
+  text-transform: uppercase;
+  color: #fff;
+  background-color: #ffa600;
+  border-radius: 0 4px 4px 0;
+  z-index: 1;
+}
+</style>

@@ -19,12 +19,12 @@
       <div class="detail half flex items-center gap-2 flex-wrap">
         <span class="label text-base-content/70 shrink-0">买价：</span>
         <span class="value font-semibold">{{ buyPriceLabel }}</span>
-        <span class="text-[#7CB342] dark:text-[#9CCC65]">铃钱</span>
+        <img src="/bells.png" alt="铃钱" class="w-4 h-4 object-contain" loading="lazy" />
       </div>
       <div class="detail half flex items-center gap-2 flex-wrap">
         <span class="label text-base-content/70 shrink-0">卖价：</span>
         <span class="value font-semibold">{{ sellPriceLabel }}</span>
-        <span class="text-[#7CB342] dark:text-[#9CCC65]">铃钱</span>
+        <img src="/bells.png" alt="铃钱" class="w-4 h-4 object-contain" loading="lazy" />
       </div>
     </div>
     <div class="box rounded-2xl border border-base-300 bg-base-200/30 p-3" data-title="快乐家协会">
@@ -47,25 +47,29 @@
 
 <script setup>
 import { computed } from 'vue'
+import { mapFromCatalogueMaps, mapToCatalogueLabel, formatSizeText } from '../../lib/acnh-api'
 
 const props = defineProps({
   rawItem: { type: Object, default: null },
   /** 是否为赝品（赝品卖价固定为 0） */
-  isFake: { type: Boolean, default: false }
+  isFake: { type: Boolean, default: false },
+  catalogueRaw: { type: Object, default: null }
 })
 
 const SUB_NAMES = { wall_mounted: '壁挂物', housewares: '家具', miscellaneous: '杂项' }
 const subLabel = computed(() => {
   const sub = props.rawItem?.sub
   if (!sub) return ''
-  return SUB_NAMES[sub] ?? sub
+  const code = props.catalogueRaw ? mapFromCatalogueMaps(props.catalogueRaw, 'sub', sub) : sub
+  return SUB_NAMES[code] ?? mapToCatalogueLabel(props.catalogueRaw, 'sub', sub) ?? String(code)
 })
 
 const SOURCE_NAMES = { redd_ship: '九尾市场', nook: '豆粒商店' }
 const sourceLabel = computed(() => {
   const src = props.rawItem?.src
-  if (!src) return '九尾市场'
-  return SOURCE_NAMES[src] ?? src
+  const code = props.catalogueRaw ? mapFromCatalogueMaps(props.catalogueRaw, 'src', src) : src
+  if (!code) return '九尾市场'
+  return SOURCE_NAMES[code] ?? mapToCatalogueLabel(props.catalogueRaw, 'src', src) ?? String(code)
 })
 
 // 艺术品买价/卖价：有数据用数据，无数据用固定默认值（参考 catalogue）
@@ -98,12 +102,18 @@ const hasLabels = computed(() => {
   const has = props.rawItem?.has
   if (!has) return []
   const arr = Array.isArray(has) ? has : [has]
-  return arr.map(h => HAS_NAMES[h] || h).filter(Boolean)
+  return arr
+    .map((h) => (props.catalogueRaw ? mapFromCatalogueMaps(props.catalogueRaw, 'has', h) : h))
+    .map((code) => HAS_NAMES[code] || mapToCatalogueLabel(props.catalogueRaw, 'has', code) || String(code))
+    .filter(Boolean)
 })
 
 const sizeLabel = computed(() => {
   const sze = props.rawItem?.sze
-  if (sze != null) return String(sze)
+  if (sze != null) {
+    const code = props.catalogueRaw ? mapFromCatalogueMaps(props.catalogueRaw, 'sze', sze) : sze
+    return formatSizeText(code) || String(code)
+  }
   return '1×1'
 })
 </script>

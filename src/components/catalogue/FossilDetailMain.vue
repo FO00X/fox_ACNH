@@ -16,7 +16,7 @@
       <div class="detail half flex items-center gap-2 flex-wrap">
         <span class="label text-base-content/70 shrink-0">卖价：</span>
         <span class="value font-semibold">{{ rawItem.sel != null ? Number(rawItem.sel).toLocaleString() : '—' }}</span>
-        <span class="text-[#7CB342] dark:text-[#9CCC65]">铃钱</span>
+        <img src="/bells.png" alt="铃钱" class="w-4 h-4 object-contain" loading="lazy" />
       </div>
     </div>
     <!-- 成套的化石 -->
@@ -44,15 +44,19 @@
 <script setup>
 import { computed } from 'vue'
 
+import { mapFromCatalogueMaps, mapToCatalogueLabel, formatSizeText } from '../../lib/acnh-api'
+
 const props = defineProps({
-  rawItem: { type: Object, default: null }
+  rawItem: { type: Object, default: null },
+  catalogueRaw: { type: Object, default: null }
 })
 
 const SOURCE_MAP = { check_fossil: '鉴定化石', nook: '豆粒商店' }
 const sourceLabel = computed(() => {
   const src = props.rawItem?.src
-  if (!src) return '鉴定化石'
-  return SOURCE_MAP[src] ?? src
+  const code = props.catalogueRaw ? mapFromCatalogueMaps(props.catalogueRaw, 'src', src) : src
+  if (!code) return '鉴定化石'
+  return SOURCE_MAP[code] ?? mapToCatalogueLabel(props.catalogueRaw, 'src', src) ?? String(code)
 })
 
 const fossilGroupName = computed(() => {
@@ -110,7 +114,10 @@ const hhaScore = computed(() => {
 
 const sizeLabel = computed(() => {
   const sze = props.rawItem?.sze
-  if (sze != null) return String(sze)
+  if (sze != null) {
+    const code = props.catalogueRaw ? mapFromCatalogueMaps(props.catalogueRaw, 'sze', sze) : sze
+    return formatSizeText(code) || String(code)
+  }
   return '1×1'
 })
 </script>

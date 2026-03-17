@@ -76,12 +76,13 @@
           v-for="item in paginatedItems"
           :key="getItemKey(item)"
           :class="[
-            'relative rounded-xl border-2 p-2 cursor-pointer transition-all flex flex-col items-center active:scale-[0.98] tap-lift motion-pop',
+            'item relative rounded-xl border-2 p-2 cursor-pointer transition-all flex flex-col items-center active:scale-[0.98] tap-lift motion-pop',
             isCollected(item) ? 'bg-[#C8E6C9] border-[#7CB342] dark:bg-[#2E7D32]/40 dark:border-[#66BB6A]' : isInWishlist(item) ? 'bg-pink-100 border-pink-300 dark:bg-pink-900/30 dark:border-pink-600' : 'bg-white border-gray-200 dark:bg-base-200 dark:border-base-300',
             (catalogueMode === 'view' || catalogueMode === 'wish') && 'hover:ring-2 hover:ring-[#7CB342]/50'
           ]"
           @click="onItemClick(item)"
         >
+          <span v-if="item.isNew" class="new">新增</span>
           <div class="w-full aspect-square flex items-center justify-center bg-base-200 rounded-lg overflow-hidden">
             <img
               :src="getIconUrl(item)"
@@ -100,6 +101,35 @@
           <p v-if="['houseware','misc','wallmounted'].includes(activeCategory) && item.variantCount > 1" class="text-[10px] text-gray-500 truncate w-full">
             {{ item.variantCount }} 种颜色
           </p>
+          <div
+            v-if="['houseware','misc','wallmounted'].includes(activeCategory) && hasProperties(item)"
+            class="properties mt-0.5 flex items-center justify-center gap-1"
+          >
+            <span
+              v-if="item.cat"
+              class="icon-catalog"
+              data-tt="details.cat"
+              tabindex="0"
+            />
+            <span
+              v-if="item.diy"
+              class="icon-crafting"
+              data-tt="details.diy"
+              tabindex="0"
+            />
+            <span
+              v-if="item.bcu"
+              class="icon-customize-variant"
+              data-tt="details.bcu"
+              tabindex="0"
+            />
+            <span
+              v-if="item.sea"
+              class="icon-seasonal"
+              data-tt="details.sea"
+              tabindex="0"
+            />
+          </div>
           <div v-if="isCollected(item)" class="absolute top-1 right-1">
             <Icon icon="mdi:check-circle" class="w-5 h-5 text-[#558B2F]" />
           </div>
@@ -339,6 +369,7 @@ import {
 } from '../lib/acnh-api'
 import { useAuthStore } from '../stores/auth'
 import { supabase } from '../lib/supabase'
+import { useCatalogueCollected } from '../composables/useCatalogueCollected'
 
 const authStore = useAuthStore()
 const categories = CATALOGUE_CATEGORIES
@@ -347,6 +378,7 @@ const items = ref([])
 const loading = ref(false)
 const perPage = ref(20)
 const page = ref(1)
+const debouncedSearchQuery = ref('')
 const speciesFilter = ref('')
 const searchQuery = ref('')
 const collectedFilter = ref('all') // all | collected | uncollected
@@ -405,11 +437,12 @@ function resetFilters() {
   page.value = 1
 }
 
-const collectedSet = ref(new Set())
+const { collectedSet, loadCollected, isCollected: isCollectedEntry, toggleCollected } = useCatalogueCollected()
 const wishlistNames = ref(new Set()) // 心愿单中的物品名称
 const catalogLoadError = ref(null)
 const wishlistToast = ref('')
 let wishlistToastTimeout = null
+let searchDebounceTimeout = null
 
 function getSpeciesName(species) {
   return VILLAGER_SPECIES_ZH[species] || species
@@ -434,27 +467,6 @@ function getItemKey(item) {
   return `${activeCategory.value}:${getItemId(item)}`
 }
 
-async function loadCollected() {
-  if (!authStore.user) {
-    collectedSet.value = new Set()
-    return
-  }
-  try {
-    const { data } = await supabase
-      .from('catalogue_collected')
-      .select('category, item_id')
-      .eq('user_id', authStore.user.id)
-    const set = new Set()
-    for (const row of data || []) {
-      set.add(`${row.category}:${row.item_id}`)
-    }
-    collectedSet.value = set
-  } catch (err) {
-    console.error(err)
-    collectedSet.value = new Set()
-  }
-}
-
 async function loadWishlist() {
   if (!authStore.user) {
     wishlistNames.value = new Set()
@@ -466,16 +478,16 @@ async function loadWishlist() {
       .select('item_name')
       .eq('user_id', authStore.user.id)
       .eq('is_fulfilled', false)
-    const set = new Set((data || []).map(r => r.item_name?.trim()).filter(Boolean))
+    const set = new Set((data || []).map((r) => r.item_name?.trim()).filter(Boolean))
     wishlistNames.value = set
   } catch (err) {
-    console.error(err)
+    console.error('加载心愿单失败:', err)
     wishlistNames.value = new Set()
   }
 }
 
 function isCollected(item) {
-  return collectedSet.value.has(getItemKey(item))
+  return isCollectedEntry(activeCategory.value, getItemId(item))
 }
 
 function isInWishlist(item) {
@@ -513,34 +525,9 @@ async function addToWishlist(item) {
 
 async function toggleItem(item) {
   if (!authStore.user) return
-  const key = getItemKey(item)
   const itemId = getItemId(item)
   const category = activeCategory.value
-  const wasCollected = collectedSet.value.has(key)
-
-  try {
-    if (wasCollected) {
-      const { error } = await supabase
-        .from('catalogue_collected')
-        .delete()
-        .eq('user_id', authStore.user.id)
-        .eq('category', category)
-        .eq('item_id', itemId)
-      if (error) throw error
-      collectedSet.value.delete(key)
-    } else {
-      const { error } = await supabase.from('catalogue_collected').insert({
-        user_id: authStore.user.id,
-        category,
-        item_id: itemId
-      })
-      if (error) throw error
-      collectedSet.value.add(key)
-    }
-    collectedSet.value = new Set(collectedSet.value)
-  } catch (err) {
-    console.error('图鉴同步失败:', err)
-  }
+  await toggleCollected(category, itemId)
 }
 
 function getName(item) {
@@ -566,6 +553,10 @@ function getIconUrl(item) {
   if (path) return getIconUrlFromApi(activeCategory.value, path)
   const fn = item?.['file-name'] || item?.fileName
   return fn ? getIconUrlFromApi(activeCategory.value, fn) : ''
+}
+
+function hasProperties(item) {
+  return !!(item?.cat || item?.diy || item?.bcu || item?.sea)
 }
 
 function openDetailDialog(item) {
@@ -626,7 +617,7 @@ async function loadCategoryData() {
       } catch (_) {}
     }
   } catch (err) {
-    console.error(err)
+    console.error('图鉴数据加载失败:', err)
     catalogLoadError.value = err?.message || '图鉴数据加载失败，请检查网络后重试'
     items.value = []
   } finally {
@@ -673,7 +664,7 @@ const filteredItems = computed(() => {
   }
 
   // 4. 搜索
-  const q = (searchQuery.value || '').toLowerCase().trim()
+  const q = (debouncedSearchQuery.value || '').toLowerCase().trim()
   if (!q) return base
 
   return base.filter((item) => {
@@ -701,13 +692,23 @@ const paginatedItems = computed(() => {
 
 const totalPages = computed(() => Math.ceil(totalCount.value / perPage.value) || 1)
 
-watch(perPage, () => { page.value = 1 })
-watch(speciesFilter, () => { page.value = 1 })
-watch(searchQuery, () => { page.value = 1 })
-watch(collectedFilter, () => { page.value = 1 })
-watch(hemisphereFilter, () => { page.value = 1 })
-watch(monthFilter, () => { page.value = 1 })
-watch(eventFilter, () => { page.value = 1 })
+watch(
+  [perPage, speciesFilter, collectedFilter, hemisphereFilter, monthFilter, eventFilter, debouncedSearchQuery],
+  () => {
+    page.value = 1
+  }
+)
+
+watch(
+  searchQuery,
+  (val) => {
+    if (searchDebounceTimeout) clearTimeout(searchDebounceTimeout)
+    searchDebounceTimeout = setTimeout(() => {
+      debouncedSearchQuery.value = val
+    }, 250)
+  },
+  { immediate: true }
+)
 watch(() => authStore.user, () => {
   loadCollected()
   loadWishlist()
@@ -753,5 +754,20 @@ onUnmounted(() => {
   border: none;
   flex: 1;
   min-height: 0;
+}
+
+/* 列表卡片中的“新增”角标样式 */
+.item .new {
+  position: absolute;
+  top: 40px;
+  left: 0;
+  padding: 4px 8px;
+  line-height: 12px;
+  font-size: 12px;
+  text-transform: uppercase;
+  color: #fff;
+  background-color: #ffa600;
+  border-radius: 0 4px 4px 0;
+  z-index: 1;
 }
 </style>

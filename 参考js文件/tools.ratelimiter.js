@@ -1,1 +1,0 @@
-function RateLimiter(t,n){const i=t,c=n;let o=!1,u=null,e=!1;this.call=function(){o=!0,l()},this.lock=function(){e=!0},this.unlock=function(){e=!1,o&&!u&&f()},this.reset=function(){u&&clearTimeout(u),o=!1,e=!1};let l=function(){u&&clearTimeout(u),u=setTimeout(function(){u=null,e||f()},c)},f=function(){o=!1,i()}}

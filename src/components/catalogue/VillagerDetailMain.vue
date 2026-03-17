@@ -48,58 +48,114 @@
             <div class="box rounded-2xl border border-base-300 bg-base-200/30 p-4 space-y-2">
               <div class="detail flex flex-wrap items-center gap-1">
                 <span class="label text-base-content/70 text-sm">分类：</span>
-                <button type="button" class="btn btn-ghost btn-sm min-h-0 h-7">小动物</button>
+                <button type="button" class="btn btn-ghost btn-sm min-h-0 h-7" data-filter="category" data-filter-value="villagers">小动物</button>
               </div>
               <div v-if="amiiboSeries" class="detail flex flex-wrap items-center gap-1">
                 <span class="label text-base-content/70 text-sm">amiibo系列：</span>
-                <button type="button" class="btn btn-ghost btn-sm min-h-0 h-7">{{ amiiboSeries }}</button>
+                <button
+                  type="button"
+                  class="btn btn-ghost btn-sm min-h-0 h-7"
+                  data-filter="ase"
+                  :data-filter-value="amiiboSeriesCode"
+                >
+                  {{ amiiboSeries }}
+                </button>
               </div>
             </div>
 
             <div class="box rounded-2xl border border-base-300 bg-base-200/30 p-4 space-y-2 flex flex-wrap gap-x-4 gap-y-2">
-              <div class="inline-block w-full sm:w-[calc(50%-0.5rem)] flex flex-wrap items-center gap-1">
+              <div class="detail half w-full sm:w-[calc(50%-0.5rem)] flex flex-wrap items-center gap-1">
                 <span class="label text-base-content/70 text-sm">种族：</span>
-                <button v-if="speciesLabel" type="button" class="btn btn-ghost btn-sm min-h-0 h-7">{{ speciesLabel }}</button>
+                <button
+                  v-if="speciesLabel"
+                  type="button"
+                  class="btn btn-ghost btn-sm min-h-0 h-7"
+                  data-filter="vsp"
+                  :data-filter-value="speciesCode"
+                >
+                  {{ speciesLabel }}
+                </button>
               </div>
-              <div v-if="genderLabel" class="inline-block w-full sm:w-[calc(50%-0.5rem)] flex flex-wrap items-center gap-1">
+              <div v-if="genderLabel" class="detail half w-full sm:w-[calc(50%-0.5rem)] flex flex-wrap items-center gap-1">
                 <span class="label text-base-content/70 text-sm">性别：</span>
-                <button type="button" class="btn btn-ghost btn-sm min-h-0 h-7">{{ genderLabel }}</button>
+                <button
+                  type="button"
+                  class="btn btn-ghost btn-sm min-h-0 h-7"
+                  data-filter="vge"
+                  :data-filter-value="genderCode"
+                >
+                  {{ genderLabel }}
+                </button>
               </div>
-              <div v-if="personalityLabel" class="inline-block w-full sm:w-[calc(50%-0.5rem)] flex flex-wrap items-center gap-1">
+              <div v-if="personalityLabel" class="detail half w-full sm:w-[calc(50%-0.5rem)] flex flex-wrap items-center gap-1">
                 <span class="label text-base-content/70 text-sm">性格：</span>
-                <button type="button" class="btn btn-ghost btn-sm min-h-0 h-7">{{ personalityLabel }}</button>
+                <button
+                  type="button"
+                  class="btn btn-ghost btn-sm min-h-0 h-7"
+                  data-filter="vpe"
+                  :data-filter-value="personalityCode"
+                >
+                  {{ personalityLabel }}
+                </button>
               </div>
-              <div v-if="personalitySubLabel" class="inline-block w-full sm:w-[calc(50%-0.5rem)] flex flex-wrap items-center gap-1">
+              <div v-if="personalitySubLabel" class="detail half w-full sm:w-[calc(50%-0.5rem)] flex flex-wrap items-center gap-1">
                 <span class="label text-base-content/70 text-sm">性格分类：</span>
-                <button type="button" class="btn btn-ghost btn-sm min-h-0 h-7">{{ personalitySubLabel }}</button>
+                <button
+                  type="button"
+                  class="btn btn-ghost btn-sm min-h-0 h-7"
+                  data-filter="vps"
+                  :data-filter-value="personalitySubCode"
+                >
+                  {{ personalitySubLabel }}
+                </button>
               </div>
-              <div class="inline-block w-full sm:w-[calc(50%-0.5rem)] flex flex-wrap items-center gap-1">
+              <div class="detail half w-full sm:w-[calc(50%-0.5rem)] flex flex-wrap items-center gap-1">
                 <span class="label text-base-content/70 text-sm">生日：</span>
                 <span class="text-sm">{{ birthdayLabel }}</span>
-                <Icon icon="mdi:gift-outline" class="w-4 h-4 text-base-content/60" />
               </div>
-              <div v-if="hobbyLabel" class="inline-block w-full sm:w-[calc(50%-0.5rem)] flex flex-wrap items-center gap-1">
+              <div v-if="hobbyLabel" class="detail half w-full sm:w-[calc(50%-0.5rem)] flex flex-wrap items-center gap-1">
                 <span class="label text-base-content/70 text-sm">爱好：</span>
-                <button type="button" class="btn btn-ghost btn-sm min-h-0 h-7">{{ hobbyLabel }}</button>
+                <button
+                  type="button"
+                  class="btn btn-ghost btn-sm min-h-0 h-7"
+                  data-filter="vhb"
+                  :data-filter-value="hobbyCode"
+                >
+                  {{ hobbyLabel }}
+                </button>
               </div>
-              <div v-if="heightText" class="inline-block w-full sm:w-[calc(50%-0.5rem)] flex flex-wrap items-center gap-1">
+              <div v-if="heightText" class="detail half w-full sm:w-[calc(50%-0.5rem)] flex flex-wrap items-center gap-1">
                 <span class="label text-base-content/70 text-sm">身高：</span>
                 <span class="text-sm">{{ heightText }}</span>
               </div>
             </div>
 
             <div v-if="styleItems.length || colorItems.length" class="box rounded-2xl border border-base-300 bg-base-200/30 p-4 space-y-2">
-              <div v-if="styleItems.length" class="inline-block w-full sm:w-[calc(50%-0.5rem)] flex flex-wrap items-center gap-1">
+              <div v-if="styleItems.length" class="detail half w-full sm:w-[calc(50%-0.5rem)] flex flex-wrap items-center gap-1">
                 <span class="label text-base-content/70 text-sm">风格：</span>
                 <template v-for="(s, i) in styleItems" :key="s.value">
-                  <button type="button" class="btn btn-ghost btn-sm min-h-0 h-7">{{ s.label }}</button>
+                  <button
+                    type="button"
+                    class="btn btn-ghost btn-sm min-h-0 h-7"
+                    data-filter="stl"
+                    :data-filter-value="s.value"
+                  >
+                    {{ s.label }}
+                  </button>
                   <span v-if="i < styleItems.length - 1" class="text-base-content/50">、</span>
                 </template>
               </div>
-              <div v-if="colorItems.length" class="inline-block w-full sm:w-[calc(50%-0.5rem)] flex flex-wrap items-center gap-1">
+              <div v-if="colorItems.length" class="detail half w-full sm:w-[calc(50%-0.5rem)] flex flex-wrap items-center gap-1">
                 <span class="label text-base-content/70 text-sm">颜色：</span>
                 <template v-for="(c, i) in colorItems" :key="c.value">
-                  <button type="button" class="btn btn-ghost btn-sm min-h-0 h-7">{{ c.label }}</button>
+                  <button
+                    type="button"
+                    class="btn btn-ghost btn-sm min-h-0 h-7"
+                    data-filter="clr"
+                    :data-filter-value="c.value"
+                  >
+                    {{ c.label }}
+                  </button>
                   <span v-if="i < colorItems.length - 1" class="text-base-content/50">、</span>
                 </template>
               </div>
@@ -107,16 +163,16 @@
 
             <!-- 照片、海报 -->
             <div v-if="photoItem || posterItem" class="box rounded-2xl border border-base-300 bg-base-200/30 p-4 space-y-2 flex flex-wrap gap-x-4 gap-y-2">
-              <div v-if="photoItem" class="inline-block w-full sm:w-[calc(50%-0.5rem)]">
+              <div v-if="photoItem" class="detail half w-full sm:w-[calc(50%-0.5rem)]">
                 <span class="label text-base-content/70 text-sm">照片：</span>
-                <button type="button" class="item-link btn btn-ghost btn-sm gap-1.5 inline-flex items-center mt-1">
+                <button type="button" class="item-link btn btn-ghost btn-sm gap-1.5 inline-flex items-center mt-1" :data-id="photoItem.id">
                   <img :src="photoItem.iconUrl" :alt="photoItem.name" loading="lazy" class="w-8 h-8 object-contain rounded" @error="onFtrImgError" />
                   <span class="name text-sm">{{ photoItem.name }}</span>
                 </button>
               </div>
-              <div v-if="posterItem" class="inline-block w-full sm:w-[calc(50%-0.5rem)]">
+              <div v-if="posterItem" class="detail half w-full sm:w-[calc(50%-0.5rem)]">
                 <span class="label text-base-content/70 text-sm">海报：</span>
-                <button type="button" class="item-link btn btn-ghost btn-sm gap-1.5 inline-flex items-center mt-1">
+                <button type="button" class="item-link btn btn-ghost btn-sm gap-1.5 inline-flex items-center mt-1" :data-id="posterItem.id">
                   <img :src="posterItem.iconUrl" :alt="posterItem.name" loading="lazy" class="w-8 h-8 object-contain rounded" @error="onFtrImgError" />
                   <span class="name text-sm">{{ posterItem.name }}</span>
                 </button>
@@ -207,7 +263,7 @@
 <script setup>
 import { Icon } from '@iconify/vue'
 import { ref, computed } from 'vue'
-import { VILLAGER_SPECIES_ZH } from '../../lib/acnh-api'
+import { VILLAGER_SPECIES_ZH, mapFromCatalogueMaps, mapToCatalogueLabel } from '../../lib/acnh-api'
 
 const FTR_ICON = 'https://nh-cdn.catalogue.ac/FtrIcon'
 const NPC_ICON_CDN = 'https://nh-cdn.catalogue.ac/NpcIcon'
@@ -215,6 +271,7 @@ const NPC_ICON_CDN = 'https://nh-cdn.catalogue.ac/NpcIcon'
 const props = defineProps({
   item: { type: Object, default: null },
   rawItem: { type: Object, default: null },
+  catalogueRaw: { type: Object, default: null },
   displayName: { type: String, default: '' },
   isCollected: { type: Boolean, default: false }
 })
@@ -296,7 +353,13 @@ const hhpGroups = computed(() => {
 
 const versionLabel = computed(() => props.rawItem?.vad ?? '')
 
+const speciesCode = computed(() => {
+  const v = props.rawItem?.vsp
+  const code = props.catalogueRaw ? mapFromCatalogueMaps(props.catalogueRaw, 'vsp', v) : v
+  return code ? String(code) : ''
+})
 const speciesLabel = computed(() => {
+  if (speciesCode.value) return mapToCatalogueLabel(props.catalogueRaw, 'vsp', props.rawItem?.vsp) || speciesCode.value
   const sp = props.item?.species || ''
   return sp ? (VILLAGER_SPECIES_ZH[sp] || sp) : ''
 })
@@ -317,6 +380,10 @@ const genderLabel = computed(() => {
   if (v === 0 || v === '0') return '男'
   return ''
 })
+const genderCode = computed(() => {
+  const v = props.rawItem?.vge
+  return v === 1 || v === '1' ? '1' : v === 0 || v === '0' ? '0' : ''
+})
 
 const PERSONALITY_ZH = {
   big: '大姐姐',
@@ -330,18 +397,37 @@ const PERSONALITY_ZH = {
 }
 const personalityLabel = computed(() => {
   const v = props.rawItem?.vpe
-  return v ? (PERSONALITY_ZH[v] || v) : ''
+  const code = props.catalogueRaw ? mapFromCatalogueMaps(props.catalogueRaw, 'vpe', v) : v
+  if (!code) return ''
+  return PERSONALITY_ZH[code] || mapToCatalogueLabel(props.catalogueRaw, 'vpe', v) || String(code)
+})
+const personalityCode = computed(() => {
+  const v = props.rawItem?.vpe
+  const code = props.catalogueRaw ? mapFromCatalogueMaps(props.catalogueRaw, 'vpe', v) : v
+  return code ? String(code) : ''
 })
 
 const personalitySubLabel = computed(() => {
   const v = props.rawItem?.vps
-  return v ? String(v).toUpperCase() : ''
+  const code = props.catalogueRaw ? mapFromCatalogueMaps(props.catalogueRaw, 'vps', v) : v
+  return code ? String(code).toUpperCase() : ''
+})
+const personalitySubCode = computed(() => {
+  const v = props.rawItem?.vps
+  const code = props.catalogueRaw ? mapFromCatalogueMaps(props.catalogueRaw, 'vps', v) : v
+  return code ? String(code) : ''
 })
 
 const hobbyLabel = computed(() => {
   const v = props.rawItem?.vhb
+  const code = props.catalogueRaw ? mapFromCatalogueMaps(props.catalogueRaw, 'vhb', v) : v
   const map = { education: '教育', fashion: '时尚', fitness: '健身', music: '音乐', nature: '自然', play: '玩耍' }
-  return v ? (map[v] || v) : ''
+  return code ? (map[code] || mapToCatalogueLabel(props.catalogueRaw, 'vhb', v) || String(code)) : ''
+})
+const hobbyCode = computed(() => {
+  const v = props.rawItem?.vhb
+  const code = props.catalogueRaw ? mapFromCatalogueMaps(props.catalogueRaw, 'vhb', v) : v
+  return code ? String(code) : ''
 })
 
 const heightText = computed(() => props.rawItem?.vht ?? '')
@@ -350,20 +436,32 @@ const STYLE_MAP = { simple: '简单', cute: '可爱', cool: '酷', elegant: '优
 const styleItems = computed(() => {
   const arr = props.rawItem?.stl
   if (!Array.isArray(arr) || arr.length === 0) return []
-  return arr.map((s) => ({ value: s, label: STYLE_MAP[s] || s }))
+  return arr.map((s) => {
+    const code = props.catalogueRaw ? mapFromCatalogueMaps(props.catalogueRaw, 'stl', s) : s
+    return { value: code, label: STYLE_MAP[code] || mapToCatalogueLabel(props.catalogueRaw, 'stl', s) || String(code) }
+  })
 })
 
 const COLOR_MAP = { aqua: '水色', beige: '米色', black: '黑色', blue: '蓝色', brown: '棕色', colorful: '彩色', gray: '灰色', green: '绿色', orange: '橙色', pink: '粉色', purple: '紫色', red: '红色', white: '白色', yellow: '黄色' }
 const colorItems = computed(() => {
   const arr = props.rawItem?.clr
   if (!Array.isArray(arr) || arr.length === 0) return []
-  return arr.map((c) => ({ value: c, label: COLOR_MAP[c] || c }))
+  return arr.map((c) => {
+    const code = props.catalogueRaw ? mapFromCatalogueMaps(props.catalogueRaw, 'clr', c) : c
+    return { value: code, label: COLOR_MAP[code] || mapToCatalogueLabel(props.catalogueRaw, 'clr', c) || String(code) }
+  })
 })
 
 const amiiboSeries = computed(() => {
   const ase = props.rawItem?.ase
+  const code = props.catalogueRaw ? mapFromCatalogueMaps(props.catalogueRaw, 'ase', ase) : ase
   const map = { series1: '第一弹', series2: '第二弹', series3: '第三弹', series4: '第四弹', series5: '第五弹' }
-  return ase ? (map[ase] || ase) : ''
+  return code ? (map[code] || mapToCatalogueLabel(props.catalogueRaw, 'ase', ase) || String(code)) : ''
+})
+const amiiboSeriesCode = computed(() => {
+  const ase = props.rawItem?.ase
+  const code = props.catalogueRaw ? mapFromCatalogueMaps(props.catalogueRaw, 'ase', ase) : ase
+  return code ? String(code) : ''
 })
 
 function onImgError(e) {
