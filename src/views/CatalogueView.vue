@@ -13,19 +13,19 @@
           v-for="cat in categories"
           :key="cat.id"
           :class="[
-            'shrink-0 px-4 py-3 rounded-xl text-sm font-medium flex items-center gap-2 min-h-(--touch-min) snap-start tap-lift',
+            'shrink-0 px-3 xs:px-4 py-3 rounded-xl text-xs xs:text-sm font-medium flex items-center gap-1 xs:gap-2 min-h-(--touch-min) snap-start tap-lift',
             activeCategory === cat.id ? 'bg-[#7CB342] text-white' : 'bg-[#E8F5E9]/70 text-gray-600'
           ]"
           @click="selectCategory(cat.id)"
         >
-          <Icon :icon="cat.icon" class="w-4 h-4 shrink-0" />
+          <Icon :icon="cat.icon" class="w-3 h-3 xs:w-4 xs:h-4 shrink-0" />
           {{ cat.label }}
         </button>
       </div>
 
       <!-- 搜索 + 筛选按钮：页面只保留这两个入口 -->
       <div class="mb-4 flex gap-2">
-        <label class="input input-bordered rounded-2xl flex items-center gap-2 h-12 flex-1">
+        <label class="input input-bordered rounded-2xl flex items-center gap-2 h-12 flex-1 min-w-0">
           <Icon icon="mdi:magnify" class="w-5 h-5 opacity-60 shrink-0" />
           <input
             v-model.trim="searchQuery"
@@ -44,11 +44,11 @@
         </label>
         <button
           type="button"
-          class="btn btn-outline rounded-2xl h-12 min-w-[80px] flex items-center gap-1 shrink-0"
+          class="btn btn-outline rounded-2xl h-12 min-w-[60px] xs:min-w-[80px] flex items-center gap-1 shrink-0"
           @click="openFilterDrawer"
         >
           <Icon icon="mdi:filter-variant" class="w-5 h-5" />
-          <span class="hidden sm:inline">筛选</span>
+          <span class="hidden xs:inline">筛选</span>
         </button>
       </div>
 
@@ -161,12 +161,12 @@
 
     <!-- FAB 模式切换：选中后自动收起 -->
     <div ref="fabRef" class="fab fixed z-30 motion-pop" style="bottom: calc(var(--nav-height) + env(safe-area-inset-bottom, 0) + 1.5rem); right: max(var(--content-px), env(safe-area-inset-right, 0));">
-      <div tabindex="0" role="button" :class="['btn btn-md sm:btn-lg btn-circle', catalogueMode === 'mark' ? 'btn-primary' : catalogueMode === 'view' ? 'btn-secondary' : 'btn-accent']">
+      <div tabindex="0" role="button" :class="['btn btn-md sm:btn-lg btn-circle', catalogueMode === 'mark' ? 'btn-success' : catalogueMode === 'view' ? 'btn-secondary' : 'btn-success']">
         <Icon :icon="catalogueMode === 'mark' ? 'mdi:checkbox-marked-circle-outline' : catalogueMode === 'view' ? 'mdi:eye-outline' : 'mdi:heart-outline'" class="w-6 h-6" />
       </div>
       <button
         type="button"
-        :class="['btn btn-md sm:btn-lg btn-circle', catalogueMode === 'mark' ? 'btn-primary' : 'btn-ghost']"
+        :class="['btn btn-md sm:btn-lg btn-circle', catalogueMode === 'mark' ? 'btn-success' : 'btn-ghost']"
         title="标记模式"
         @click="setCatalogueMode('mark')"
       >
@@ -182,7 +182,7 @@
       </button>
       <button
         type="button"
-        :class="['btn btn-md sm:btn-lg btn-circle', catalogueMode === 'wish' ? 'btn-accent' : 'btn-ghost']"
+        :class="['btn btn-md sm:btn-lg btn-circle', catalogueMode === 'wish' ? 'btn-success' : 'btn-ghost']"
         title="心愿模式（选择后发到广场）"
         @click="setCatalogueMode('wish')"
       >
@@ -207,7 +207,7 @@
       aria-label="图鉴详情"
       @close="onDetailDialogClose"
     >
-      <div class="modal-box flex flex-col max-h-[90vh] p-0 overflow-hidden w-11/12 max-w-2xl">
+      <div class="modal-box flex flex-col max-h-[90vh] p-0 overflow-hidden w-11/12 max-w-2xl sm:max-w-[95vw] sm:w-[95vw] sm:max-w-none sm:rounded-none sm:m-0 sm:h-screen">
         <CatalogueDetailContent
           :category="detailCategory"
           :item-id="detailItemId"
@@ -219,30 +219,38 @@
       </form>
     </dialog>
 
-    <!-- 图鉴筛选抽屉：从右侧滑出，集中所有筛选项 -->
-    <Transition name="fade">
-      <div v-if="showFilterDrawer" class="fixed inset-0 z-40">
-        <div class="absolute inset-0 bg-black/30" @click="closeFilterDrawer"></div>
+    <!-- 图鉴筛选抽屉：从底部向上滑出，移动端友好 -->
+    <Transition name="filter-bottom">
+      <div v-if="showFilterDrawer" class="fixed inset-0 z-60">
+        <div class="absolute inset-0 bg-black/40 backdrop-blur-[1px]" @click="closeFilterDrawer"></div>
         <div
-          class="absolute right-0 top-0 h-full w-full max-w-sm bg-base-100 shadow-xl flex flex-col"
+          class="absolute bottom-0 left-0 right-0 bg-base-100 shadow-2xl border-t border-base-300 rounded-t-3xl max-h-[85vh] flex flex-col safe-area-pb"
         >
+          <!-- 顶部拖拽指示器 -->
+          <div class="flex justify-center pt-3 pb-2">
+            <div class="w-12 h-1 bg-base-300 rounded-full"></div>
+          </div>
+          
+          <!-- 标题栏 -->
           <div class="px-4 py-3 border-b border-base-300 flex items-center justify-between">
-            <h2 class="text-base font-semibold">筛选与排序</h2>
-            <button class="btn btn-ghost btn-sm rounded-full" @click="closeFilterDrawer" aria-label="关闭筛选">
+            <h2 class="text-lg font-semibold">筛选与排序</h2>
+            <button class="btn btn-ghost min-h-(--touch-min) h-10 w-10 rounded-full p-0 flex items-center justify-center" @click="closeFilterDrawer" aria-label="关闭筛选">
               <Icon icon="mdi:close" class="w-5 h-5" />
             </button>
           </div>
-          <div class="flex-1 overflow-y-auto px-4 py-3 space-y-4 text-sm">
+          
+          <!-- 筛选内容区域 -->
+          <div class="flex-1 overflow-y-auto px-4 py-4 space-y-5 text-sm">
             <!-- 收集状态 -->
             <section>
-              <h3 class="mb-2 font-medium">收集状态</h3>
-              <div class="flex flex-wrap gap-2">
+              <h3 class="mb-3 font-medium text-base">收集状态</h3>
+              <div class="flex gap-2">
                 <button
                   v-for="opt in collectedFilterOptions"
                   :key="opt.value"
                   :class="[
-                    'px-4 py-2.5 rounded-lg text-sm font-medium transition-colors min-h-[40px]',
-                    collectedFilter === opt.value ? 'bg-[#7CB342] text-white' : 'bg-base-200 hover:bg-base-300/60 text-base-content/70'
+                    'flex-1 px-4 py-3 rounded-xl text-sm font-medium transition-all min-h-[44px] tap-lift',
+                    collectedFilter === opt.value ? 'bg-[#7CB342] text-white shadow-md' : 'bg-base-200 hover:bg-base-300/60 text-base-content/70 active:scale-[0.98]'
                   ]"
                   @click="collectedFilter = opt.value"
                 >
@@ -253,10 +261,10 @@
 
             <!-- 物种（仅小动物） -->
             <section v-if="activeCategory === 'villagers' && speciesOptions.length > 0">
-              <h3 class="mb-2 font-medium">物种</h3>
+              <h3 class="mb-3 font-medium text-base">物种</h3>
               <select
                 v-model="speciesFilter"
-                class="select select-bordered rounded-xl h-11 text-base w-full"
+                class="select select-bordered rounded-xl h-12 text-base w-full"
               >
                 <option value="">全部物种</option>
                 <option v-for="s in speciesOptions" :key="s" :value="s">
@@ -267,17 +275,17 @@
 
             <!-- 鱼/虫/海：半球、月份、活动 -->
             <section v-if="isCritterCategory">
-              <h3 class="mb-2 font-medium">出现时间</h3>
-              <div class="space-y-3">
+              <h3 class="mb-3 font-medium text-base">出现时间</h3>
+              <div class="space-y-4">
                 <div>
-                  <p class="mb-1 text-xs text-base-content/70">半球</p>
-                  <div class="flex flex-wrap gap-2">
+                  <p class="mb-2 text-sm text-base-content/70">半球</p>
+                  <div class="flex gap-2">
                     <button
                       v-for="h in hemisphereOptions"
                       :key="h.value"
                       :class="[
-                        'px-3 py-2 rounded-lg text-sm font-medium min-h-[36px]',
-                        hemisphereFilter === h.value ? 'bg-[#7CB342] text-white' : 'bg-base-200 hover:bg-base-300/60 text-base-content/70'
+                        'flex-1 px-3 py-2.5 rounded-lg text-sm font-medium min-h-[40px] transition-all tap-lift',
+                        hemisphereFilter === h.value ? 'bg-[#7CB342] text-white shadow-md' : 'bg-base-200 hover:bg-base-300/60 text-base-content/70 active:scale-[0.98]'
                       ]"
                       @click="hemisphereFilter = h.value"
                     >
@@ -286,10 +294,10 @@
                   </div>
                 </div>
                 <div>
-                  <p class="mb-1 text-xs text-base-content/70">月份</p>
+                  <p class="mb-2 text-sm text-base-content/70">月份</p>
                   <select
                     v-model="monthFilter"
-                    class="select select-bordered rounded-xl h-11 text-base w-full"
+                    class="select select-bordered rounded-xl h-12 text-base w-full"
                   >
                     <option value="">全部月份</option>
                     <option value="current">当前月</option>
@@ -303,10 +311,10 @@
                   </select>
                 </div>
                 <div>
-                  <p class="mb-1 text-xs text-base-content/70">活动</p>
+                  <p class="mb-2 text-sm text-base-content/70">活动</p>
                   <select
                     v-model="eventFilter"
-                    class="select select-bordered rounded-xl h-11 text-base w-full"
+                    class="select select-bordered rounded-xl h-12 text-base w-full"
                   >
                     <option value="">全部活动</option>
                     <option
@@ -323,10 +331,10 @@
 
             <!-- 每页数量 -->
             <section>
-              <h3 class="mb-2 font-medium">每页数量</h3>
-              <div class="flex items-center gap-2">
-                <span class="text-xs text-gray-600">每页</span>
-                <select v-model="perPage" class="select select-bordered rounded-xl h-11 w-32 text-base">
+              <h3 class="mb-3 font-medium text-base">每页数量</h3>
+              <div class="flex items-center gap-3">
+                <span class="text-sm text-base-content/70">每页显示</span>
+                <select v-model="perPage" class="select select-bordered rounded-xl h-12 w-32 text-base">
                   <option :value="10">10</option>
                   <option :value="20">20</option>
                   <option :value="50">50</option>
@@ -337,11 +345,13 @@
               </div>
             </section>
           </div>
-          <div class="px-4 py-3 border-t border-base-300 flex items-center justify-between gap-2">
-            <button class="btn btn-ghost btn-sm rounded-2xl" type="button" @click="resetFilters">
+          
+          <!-- 底部操作按钮 -->
+          <div class="px-4 py-4 border-t border-base-300 flex items-center justify-between gap-3 bg-base-100/80 backdrop-blur-sm">
+            <button class="btn btn-outline flex-1 h-12 rounded-2xl" type="button" @click="resetFilters">
               重置筛选
             </button>
-            <button class="btn btn-primary btn-sm rounded-2xl" type="button" @click="closeFilterDrawer">
+            <button class="btn btn-success flex-1 h-12 rounded-2xl" type="button" @click="closeFilterDrawer">
               完成
             </button>
           </div>
@@ -550,9 +560,16 @@ const searchPlaceholder = computed(() => {
 
 function getIconUrl(item) {
   const path = item?.iconPath
-  if (path) return getIconUrlFromApi(activeCategory.value, path)
   const fn = item?.['file-name'] || item?.fileName
-  return fn ? getIconUrlFromApi(activeCategory.value, fn) : ''
+  
+  let iconUrl = ''
+  if (path) {
+    iconUrl = getIconUrlFromApi(activeCategory.value, path)
+  } else if (fn) {
+    iconUrl = getIconUrlFromApi(activeCategory.value, fn)
+  }
+  
+  return iconUrl
 }
 
 function hasProperties(item) {
@@ -603,11 +620,12 @@ async function loadCategoryData() {
     if (Array.isArray(raw)) {
       items.value = raw
     } else if (cat?.flat) {
+      // 对于家具类数据，需要特殊处理文件名提取
       items.value = flattenFurnitureData(raw)
     } else {
       items.value = Object.entries(raw).map(([key, val]) => ({
         ...val,
-        fileName: val['file-name'] || key
+        fileName: val['file-name'] || val?.fileName || key
       }))
     }
     if (isCritterCategory.value && critterEventsList.value.length === 0) {
@@ -756,7 +774,7 @@ onUnmounted(() => {
   min-height: 0;
 }
 
-/* 列表卡片中的“新增”角标样式 */
+/* 列表卡片中的"新增"角标样式 */
 .item .new {
   position: absolute;
   top: 40px;
@@ -769,5 +787,56 @@ onUnmounted(() => {
   background-color: #ffa600;
   border-radius: 0 4px 4px 0;
   z-index: 1;
+}
+
+/* 底部筛选框动画 */
+.filter-bottom-enter-active {
+  transition: opacity 300ms ease, transform 400ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.filter-bottom-leave-active {
+  transition: opacity 250ms ease, transform 300ms cubic-bezier(0.4, 0, 0.6, 1);
+}
+
+.filter-bottom-enter-from {
+  opacity: 0;
+  transform: translateY(100%);
+}
+
+.filter-bottom-leave-to {
+  opacity: 0;
+  transform: translateY(100%);
+}
+
+/* 移动端优化：更快的动画响应 */
+@media (max-width: 639px) {
+  .filter-bottom-enter-active {
+    transition: opacity 250ms ease, transform 350ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  
+  .filter-bottom-leave-active {
+    transition: opacity 200ms ease, transform 250ms cubic-bezier(0.4, 0, 0.6, 1);
+  }
+}
+
+/* 减少动画对性能敏感用户的干扰 */
+@media (prefers-reduced-motion: reduce) {
+  .filter-bottom-enter-active,
+  .filter-bottom-leave-active {
+    transition: opacity 100ms ease;
+  }
+  
+  .filter-bottom-enter-from,
+  .filter-bottom-leave-to {
+    transform: none;
+  }
+}
+
+/* 高性能动画优化 */
+.filter-bottom-enter-active,
+.filter-bottom-leave-active {
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  perspective: 1000px;
 }
 </style>

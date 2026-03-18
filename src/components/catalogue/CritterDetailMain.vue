@@ -53,7 +53,7 @@
         <span
           v-for="(m, idx) in monthLabels"
           :key="idx"
-          :class="['badge badge-sm', northMonthActive(idx) ? 'badge-warning' : 'badge-ghost', currentMonthIndex === idx ? 'ring-2 ring-primary ring-offset-2' : '']"
+          :class="['badge badge-sm', northMonthActive(idx) ? 'badge-warning' : 'badge-ghost', currentMonthIndex === idx ? 'ring-2 ring-success ring-offset-2' : '']"
         >
           {{ m }}
         </span>

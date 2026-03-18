@@ -2,8 +2,8 @@
   <header class="sticky top-0 z-40 bg-linear-to-r from-[#7CB342]/95 to-[#8BC34A]/95 backdrop-blur-md shadow-md border-b-2 border-[#558B2F]/50 safe-area-pt">
     <div class="flex items-center justify-between min-h-(--header-height) h-14 px-4 max-w-lg mx-auto touch-row">
       <RouterLink to="/" class="flex items-center gap-2 active:opacity-80 min-h-(--touch-min) -ml-1 pl-1 tap-lift">
-        <Icon icon="mdi:leaf" class="w-7 h-7 text-white shrink-0 motion-pop" />
-        <span class="text-base font-bold text-white">动森小岛</span>
+        <Icon icon="mdi:leaf" class="w-6 h-6 xs:w-7 xs:h-7 text-white shrink-0 motion-pop" />
+        <span class="text-sm xs:text-base font-bold text-white">动森小岛</span>
       </RouterLink>
 
       <div class="flex items-center gap-1">

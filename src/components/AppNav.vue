@@ -10,14 +10,14 @@
           isActive(link.to) ? 'text-[#558B2F] font-medium' : 'text-gray-400'
         ]"
       >
-        <span :class="['inline-flex items-center justify-center w-10 h-10 rounded-xl transition-all', isActive(link.to) ? 'bg-[#7CB342]/15 scale-105' : '']">
-          <Icon :icon="link.icon" class="w-6 h-6" />
+        <span :class="['inline-flex items-center justify-center w-9 h-9 xs:w-10 xs:h-10 rounded-xl transition-all', isActive(link.to) ? 'bg-[#7CB342]/15 scale-105' : '']">
+          <Icon :icon="link.icon" class="w-5 h-5 xs:w-6 xs:h-6" />
         </span>
-        <span class="text-xs mt-1">{{ link.label }}</span>
+        <span class="text-xs xs:text-xs mt-1">{{ link.label }}</span>
         <span
           :class="[
-            'absolute top-0 left-1/2 h-0.5 w-8 -translate-x-1/2 rounded-full transition-opacity',
-            isActive(link.to) ? 'opacity-100 bg-[#7CB342]' : 'opacity-0'
+            'absolute top-0 left-1/2 h-0.5 w-6 xs:w-8 -translate-x-1/2 rounded-full transition-opacity',
+            isActive(link.to) ? 'opacity-100 bg-[#558B2F]' : 'opacity-0'
           ]"
         ></span>
       </RouterLink>

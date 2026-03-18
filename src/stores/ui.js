@@ -42,6 +42,10 @@ export const useUiStore = defineStore('ui', () => {
     sidebarOpen.value = !sidebarOpen.value
   }
 
+  function setSidebarTransitionEnd() {
+    // 动画结束后的清理工作（如果需要的话）
+  }
+
   return {
     sidebarOpen,
     theme,
@@ -50,7 +54,8 @@ export const useUiStore = defineStore('ui', () => {
     toggleTheme,
     openSidebar,
     closeSidebar,
-    toggleSidebar
+    toggleSidebar,
+    setSidebarTransitionEnd
   }
 })
 

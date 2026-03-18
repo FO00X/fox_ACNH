@@ -1,11 +1,13 @@
 @import "tailwindcss";
 
-/* 暗色模式由 data-theme 控制（侧栏切换），与系统偏好无关 */
 @custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
 
 @plugin "daisyui" {
   themes: light --default, dark --prefersdark;
 }
+
+/* 自定义断点：超小屏幕适配 */
+@custom-variant xs (&:where(@media (min-width: 360px)));
 
 :root {
   --acnh-green: #7CB342;
@@ -117,7 +119,6 @@ main.pb-20 {
 
 .acnh-btn {
   border-radius: 0.875rem;
-  min-height: var(--touch-min);
   transition: transform var(--anim-fast) ease, filter var(--anim-fast) ease, box-shadow var(--anim-normal) var(--ease-out-smooth);
 }
 .acnh-btn:active {
@@ -197,6 +198,49 @@ main.pb-20 {
     opacity: 1;
     transform: scale(1);
   }
+}
+
+/* 从下方滑入动画 */
+.slide-up-enter-active,
+.slide-up-leave-active {
+  transition: all var(--anim-normal) var(--ease-out-smooth);
+}
+
+.slide-up-enter-from {
+  opacity: 0;
+}
+
+.slide-up-enter-to {
+  opacity: 1;
+}
+
+.slide-up-leave-active {
+  transition: all var(--anim-fast) var(--ease-out-smooth);
+}
+
+.slide-up-leave-to {
+  opacity: 0;
+}
+
+.slide-up-enter-active .absolute.bottom-0,
+.slide-up-leave-active .absolute.bottom-0 {
+  transition: transform var(--anim-normal) var(--ease-out-smooth);
+}
+
+.slide-up-enter-from .absolute.bottom-0 {
+  transform: translateY(100%);
+}
+
+.slide-up-enter-to .absolute.bottom-0 {
+  transform: translateY(0);
+}
+
+.slide-up-leave-active .absolute.bottom-0 {
+  transition: transform var(--anim-fast) var(--ease-out-smooth);
+}
+
+.slide-up-leave-to .absolute.bottom-0 {
+  transform: translateY(100%);
 }
 
 @media (max-width: 420px) {

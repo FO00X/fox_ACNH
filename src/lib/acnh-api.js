@@ -214,12 +214,54 @@ async function fetchCatalogueData() {
 function transformFurniture(raw, metaForCategory) {
   const items = []
   for (const [key, obj] of Object.entries(raw)) {
+    // 处理img字段：可能是字符串或数组
+    let imgValue = obj.img
+    let imgs = []
+    let firstSuffix = ''
+    
+    if (typeof imgValue === 'string') {
+      // 如果是字符串格式（如 "FtrIcon/FtrBonsaiKokedama"）
+      if (imgValue.includes('/')) {
+        // 提取文件名部分
+        const fileName = imgValue.split('/').pop()
+        imgs = [fileName]
+        firstSuffix = fileName
+      } else {
+        imgs = [imgValue]
+        firstSuffix = imgValue
+      }
+    } else if (Array.isArray(imgValue)) {
+      // 如果是数组格式
+      imgs = imgValue
+      firstSuffix = imgs[0] || ''
+    }
+    
+    // 处理ipf字段
     const ipf = (obj.ipf || '').replace('FtrIcon/', '')
-    const imgs = obj.img || []
-    const vars = obj.var || []
+    
+    // 生成文件名：根据不同的数据格式采用不同的策略
+    let firstFileName = ''
+    
+    if (typeof imgValue === 'string' && imgValue.includes('/')) {
+      // 情况1：img是字符串且包含路径（如 "FtrIcon/FtrBonsaiKokedama"）
+      // 优先使用img字段提取的文件名
+      firstFileName = firstSuffix
+    } else if (ipf && Array.isArray(imgValue)) {
+      // 情况2：有ipf字段且img是数组（如壁挂书架）
+      // 使用原逻辑：ipf + img数组的第一个元素
+      firstFileName = ipf + firstSuffix
+    } else if (ipf) {
+      // 情况3：只有ipf字段
+      firstFileName = ipf
+    } else if (firstSuffix) {
+      // 情况4：只有img字段
+      firstFileName = firstSuffix
+    } else {
+      // 情况5：最后使用key作为文件名
+      firstFileName = key
+    }
+    
     const baseName = obj.loc ? locToName(obj.loc) : { 'name-USen': ipf.replace(/^Ftr|_Remake_$|_$/g, ' ').trim() || key }
-    const firstSuffix = imgs[0] || ''
-    const firstFileName = ipf + firstSuffix
     const variantCount = imgs.length
     const metaEntry = metaForCategory && metaForCategory[key] ? metaForCategory[key] : {}
 
@@ -496,6 +538,41 @@ export async function fetchAcnhRawItem(category, itemId) {
 export function flattenFurnitureData(raw) {
   if (Array.isArray(raw)) return raw
   const items = []
+  
+  // 处理misc分类的特殊数据结构（对象格式，非数组）
+  if (raw && typeof raw === 'object' && !Array.isArray(raw)) {
+    for (const [key, item] of Object.entries(raw)) {
+      if (item && typeof item === 'object') {
+        // 提取文件名：优先使用img字段，然后是file-name字段
+        let fileName = ''
+        if (item.img) {
+          if (typeof item.img === 'string') {
+            // 处理类似 "FtrIcon/FtrBonsaiKokedama" 的格式
+            fileName = item.img.includes('/') ? item.img.split('/').pop() : item.img
+          } else if (Array.isArray(item.img) && item.img.length > 0) {
+            // 处理数组格式的img字段
+            fileName = item.img[0]
+          }
+        }
+        
+        if (!fileName) {
+          fileName = item['file-name'] || item?.fileName || key
+        }
+        
+        if (fileName.length === 1 && fileName.match(/[A-Z]/)) {
+          if (item.img && typeof item.img === 'string' && item.img.includes('/')) {
+            fileName = item.img.split('/').pop()
+          } else {
+            fileName = key
+          }
+        }
+        
+        items.push({ ...item, fileName, baseKey: key })
+      }
+    }
+  }
+  
+  // 原有的数组格式处理逻辑
   for (const [key, variants] of Object.entries(raw)) {
     if (!Array.isArray(variants)) continue
     for (const v of variants) {
@@ -504,6 +581,7 @@ export function flattenFurnitureData(raw) {
       items.push({ ...v, fileName: fn, baseKey: key })
     }
   }
+  
   return items
 }
 

@@ -3,7 +3,7 @@
     <div class="box rounded-2xl border border-base-300 bg-base-200/30 p-3 space-y-2">
       <div class="detail flex items-center gap-2 flex-wrap">
         <span class="label text-base-content/70 shrink-0">分类：</span>
-        <span class="badge badge-primary">{{ categoryLabel }}</span>
+        <span class="badge badge-success">{{ categoryLabel }}</span>
       </div>
       <div v-if="sourceLabel" class="detail flex items-center gap-2 flex-wrap">
         <span class="label text-base-content/70 shrink-0">来源：</span>

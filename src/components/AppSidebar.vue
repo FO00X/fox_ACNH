@@ -1,13 +1,18 @@
 <template>
   <Teleport to="body">
-    <div v-if="uiStore.sidebarOpen" class="fixed inset-0 z-60">
-      <!-- 遮罩 -->
-      <div class="absolute inset-0 bg-black/40 backdrop-blur-[1px]" @click="uiStore.closeSidebar"></div>
+    <Transition name="sidebar-overlay" @after-leave="uiStore.setSidebarTransitionEnd">
+      <div v-if="uiStore.sidebarOpen" class="fixed inset-0 z-60">
+        <!-- 遮罩 -->
+        <Transition name="sidebar-backdrop">
+          <div v-if="uiStore.sidebarOpen" class="absolute inset-0 bg-black/40 backdrop-blur-[1px]" @click="uiStore.closeSidebar"></div>
+        </Transition>
 
-      <!-- 抽屉面板：移动端全宽感，大触控区 -->
-      <div
-        class="absolute right-0 top-0 h-full w-[min(320px,92vw)] max-w-[92vw] bg-base-100 shadow-2xl border-l border-base-300 safe-area-pr"
-      >
+        <!-- 抽屉面板：移动端全宽感，大触控区 -->
+        <Transition name="sidebar-panel">
+          <div
+            v-if="uiStore.sidebarOpen"
+            class="absolute right-0 top-0 h-full w-[min(320px,92vw)] max-w-[92vw] sm:w-[85vw] sm:max-w-[85vw] bg-base-100 shadow-2xl border-l border-base-300 safe-area-pr"
+          >
         <div class="min-h-(--touch-min) flex items-center justify-between px-4 border-b border-base-300">
           <div class="flex items-center gap-2">
             <Icon icon="mdi:leaf" class="w-5 h-5 text-[#558B2F]" />
@@ -75,8 +80,10 @@
             </button>
           </div>
         </div>
-      </div>
+        </div>
+      </Transition>
     </div>
+  </Transition>
   </Teleport>
 </template>
 
@@ -111,3 +118,86 @@ async function signOut() {
   router.push('/login')
 }
 </script>
+
+<style scoped>
+/* 侧边栏整体容器动画 */
+.sidebar-overlay-enter-active,
+.sidebar-overlay-leave-active {
+  transition: opacity 200ms ease;
+}
+
+.sidebar-overlay-enter-from,
+.sidebar-overlay-leave-to {
+  opacity: 0;
+}
+
+/* 遮罩层动画 - 与面板动画同步 */
+.sidebar-backdrop-enter-active {
+  transition: opacity 350ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.sidebar-backdrop-leave-active {
+  transition: opacity 300ms cubic-bezier(0.4, 0, 0.6, 1);
+}
+
+.sidebar-backdrop-enter-from,
+.sidebar-backdrop-leave-to {
+  opacity: 0;
+}
+
+/* 侧边栏面板滑动动画 - 优化移动端体验 */
+.sidebar-panel-enter-active {
+  transition: transform 350ms cubic-bezier(0.16, 1, 0.3, 1), opacity 350ms ease;
+  will-change: transform;
+}
+
+.sidebar-panel-leave-active {
+  transition: transform 300ms cubic-bezier(0.4, 0, 0.6, 1), opacity 300ms ease;
+  will-change: transform;
+}
+
+.sidebar-panel-enter-from {
+  transform: translateX(100%);
+  opacity: 0;
+}
+
+.sidebar-panel-leave-to {
+  transform: translateX(100%);
+  opacity: 0;
+}
+
+/* 移动端优化：更快的动画响应 */
+@media (max-width: 639px) {
+  .sidebar-panel-enter-active {
+    transition: transform 300ms cubic-bezier(0.16, 1, 0.3, 1), opacity 300ms ease;
+  }
+  
+  .sidebar-panel-leave-active {
+    transition: transform 250ms cubic-bezier(0.4, 0, 0.6, 1), opacity 250ms ease;
+  }
+}
+
+/* 减少动画对性能敏感用户的干扰 */
+@media (prefers-reduced-motion: reduce) {
+  .sidebar-overlay-enter-active,
+  .sidebar-overlay-leave-active,
+  .sidebar-backdrop-enter-active,
+  .sidebar-backdrop-leave-active,
+  .sidebar-panel-enter-active,
+  .sidebar-panel-leave-active {
+    transition: opacity 100ms ease;
+  }
+  
+  .sidebar-panel-enter-from,
+  .sidebar-panel-leave-to {
+    transform: none;
+  }
+}
+
+/* 高性能动画优化 */
+.sidebar-panel-enter-active,
+.sidebar-panel-leave-active {
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+</style>
