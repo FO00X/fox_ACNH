@@ -1,1 +1,4727 @@
-{"c621":{"ipf":"FtrIcon/SocksTexAerobics","img":["0","3","2","1","4"],"var":[258,261,260,259,262],"clr":[[10,5],[10,3],[11,13],[6,3],[4,0]],"sel":175,"buy":700,"hap":23,"stl":4,"lbl":5,"iid":[5197,9796,9795,9794,9797],"ord":true,"cat":true,"sze":0,"src":[92,93],"hui":"pbr02","loc":{"zh-cn":"有氧运动紧身裤","de":"Aerobic-Leggings","fr-fr":"legging d'aérobic","it":"paio di legging da aerobica","nl":"aerobicslegging","ru":"леггинсы для аэробики","ja":"エアロビレギンス","ko":"에어로빅 레깅스","zh-tw":"有氧運動緊身褲","fr-us":"legging d'aérobique","en":"aerobics leggings","es":"malla con calentador"}},"c536":{"ipf":"FtrIcon/SocksTexAlan","img":["1","5","2","3","4","0"],"var":[11,6,1,2,0,7],"clr":[1,9,5,6,4,7],"sel":180,"buy":720,"hap":51,"stl":[0,5],"lbl":[0,1],"iid":[9058,9062,9059,9060,9061,4742],"ord":true,"cat":true,"sze":0,"src":89,"evt":26,"loc":{"zh-cn":"毛线袜","de":"Paar Aranmustersocken","es-es":"calcetín de punto trenzado","fr-fr":"paire de chaussettes Aran","it":"paio di calzini Aran","nl":"Aran-sokken","ru":"носки аранской вязки","ja":"アランニットのソックス","ko":"아란 니트 양말","zh-tw":"手編阿倫花樣針織襪","es-us":"calcetín tejido trenzado","fr-us":"paire de bas Aran","en":"Aran-knit socks"}},"c880":{"ipf":"FtrIcon/SocksTexArgyle","img":["5","4","1","7","6","2","0","3"],"var":[11,8,1,12,10,2,0,7],"clr":[[1,5],[2,10],[5,1],[10,1],[11,1],[6,0],[4,3],[7,8]],"sel":180,"buy":720,"hap":51,"stl":[5,0],"lbl":[0,4,3],"iid":[9925,9924,9921,9927,9926,9922,5806,9923],"ord":true,"cat":true,"sze":0,"src":89,"hui":["cat23","hrs03","ost05"],"loc":{"zh-cn":"菱格纹袜","de":"Paar Argyle-Crew-Socken","es-es":"calcetín pijo","fr-fr":"p. de chaussettes argyle","it":"paio di calzini a rombi","nl":"argyle-sokken","ru":"носки аргайл","ja":"アーガイルソックス","ko":"아가일 양말","zh-tw":"菱格紋襪","es-us":"calcetín rombos alto","fr-us":"p. de bas écossais","en":"argyle crew socks"}},"c519":{"ipf":"FtrIcon/SocksTexRibbon","img":["3","2","0","1","5","4"],"var":[11,6,12,3,143,0],"clr":[[1,10],[9,1],[10,9],[0,6],[6,10],[3,0]],"sel":150,"buy":600,"hap":23,"stl":2,"lbl":[0,9,10,8],"iid":[9055,9054,4718,9053,9057,9056],"ord":true,"cat":true,"sze":0,"src":[92,93],"evt":119,"hui":"hrs03","loc":{"zh-cn":"蝴蝶结袜子","de":"Paar Schleifchensocken","fr-fr":"p. de chaussettes à nœud","it":"paio di calzini con fiocco","nl":"sokken met een strikje","ru":"носки с бантиком сзади","ja":"リボンソックス","ko":"리본 양말","zh-tw":"蝴蝶結襪子","fr-us":"p. de bas à nœud","en":"back-bow socks","es":"calcetín lazo trasero"}},"c604":{"ipf":"FtrIcon/SocksTexFolded","img":["0","1","2","3"],"var":[11,8,6,16],"clr":[1,2,9,8],"sel":120,"buy":480,"hap":51,"stl":[5,0],"lbl":[4,3],"iid":[5171,10017,10018,10019],"ord":true,"cat":true,"sze":0,"src":89,"hui":"duk04","loc":{"zh-cn":"三折袜","de":"Paar Bündchensocken","it":"paio di calzini con trina","nl":"sokken met omslag","ru":"короткие белые носки","ja":"みつおりソックス","ko":"접는 양말","zh-tw":"三折襪","en":"bobby socks","es":"calcetín sencillo","fr":"paire de socquettes simples"}},"c612":{"ipf":"FtrIcon/SocksTexMultiblock","img":["5","7","6","1","3","0","2","4"],"var":[11,12,14,2,0,4,16,7],"clr":[[1,12],[10,12],[6,12],[6,12],[4,12],[13,12],[8,12],[7,12]],"sel":210,"buy":840,"hap":23,"stl":[2,5],"lbl":0,"iid":[9899,9901,9900,9895,9897,5180,9896,9898],"ord":true,"cat":true,"sze":0,"src":[92,93],"hui":["dog07","rbt00"],"loc":{"zh-cn":"多色格子袜","de":"Paar Bunt-Socken","fr-fr":"paire chaussettes carreaux","it":"paio di calzini variopinti","nl":"sokken met kleurvlakken","ru":"носки в цветную клетку","ja":"マルチブロックソックス","ko":"컬러 블록 양말","zh-tw":"多色方塊襪","fr-us":"paire de bas à carreaux","en":"color-blocked socks","es":"calcetín composición color"}},"c603":{"ipf":"FtrIcon/SocksTexCompression","img":["4","2","1","3","0"],"var":[1,12,3,15,0],"clr":[[9,5],[9,10],[9,0],[9,6],[9,4]],"sel":150,"buy":600,"hap":23,"stl":4,"lbl":[2,5,3],"iid":[9793,9791,9790,9792,5170],"ord":true,"cat":true,"sze":0,"src":[92,93],"hui":["brd09","pbr00"],"loc":{"zh-cn":"压力裤袜","de":"Kompressionsstrumpfhose","it":"paio di calze contenitive","nl":"compressielegging","ru":"компрессионные чулки","ja":"コンプレッションタイツ","ko":"압박 타이츠","zh-tw":"壓力褲襪","en":"compression tights","es":"malla de compresión","fr":"collant de contention"}},"c926":{"ipf":"FtrIcon/SocksTexCountry","img":["3","0","1","2"],"var":[274,271,272,273],"clr":[[1,9],[1,5],[1,6],[1,4]],"sel":180,"buy":720,"hap":51,"stl":[5,0],"lbl":[4,3],"iid":[8944,6044,8942,8943],"ord":true,"cat":true,"sze":0,"src":89,"hui":["chn09","der04","squ06"],"loc":{"zh-cn":"英国传统服装袜子","de":"Paar Country-Socken","fr-fr":"paire de chaussettes de kilt","it":"paio di calzini country","nl":"kiltsokken","ru":"кантри-носки","ja":"カントリーソックス","ko":"컨트리 양말","zh-tw":"英國傳統服裝襪子","fr-us":"paire de bas de kilt","en":"country socks","es":"calcetín para kilt"}},"c626":{"ipf":"FtrIcon/SocksTexCrocheting","img":["1","2","3","0"],"var":[8,4,0,7],"clr":[2,10,3,7],"sel":150,"buy":600,"hap":51,"stl":[5,0],"lbl":[0,1],"iid":[8939,8940,8941,5202],"ord":true,"cat":true,"sze":0,"src":89,"hui":["hrs03","mus08"],"loc":{"zh-cn":"钩针编织袜","de":"Paar Häkelsocken","es-es":"calcetín de croché","fr-fr":"paire chaussettes crochet","it":"paio di calzini all'uncinetto","nl":"gehaakte sokken","ru":"вязаные крючком носки","ja":"かぎばりあみソックス","ko":"손뜨개 양말","zh-tw":"鉤針編織襪","es-us":"calcetín de crochet","fr-us":"paire de bas crochet","en":"crocheted socks"}},"c539":{"ipf":"FtrIcon/SocksTexDenimleggings","img":["1","3","2","0"],"var":[256,9,257,0],"clr":[4,3,3,4],"sel":135,"buy":540,"hap":51,"stl":0,"lbl":[0,2,5],"iid":[9782,9784,9783,4745],"ord":true,"cat":true,"sze":0,"src":89,"loc":{"zh-cn":"牛仔紧身裤","de":"Jeansleggings","es-es":"malla denim","it":"paio di legging di jeans","nl":"jegging","ru":"джеггинсы","ja":"デニムレギンス","ko":"데님 레깅스","zh-tw":"牛仔緊身褲","es-us":"malla de jean","en":"denim leggings","fr":"legging en jean"}},"c1188":{"ipf":"FtrIcon/SocksTexDotknee","img":["3","0","1","2"],"var":[8,6,3,158],"clr":[2,9,0,6],"sel":180,"buy":720,"hap":51,"stl":[2,0],"lbl":0,"iid":[12181,12174,12179,12180],"ord":true,"cat":true,"sze":0,"src":89,"loc":{"zh-cn":"点点膝上袜","de":"Paar Punkt-Kniestrümpfe","es-es":"calcetín topos alto","it":"paio di calzettoni a pois","nl":"kniekousen met stippen","ru":"гольфы в горох","ja":"ドットのニーハイソックス","ko":"도트 니하이 삭스","zh-tw":"點點膝上襪","es-us":"calcetín a lunares alto","en":"dotted knee-high socks","fr":"p. chauss. longues à pois"}},"c628":{"ipf":"FtrIcon/SocksTexEmbroidery","img":["1","2","4","5","0","3"],"var":[6,2,0,4,16,7],"clr":[[9,1],[6,0],[4,11],[13,10],[8,5],[7,5]],"sel":250,"buy":1000,"hap":51,"stl":[2,5],"lbl":[0,9,10],"iid":[9907,9908,9910,9911,5204,9909],"ord":true,"cat":true,"sze":0,"src":89,"hui":["bea13","cat00","elp03","elp10","mnk07"],"loc":{"zh-cn":"花纹刺绣裤袜","de":"Blumenstick-Strumpfhose","it":"paio di calze a fiori ricamati","nl":"geborduurde bloemenpanty","ru":"расшитые цветами чулки","ja":"はながらししゅうのタイツ","ko":"꽃무늬 자수 타이츠","zh-tw":"花紋刺繡褲襪","en":"embroidered-flower tights","es":"media con flores bordadas","fr":"collant à fleurs brodées"}},"c1059":{"ipf":"FtrIcon/SocksTexDailysocks","img":["5","3","1","2","0","4"],"var":[11,8,6,5,16,7],"clr":[1,2,9,4,8,7],"sel":150,"buy":600,"hap":51,"stl":0,"lbl":[0,3],"iid":[10038,10036,10034,10035,9645,10037],"ord":true,"cat":true,"sze":0,"src":89,"hui":"ham09","loc":{"zh-cn":"通勤袜子","de":"Paar Alltagssocken","es-es":"calcetín de diario","fr-fr":"p. chaussettes ordinaires","it":"paio di calzini ordinari","nl":"alledaagse sokken","ru":"повседневные носки","ja":"デイリーソックス","ko":"데일리 양말","zh-tw":"通勤襪子","es-us":"calcetín diario","fr-us":"p. de bas ordinaires","en":"everyday socks"}},"c1050":{"ipf":"FtrIcon/SocksTexDailytights","img":["3","1","2","0","4","5"],"var":[11,110,8,6,5,7],"clr":[1,2,2,9,4,7],"sel":180,"buy":720,"hap":51,"stl":0,"lbl":[0,3],"iid":[9684,9682,9683,9581,9685,9686],"ord":true,"cat":true,"sze":0,"src":89,"hui":["cat17","cbr07","hrs02","pgn14"],"loc":{"zh-cn":"通勤裤袜","de":"Alltagsstrumpfhose","es-es":"media de diario","it":"paio di calze ordinarie","nl":"alledaagse panty","ru":"повседневные чулки","ja":"デイリータイツ","ko":"데일리 타이츠","zh-tw":"通勤褲襪","es-us":"media diaria","en":"everyday tights","fr":"collant ordinaire"}},"c48":{"ipf":"FtrIcon/SocksTexAmitights","img":["1","0","2"],"var":[11,6,1],"clr":[1,9,5],"sel":120,"buy":480,"hap":51,"stl":[5,1],"lbl":[10,7],"iid":[9659,3096,9660],"ord":true,"cat":true,"sze":0,"src":89,"hui":["der08","hip03","hrs16"],"loc":{"zh-cn":"网袜","de":"Modestrumpfhose","it":"paio di calze a rete","nl":"netpanty","ru":"чулки в сеточку","ja":"あみタイツ","ko":"망사 타이츠","zh-tw":"網襪","en":"fishnet tights","es":"media de rejilla","fr":"collant filet"}},"c879":{"ipf":"FtrIcon/SocksTexFlowerdot","img":["0","4","1","3","2"],"var":[11,6,12,3,0],"clr":[1,9,[10,1],[0,1],[3,1]],"sel":180,"buy":720,"hap":51,"stl":[5,2],"lbl":[9,4,10,7],"iid":[5804,9920,9917,9919,9918],"ord":true,"cat":true,"sze":0,"src":89,"hui":["bea13","mnk07","squ07"],"loc":{"zh-cn":"花朵点点裤袜","de":"Blümchenstrumpfhose","it":"paio di calze a punti floreali","nl":"panty met bloemen","ru":"чулки в цветочек","ja":"フラワードットタイツ","ko":"플라워 도트 타이츠","zh-tw":"花朵點點褲襪","en":"flowery-dot tights","es":"media florecitas","fr":"collant à petites fleurs"}},"c605":{"ipf":"FtrIcon/SocksTexFrilledknee","img":["0","2","5","3","7","1","4","6"],"var":[6,1,12,16,3,2,15,4],"clr":[[9,1],[5,1],[10,1],[11,1],[0,1],[6,1],[3,1],[13,1]],"sel":210,"buy":840,"hap":23,"stl":2,"lbl":[0,9,10,7],"iid":[5172,11590,11593,11591,11595,11589,11592,11594],"ord":true,"cat":true,"sze":0,"src":[92,93],"evt":119,"hui":["dog05","elp04","hrs01"],"loc":{"zh-cn":"蕾丝花边膝上袜","de":"Paar Rüschenkniestrümpfe","it":"p. calzini vezzosi al ginoc.","nl":"kniekousen met ruches","ru":"гольфы с оборками","ja":"フリルつきニーハイソックス","ko":"프릴 니하이 삭스","zh-tw":"蕾絲花邊膝上襪","en":"frilly knee-high socks","es":"calcetín encaje alto","fr":"p. chauss. longues dentelle"}},"c607":{"ipf":"FtrIcon/SocksTexFrilled","img":["0","2","1","3","5","4"],"var":[11,12,3,2,0,4],"clr":[1,[10,1],[0,1],[6,1],[3,1],[13,1]],"sel":180,"buy":720,"hap":51,"stl":[2,0],"lbl":[0,9,4,10],"iid":[5174,8935,8934,8936,8938,8937],"ord":true,"cat":true,"sze":0,"src":89,"hui":["kgr10","hrs01"],"loc":{"zh-cn":"蕾丝花边袜","de":"Paar Rüschensöckchen","es-es":"calcetín con volantes","fr-fr":"paire socquettes à dentelle","it":"paio di calzini vezzosi","nl":"sokken met ruches","ru":"носки с оборками","ja":"フリルソックス","ko":"프릴 양말","zh-tw":"蕾絲花邊襪","es-us":"calcetín con volados","fr-us":"p. de bas à dentelle","en":"frilly socks"}},"c723":{"ipf":"FtrIcon/SocksTexCharacter","img":["4","2","0","3","1"],"var":[6,1,12,2,0],"clr":[[9,2],[5,0],[10,3],[6,4],[4,6]],"sel":150,"buy":600,"hap":23,"stl":[4,2],"lbl":[0,1],"iid":[9995,9993,5406,9994,9992],"ord":true,"cat":true,"sze":0,"src":[92,93],"evt":15,"hui":["dog07","hrs03"],"loc":{"zh-cn":"卡通图案袜","de":"Paar Charaktersocken","fr-fr":"p. de chaussettes rigolotes","it":"paio di calzini con faccina","nl":"sokken met een gezichtje","ru":"носки с рожицами","ja":"キャラクターソックス","ko":"캐릭터 양말","zh-tw":"卡通圖案襪","fr-us":"p. de bas rigolos","en":"funny-face socks","es":"calcetín caritas"}},"c541":{"ipf":"FtrIcon/SocksTexGarter","img":["1","0","3","2"],"var":[11,6,1,4],"clr":[1,9,5,13],"sel":245,"buy":980,"hap":23,"stl":[1,5],"lbl":[4,10,7],"iid":[9661,4747,9663,9662],"ord":true,"cat":true,"sze":0,"src":[92,93],"hui":["cat08","rbt07"],"loc":{"zh-cn":"吊带袜","de":"Paar Strumpfbandstrümpfe","es-es":"calcetín con liguero","fr-fr":"paire de fixe-chaussettes","it":"paio calzini con giarrettiera","nl":"sokken met ophouders","ru":"носки с подтяжками","ja":"ガーターつきストッキング","ko":"가터 스타킹","zh-tw":"吊帶襪","es-us":"calcetín con liga","fr-us":"paire de fixe-bas","en":"garter socks"}},"c749":{"ipf":"FtrIcon/SocksTexChimayo","img":["4","0","5","1","2","3"],"var":[12,3,2,143,4,7],"clr":[[10,12],[0,12],[6,12],[3,12],[13,12],[7,12]],"sel":237,"buy":950,"hap":51,"stl":[4,3],"lbl":2,"iid":[9915,5444,9916,9912,9913,9914],"ord":true,"cat":true,"sze":0,"src":89,"hui":["dog07","hrs03"],"loc":{"zh-cn":"奇马约图腾袜","de":"Paar Chimayo-Socken","es-es":"calcetín Chimayó","fr-fr":"p. de chaussettes Chimayo","it":"paio calzini stile geometrico","nl":"Chimayo-sokken","ru":"абстрактные носки","ja":"チマヨがらソックス","ko":"치마요무늬 양말","zh-tw":"奇馬約圖騰襪","es-us":"calcetín étnico","fr-us":"p. de bas Chimayo","en":"geometric-print socks"}},"c620":{"ipf":"FtrIcon/SocksTexHandknit","img":["2","0","1"],"var":[10,2,4],"clr":[11,6,13],"sel":175,"buy":700,"hap":51,"stl":[0,5],"lbl":[2,1],"iid":[9077,5196,9076],"ord":true,"cat":true,"sze":0,"src":89,"hui":["hip03","hrs03","mus08"],"loc":{"zh-cn":"手工编织袜","de":"Paar Stricksocken","es-es":"calcetín de punto","it":"paio di calzini di maglia","nl":"handgebreide sokken","ru":"вязаные носки","ja":"てあみのソックス","ko":"털실 양말","zh-tw":"手工編織襪","es-us":"calcetín tejido","en":"hand-knit socks","fr":"p. chauss. tricotées main"}},"c610":{"ipf":"FtrIcon/SocksTexHole","img":["0","1","2"],"var":[0,5,11],"clr":[4,4,7],"sel":10,"hap":53,"stl":0,"lbl":[6,1],"iid":[5178,9070,9071],"cat":true,"sze":0,"src":21,"hui":["bea03","pig08"],"loc":{"zh-cn":"破洞袜","de":"Paar Loch-Socken","fr-fr":"paire chaussettes trouée","it":"paio di calzini strappati","nl":"sokken met gaten","ru":"дырявые носки","ja":"あなあきソックス","ko":"구멍 난 양말","zh-tw":"破洞襪","fr-us":"paire de bas troués","en":"holey socks","es":"calcetín raído"}},"c608":{"ipf":"FtrIcon/SocksTexHoletights","img":["0","3","1","7","5","2","6","4"],"var":[6,1,12,3,2,9,0,4],"clr":[9,5,10,0,6,3,4,13],"sel":87,"buy":350,"hap":51,"stl":[1,4],"lbl":[0,6,7],"iid":[5176,9666,9664,9670,9668,9665,9669,9667],"ord":true,"cat":true,"sze":0,"src":89,"loc":{"zh-cn":"破洞裤袜","de":"Löcher-Strumpfhose","it":"paio di calze strappate","nl":"panty met gaten","ru":"дырявые чулки","ja":"あなあきタイツ","ko":"구멍 난 타이츠","zh-tw":"破洞褲襪","en":"holey tights","es":"media raída","fr":"collant filé"}},"c1275":{"ipf":"FtrIcon/SocksTexHalloween","img":["2","5","4","0","3","1"],"var":[11,6,1,10,2,4],"clr":[[1,2],[9,2],[5,13],[11,5],6,[13,10]],"sel":180,"buy":720,"hap":51,"stl":[0,4],"lbl":[0,6,10],"iid":[13373,13376,13375,13029,13374,13372],"ord":true,"cat":true,"sze":0,"src":89,"evt":[43,44],"vad":10,"loc":{"zh-cn":"粗横纹长袜","de":"Paar Ringel-Kniestrümpfe","it":"paio di calze a righe oriz.","nl":"horizontale-strepen-panty","ru":"чулки в полоску","ja":"ボーダータイツ","ko":"줄무늬 타이츠","zh-tw":"粗橫紋褲襪","en":"horizontal-striped tights","es":"media rayas horizontales","fr":"collant rayures horizontales"}},"c1296":{"img":"FtrIcon/SocksTexKeroppi0","clr":[5,1],"sel":180,"buy":720,"hap":201,"stl":[2,1],"lbl":[0,9],"iid":13183,"sze":0,"src":[0,12],"vad":6,"hui":"rbt20","tag":3,"loc":{"zh-cn":"Kerokerokeroppi膝上袜","de":"Paar Keroppi-Socken","fr-fr":"p. chauss. Kerokerokeroppi","it":"paio calze Kerokerokeroppi","nl":"Kerokerokeroppi-sokken","ru":"носки Kerokerokeroppi","ja":"けろけろけろっぴなハイソックス","ko":"케로케로케로피 하이 삭스","zh-tw":"Kerokerokeroppi膝上襪","fr-us":"p. de bas Kerokerokeroppi","en":"Kerokerokeroppi socks","es":"calcetín Kerokerokeroppi"}},"c625":{"ipf":"FtrIcon/SocksTexKids","img":["7","0","6","3","2","4","1","5"],"var":[270,263,269,266,265,267,264,268],"clr":[[9,2],[5,3],[10,0],[0,13],[6,10],[3,5],[4,11],[13,6]],"sel":150,"buy":600,"hap":23,"stl":[2,0],"lbl":[0,2,1,5],"iid":[9991,5201,9990,9987,9986,9988,9985,9989],"ord":true,"cat":true,"sze":0,"src":[92,93],"hui":"kgr10","loc":{"zh-cn":"儿童袜","de":"Paar Kindersöckchen","fr-fr":"paire de socquettes enfant","it":"paio di calzini da bimbo","nl":"kindersokken","ru":"детские носки","ja":"キッズソックス","ko":"어린이용 양말","zh-tw":"兒童襪","fr-us":"paire de bas enfant","en":"kiddie socks","es":"calcetín infantil"}},"c1286":{"img":"FtrIcon/SocksTexKikilala0","clr":[1,10],"sel":180,"buy":720,"hap":201,"stl":2,"lbl":[0,9],"iid":13172,"sze":0,"src":[0,12],"vad":6,"hui":"shp14","tag":3,"loc":{"zh-cn":"Kiki & Lala袜","de":"Paar Kiki-&-Lala-Söckchen","fr-fr":"p. chaussettes Kiki & Lala","it":"paio di calzini Kiki & Lala","nl":"Kiki-&-Lala-sokken","ru":"носочки Kiki & Lala","ja":"キキ&ララなソックス","ko":"리틀트윈스타 양말","zh-tw":"Kiki & Lala襪","fr-us":"paire de bas Kiki & Lala","en":"Kiki & Lala socks","es":"calcetín Kiki & Lala"}},"c1252":{"img":"FtrIcon/SocksTexBandage0","clr":7,"sel":60,"buy":240,"hap":51,"stl":0,"lbl":[0,1],"iid":12966,"ord":true,"cat":true,"sze":0,"src":89,"vad":2,"hui":"cat13","loc":{"zh-cn":"膝盖创可贴","de":"Paar Kniepflaster","es-es":"par de tiritas de rodilla","it":"paio di cerotti per ginocchia","nl":"kniepleisters","ru":"пластыри на колено","ja":"ひざのばんそうこう","ko":"무릎 반창고","zh-tw":"膝蓋絆創帶","es-us":"par de curitas para rodilla","en":"knee bandages","fr":"sparadrap pour le genou"}},"c1407":{"ipf":"FtrIcon/SocksTexProtector","img":["0","1","2","3","4"],"var":[255,251,252,253,254],"clr":[[9,5],[9,4],[9,0],[9,10],[1,9]],"sel":135,"buy":540,"hap":23,"stl":4,"lbl":[0,5],"iid":[14423,139,140,141,142],"ord":true,"cat":true,"sze":0,"src":[92,93],"vad":2,"loc":{"zh-cn":"护膝","de":"Paar Knieschoner","it":"tutore","nl":"kniebandages","ru":"ортез на колено","ja":"ひざあて","ko":"무릎 보호대","zh-tw":"護膝","en":"knee braces","es":"rodillera","fr":"paire de genouillères"}},"c1134":{"ipf":"FtrIcon/SocksTexKatesocks","img":["1","2","5","4","3","0"],"var":[74,75,78,77,76,73],"clr":[9,5,10,0,4,13],"sel":235,"buy":940,"hap":351,"stl":[1,0],"lbl":[0,4,5,7],"iid":[11761,11762,11765,11764,11763,9883],"ord":true,"cat":true,"sze":0,"src":84,"loc":{"zh-cn":"凯丝的袜子","de":"Paar Samthea-Socken","fr-fr":"paire de chaussettes Maria","it":"paio di calzini Bice","nl":"Labelle-sokken","ru":"носки «Лэйблеск»","ja":"ケイトのソックス","ko":"케이트의 양말","zh-tw":"凱絲襪子","fr-us":"paire de bas Maria","en":"Labelle socks","es":"calcetín Trini"}},"c1133":{"ipf":"FtrIcon/SocksTexKatetights","img":["1","2","5","4","3","0"],"var":[74,75,78,77,76,73],"clr":[9,5,10,11,4,13],"sel":310,"buy":1240,"hap":351,"stl":[5,2],"lbl":[0,4,10,7],"iid":[11756,11757,11760,11759,11758,9882],"ord":true,"cat":true,"sze":0,"src":84,"loc":{"zh-cn":"凯丝的裤袜","de":"Samthea-Strumpfhose","it":"paio di calze Bice","nl":"Labelle-panty","ru":"чулки «Лэйблеск»","ja":"ケイトのタイツ","ko":"케이트의 타이츠","zh-tw":"凱絲褲襪","en":"Labelle tights","es":"media Trini","fr":"collant Maria"}},"c606":{"ipf":"FtrIcon/SocksTexLace","img":["0","3","1","2","4"],"var":[11,6,12,2,7],"clr":[1,[9,1],[10,1],[6,1],[7,1]],"sel":180,"buy":720,"hap":51,"stl":[5,0],"lbl":[0,9,4,10],"iid":[5173,8933,8931,8932,10170],"ord":true,"cat":true,"sze":0,"src":89,"hui":["duk03","pig04","shp12"],"loc":{"zh-cn":"蕾丝袜","de":"Paar Spitzensöckchen","fr-fr":"paire chaussettes dentelle","it":"paio di calzini merlettati","nl":"sokken met kant","ru":"носки с кружевами","ja":"レースのソックス","ko":"레이스 양말","zh-tw":"蕾絲襪","fr-us":"paire de bas en dentelle","en":"lace socks","es":"calcetín encaje"}},"c619":{"ipf":"FtrIcon/SockstTexOverlapping","img":["4","5","2","3","1","0"],"var":[1,10,3,2,0,4],"clr":[[2,5],[2,11],[2,0],[2,6],[2,4],[2,13]],"sel":180,"buy":720,"hap":51,"stl":[0,4],"lbl":[0,1],"iid":[9905,9906,9903,9904,9902,5195],"ord":true,"cat":true,"sze":0,"src":89,"evt":26,"hui":"hrs03","loc":{"zh-cn":"多层袜","de":"Paar Abstrakt-Strümpfe","fr-fr":"p. chaussettes superposées","it":"paio di calzini a strati","nl":"laagjessokken","ru":"многослойные носки","ja":"かさねばきソックス","ko":"레이어드 양말","zh-tw":"多層襪","fr-us":"p. de bas superposés","en":"layered socks","es":"calcetín múltiple"}},"c602":{"ipf":"FtrIcon/SocksTexLegwarmer","img":["2","1","3","5","0","4"],"var":[8,6,12,0,4,165],"clr":[2,9,10,4,13,13],"sel":110,"buy":440,"hap":51,"stl":[4,0],"lbl":[2,1],"iid":[9786,9785,9787,9789,5169,9788],"ord":true,"cat":true,"sze":0,"src":89,"evt":26,"hui":"der06","loc":{"zh-cn":"袜套","de":"Paar Beinwärmer","fr-fr":"paire de jambières","it":"paio di scaldamuscoli","nl":"beenwarmers","ru":"гетры","ja":"レッグウォーマー","ko":"발 토시","zh-tw":"保暖襪套","fr-us":"paire de bas réchauffement","en":"leg warmers","es":"calentador"}},"c601":{"ipf":"FtrIcon/SocksTexMixtweed","img":["0","5","6","1","2","4","3","7"],"var":[1,10,14,30,9,0,4,12],"clr":[5,11,0,6,3,4,13,7],"sel":200,"buy":800,"hap":51,"stl":[0,4],"lbl":[0,1],"iid":[5168,9067,9068,9063,9064,9066,9065,9069],"ord":true,"cat":true,"sze":0,"src":89,"loc":{"zh-cn":"混色粗花呢袜","de":"Paar Mixed-Tweed-Socken","fr-fr":"p. de chaussettes tweed","it":"paio di calzini di lana mista","nl":"mêleesokken","ru":"мелированные носки","ja":"ミックスツイードソックス","ko":"믹스 트위드 양말","zh-tw":"混色斜紋軟呢襪","fr-us":"p. de bas en tweed","en":"mixed-tweed socks","es":"calcetín de tweed"}},"c1054":{"ipf":"FtrIcon/SocksTexNeonleggings","img":["1","2","0","3","4"],"var":[12,10,3,2,4],"clr":[[10,13],[11,10],[0,11],[6,3],[13,4]],"sel":135,"buy":540,"hap":51,"stl":[4,0],"lbl":[2,10,7],"iid":[9808,9809,9586,9810,9811],"ord":true,"cat":true,"sze":0,"src":89,"loc":{"zh-cn":"荧光色紧身裤","de":"Neon-Leggings","it":"paio di legging neon","nl":"neonlegging","ru":"неоновые леггинсы","ja":"ネオンレギンス","ko":"네온 레깅스","zh-tw":"螢光色緊身褲","en":"neon leggings","es":"malla de colores neón","fr":"legging fluo"}},"c1052":{"ipf":"FtrIcon/SocksTexNeontights","img":["1","2","0","3","4"],"var":[12,10,3,2,4],"clr":[[10,13],[11,10],[0,11],[6,3],[13,4]],"sel":180,"buy":720,"hap":51,"stl":[4,0],"lbl":[10,7],"iid":[9694,9695,9583,9696,9697],"ord":true,"cat":true,"sze":0,"src":89,"hui":"elp04","loc":{"zh-cn":"荧光色裤袜","de":"Neon-Strumpfhose","it":"paio di calze neon","nl":"neonpanty","ru":"неоновые чулки","ja":"ネオンタイツ","ko":"네온 타이츠","zh-tw":"螢光色褲襪","en":"neon tights","es":"media de colores neón","fr":"collant fluo"}},"c535":{"ipf":"FtrIcon/SocksTexSneakerin","img":["1","0","2","4","7","5","3","6"],"var":[11,8,32,10,3,2,9,5],"clr":[[1,5],[2,9],[5,2],[11,13],[0,3],[6,4],[3,1],[4,0]],"sel":120,"buy":480,"hap":51,"stl":[0,4],"lbl":[0,2,1,5],"iid":[10003,4741,10004,10006,10009,10007,10005,10008],"ord":true,"cat":true,"sze":0,"src":89,"hui":["cbr06","pbr06"],"loc":{"zh-cn":"船型袜","de":"Paar Low-Socken","fr-fr":"paire de mini-socquettes","it":"paio di calzini corti","nl":"sneakersokken","ru":"невидимые носки","ja":"スニーカーインソックス","ko":"발목 양말","zh-tw":"船型襪","fr-us":"p. de mini-bas","en":"no-show socks","es":"calcetín oculto"}},"c1144":{"img":"FtrIcon/SocksTexBorderRco","clr":[0,11],"sel":2000,"exp":400,"exc":0,"hap":151,"stl":[4,0],"lbl":[0,2,1],"iid":5629,"cat":true,"sze":0,"src":2,"loc":{"zh-cn":"Nook Inc.袜子","de":"Paar Nook-Inc.-Socken","fr-fr":"p. de chaussettes Nook Inc.","it":"paio di calzini Nook Inc.","nl":"Nook Inc.-sokken","ru":"носки Nook Inc.","ja":"たぬきかいはつソックス","ko":"Nook Inc. 양말","zh-tw":"Nook Inc.襪子","fr-us":"p. de bas Nook Inc.","en":"Nook Inc. socks","es":"calcetín de Nook Inc."}},"c542":{"ipf":"FtrIcon/SocksTexNordic","img":["4","2","5","6","3","0","1"],"var":[8,1,2,9,0,5,26],"clr":[[2,9],[5,9],[6,9],[3,9],[4,9],[4,9],[7,9]],"sel":210,"buy":840,"hap":51,"stl":[5,0],"lbl":[0,2,1],"iid":[9892,9890,9893,9894,9891,4748,9889],"ord":true,"cat":true,"sze":0,"src":89,"evt":26,"hui":["der09","dog07","duk15","tig00"],"loc":{"zh-cn":"北欧风袜子","de":"Paar Norwegerstrümpfe","fr-fr":"p. de chaussettes nordiques","it":"paio di calzini yodel","nl":"Scandinavische sokken","ru":"северные носки","ja":"ノルディックなソックス","ko":"노르딕풍 양말","zh-tw":"北歐風襪子","fr-us":"p. de bas nordiques","en":"nordic socks","es":"calcetín nórdico"}},"c928":{"ipf":"FtrIcon/SocksTexStripedot","img":["1","0"],"var":[11,6],"clr":[1,9],"sel":235,"buy":940,"hap":51,"stl":[5,0],"lbl":[0,4,10,7],"iid":[9674,6046],"ord":true,"cat":true,"sze":0,"src":89,"hui":["elp04","squ03"],"loc":{"zh-cn":"花纹丝袜","de":"Paar Musterstrümpfe","it":"paio di calze decorate","nl":"panty met patroon","ru":"чулки с узором","ja":"デザインストッキング","ko":"디자인 스타킹","zh-tw":"花紋絲襪","en":"patterned stockings","es":"media con estampado","fr":"collant à motifs"}},"c611":{"ipf":"FtrIcon/SocksTexBobble","img":["0","3","2","1","4"],"var":[12,10,2,0,4],"clr":[[10,1],[11,1],[6,1],[3,1],[13,1]],"sel":180,"buy":720,"hap":51,"stl":2,"lbl":[0,9,1],"iid":[5179,9074,9073,9072,9075],"ord":true,"cat":true,"sze":0,"src":89,"evt":26,"loc":{"zh-cn":"毛球袜","de":"Paar Puschel-Socken","fr-fr":"paire chaussettes pompons","it":"paio di calzini con pon-pon","nl":"sokken met pompons","ru":"носки с помпонами","ja":"ポンポンソックス","ko":"폼폼 양말","zh-tw":"毛球襪","fr-us":"paire de bas à pompons","en":"pom-pom socks","es":"calcetín con pompones"}},"c622":{"ipf":"FtrIcon/SocksTexPucker","img":["1","0","3","2","4"],"var":[1,33,2,0,4],"clr":[5,11,6,4,13],"sel":150,"buy":600,"hap":51,"stl":[5,0],"lbl":0,"iid":[9078,5198,9080,9079,9081],"ord":true,"cat":true,"sze":0,"src":89,"hui":"cow00","loc":{"zh-cn":"泡泡袜","de":"Paar Mäusezahnsocken","fr-fr":"p. chaussettes déformées","it":"paio di calzini arricciati","nl":"gerimpelde sokken","ru":"носки пико","ja":"くしゅくしゅソックス","ko":"꾸깃꾸깃한 양말","zh-tw":"泡泡襪","fr-us":"p. de bas déformés","en":"puckered socks","es":"calcetín plisado"}},"c629":{"ipf":"FtrIcon/SocksTexRun","img":["0","1","3","2"],"var":[12,3,2,0],"clr":[[9,10],[9,0],[9,6],[9,4]],"sel":137,"buy":550,"hap":51,"stl":4,"lbl":[2,5,3],"iid":[5214,9798,9800,9799],"ord":true,"cat":true,"sze":0,"src":89,"hui":["gor01","ost02"],"loc":{"zh-cn":"跑步紧身裤","de":"Läuferleggings","it":"paio di calze da corsa","nl":"hardlooplegging","ru":"чулки для пробежек","ja":"ランニングタイツ","ko":"러닝 타이츠","zh-tw":"跑步緊身褲","en":"running tights","es":"malla para correr","fr":"collant de course à pied"}},"c1060":{"ipf":"FtrIcon/SocksTexNuancesocks","img":["1","4","5","6","0","2","3","7"],"var":[1,4,13,30,2,0,5,16],"clr":[5,10,0,6,6,4,13,8],"sel":120,"buy":480,"hap":51,"stl":[5,0],"lbl":0,"iid":[10027,10030,10031,10032,9644,10028,10029,10033],"ord":true,"cat":true,"sze":0,"src":89,"hui":["hrs03","pig01"],"loc":{"zh-cn":"同色系袜子","de":"Paar Transparenz-Socken","it":"paio di calzini semiopachi","nl":"semi-doorzichtige sokken","ru":"полупрозрачные носки","ja":"ニュアンスソックス","ko":"반투명 양말","zh-tw":"同色系襪子","en":"semi-opaque socks","es":"calcetín semiopaco","fr":"p. chauss. semi-opaques"}},"c1049":{"ipf":"FtrIcon/SocksTexNuancetights","img":["6","5","0","1","7","2","4","3"],"var":[1,12,16,3,160,2,0,4],"clr":[5,10,11,0,6,6,4,13],"sel":180,"buy":720,"hap":51,"stl":[5,0],"lbl":0,"iid":[9680,9679,9580,9675,9681,9676,9678,9677],"ord":true,"cat":true,"sze":0,"src":89,"loc":{"zh-cn":"同色系裤袜","de":"Transparenz-Strumpfhose","it":"paio di calze semiopache","nl":"semi-doorzichtige panty","ru":"полупрозрачные чулки","ja":"ニュアンスタイツ","ko":"반투명 타이츠","zh-tw":"同色系褲襪","en":"semi-opaque tights","es":"media semiopaca","fr":"collant semi-opaque"}},"c537":{"ipf":"FtrIcon/SocksTexSequins","img":["4","2","1","0","3","7","5","6"],"var":[11,6,1,12,3,2,0,4],"clr":[1,9,5,10,0,6,4,13],"sel":235,"buy":940,"hap":23,"stl":3,"lbl":[10,7],"iid":[11583,11581,11580,4743,11582,11586,11584,11585],"ord":true,"cat":true,"sze":0,"src":[92,93],"hui":["duk03","elp04"],"loc":{"zh-cn":"亮片紧身裤","de":"Paillettenleggings","it":"paio di legging con lustrini","nl":"legging met pailletten","ru":"леггинсы с пайетками","ja":"スパンコールレギンス","ko":"스팽글 레깅스","zh-tw":"亮片緊身褲","en":"sequin leggings","es":"malla con lentejuelas","fr":"legging à sequins"}},"c886":{"ipf":"FtrIcon/SocksTexSeethrough","img":["5","1","3","4","0","2"],"var":[8,32,2,117,0,16],"clr":[2,5,6,6,4,8],"sel":150,"buy":600,"hap":23,"stl":[5,2],"lbl":[0,4,10],"iid":[9932,9928,9930,9931,5812,9929],"ord":true,"cat":true,"sze":0,"src":[92,93],"evt":120,"loc":{"zh-cn":"透肤袜","de":"Paar Seidensocken","fr-fr":"paires de chaussettes fines","it":"paio di calzini traslucidi","nl":"doorschijnende sokken","ru":"тонкие носки","ja":"シースルーソックス","ko":"시스루 양말","zh-tw":"透膚襪","fr-us":"paire de bas fins","en":"sheer socks","es":"calcetín traslúcido"}},"c1189":{"ipf":"FtrIcon/SocksTexSimpleknee","img":["1","2","0","3"],"var":[11,1,12,0],"clr":[1,5,10,3],"sel":150,"buy":600,"hap":23,"stl":[2,0],"lbl":0,"iid":[12182,12183,12175,12184],"ord":true,"cat":true,"sze":0,"src":[92,93],"hui":["brd17","pgn11"],"loc":{"zh-cn":"简约膝上袜","de":"Paar Simpel-Kniestrümpfe","it":"paio di calzettoni semplici","nl":"eenvoudige kniekousen","ru":"простые гольфы","ja":"シンプルなニーハイソックス","ko":"심플 니하이 삭스","zh-tw":"簡約膝上襪","en":"simple knee-high socks","es":"calcetín sencillo alto","fr":"p. chauss. longues simples"}},"c624":{"ipf":"FtrIcon/SocksTexOnepoint","img":["2","3","1","6","7","5","0","4"],"var":[11,8,6,1,12,10,5,0],"clr":[[1,9],[2,3],[9,1],[5,9],[10,1],[11,0],[4,5],[4,3]],"sel":180,"buy":720,"hap":51,"stl":0,"lbl":[0,4],"iid":[9083,9084,9082,9087,9088,9086,5200,9085],"ord":true,"cat":true,"sze":0,"src":89,"hui":"duk03","loc":{"zh-cn":"单一图案袜","de":"Paar Logo-Socken","fr-fr":"paire de chaussettes à logo","it":"paio di calzini con logo","nl":"sokken met detail","ru":"носки с акцентом","ja":"ワンポイントソックス","ko":"원 포인트 양말","zh-tw":"小圖案襪","fr-us":"paire de bas à logo","en":"simple-accent socks","es":"calcetín con detalle"}},"c609":{"ipf":"FtrIcon/SocksTexFootball","img":["6","4","1","5","2","3","0"],"var":[11,6,1,10,2,9,0],"clr":[[1,9],[9,1],[5,1],[11,1],[6,1],[3,1],[4,1]],"sel":200,"buy":800,"hap":23,"stl":4,"lbl":[5,3],"iid":[9978,9976,9973,9977,9974,9975,5177],"ord":true,"cat":true,"sze":0,"src":[92,93],"hui":["brd04","cat20","ham00","hrs03"],"loc":{"zh-cn":"足球袜","de":"Paar Fußballstutzen","es-es":"media fútbol","fr-fr":"paire chaussettes de foot","it":"paio di calzettoni da calcio","nl":"voetbalsokken","ru":"футбольные носки","ja":"サッカーソックス","ko":"축구 양말","zh-tw":"足球襪","es-us":"media de fútbol","fr-us":"paire de bas de soccer","en":"soccer socks"}},"c627":{"ipf":"FtrIcon/SocksTexSpider","img":["1","0","2","3"],"var":[11,6,10,4],"clr":[1,9,11,13],"sel":180,"buy":720,"hap":23,"stl":1,"lbl":[6,10,7],"iid":[9671,5203,9672,9673],"ord":true,"cat":true,"sze":0,"src":[92,93],"evt":120,"hui":"mus02","loc":{"zh-cn":"蜘蛛裤袜","de":"Spinnennetz-Strumpfhose","it":"paio di calze a ragnatela","nl":"spinnenwebpanty","ru":"чулки с узором-паутиной","ja":"スパイダーなタイツ","ko":"거미줄 타이츠","zh-tw":"蜘蛛褲襪","en":"spider-web tights","es":"media de telaraña","fr":"collant toile d'araignée"}},"c47":{"ipf":"FtrIcon/SocksTexTights","img":["2","1","0","3","4"],"var":[11,8,6,16,7],"clr":[1,2,9,8,7],"sel":120,"buy":480,"hap":51,"stl":0,"lbl":[0,3],"iid":[9656,9655,3095,9657,9658],"ord":true,"cat":true,"sze":0,"src":89,"hui":["der00","duk04"],"loc":{"zh-cn":"丝袜","de":"Paar Strümpfe","fr-fr":"paire de bas","it":"paio di calze","nl":"kousen","ru":"чулки","ja":"ストッキング","ko":"스타킹","zh-tw":"絲襪","fr-us":"collant","en":"stockings","es":"media"}},"c538":{"ipf":"FtrIcon/SocksTexLeggings","img":["3","1","2","4","6","0","5"],"var":[11,8,134,6,2,5,16],"clr":[1,2,2,9,6,4,8],"sel":112,"buy":450,"hap":51,"stl":0,"lbl":[0,2,5],"iid":[9778,9776,9777,9779,9781,4744,9780],"ord":true,"cat":true,"sze":0,"src":89,"hui":"pgn00","loc":{"zh-cn":"弹性紧身裤","de":"Stretchleggings","it":"paio di legging elastici","nl":"stretchlegging","ru":"эластичные леггинсы","ja":"ストレッチレギンス","ko":"스트레치 레깅스","zh-tw":"彈性緊身褲","en":"stretch leggings","es":"malla elástica","fr":"legging stretch"}},"c623":{"ipf":"FtrIcon/SocksTexBorder","img":["0","5","4","3","2","1","7","6"],"var":[157,1,10,3,2,9,0,4],"clr":[[9,1],[5,1],[11,1],[0,1],[6,1],[3,1],[4,1],[13,1]],"sel":150,"buy":600,"hap":51,"stl":0,"lbl":[0,1],"iid":[5199,9999,9998,9997,9996,6902,10001,10000],"ord":true,"cat":true,"sze":0,"src":89,"hui":["dog07","hrs03","hrs01"],"loc":{"zh-cn":"粗横纹袜","de":"Paar Ringelsocken","fr-fr":"paire de chaussettes rayées","it":"paio di calzini a strisce","nl":"gestreepte sokken","ru":"полосатые носки","ja":"ボーダーソックス","ko":"가로 줄무늬 양말","zh-tw":"粗橫紋襪","fr-us":"paire de bas rayés","en":"striped socks","es":"calcetín a rayas"}},"c927":{"ipf":"FtrIcon/SocksTexStripe","img":["1","0","2","7","4","6","3","5"],"var":[8,1,12,10,3,2,9,4],"clr":[[2,9],[5,9],[10,9],[11,9],[0,9],[6,9],[3,9],[13,9]],"sel":180,"buy":720,"hap":51,"stl":3,"lbl":[10,7],"iid":[9937,6045,9938,9943,9940,9942,9939,9941],"ord":true,"cat":true,"sze":0,"src":89,"loc":{"zh-cn":"条纹袜子","de":"Streifenstrumpfhose","es-es":"media rayas","it":"paio di calze a strisce","nl":"verticale-strepen-panty","ru":"полосатые чулки","ja":"ストライプソックス","ko":"세로 줄무늬 양말","zh-tw":"條紋襪子","es-us":"media a rayas","en":"striped tights","fr":"collant à rayures verticales"}},"c543":{"ipf":"FtrIcon/SocksTexTabi","img":["0","1","2"],"var":[11,6,5],"clr":[1,9,4],"sel":300,"buy":1200,"hap":51,"stl":0,"lbl":[0,4,10],"iid":[4749,8929,8930],"ord":true,"cat":true,"sze":0,"src":89,"hui":["cat01","der11","duk06","mus16","ost08","pbr03","squ19"],"loc":{"de":"Paar Tabi-Socken","it":"paio di tabi","nl":"tabi","ru":"носки таби","ja":"たび","ko":"일본풍 버선","en":"tabi","es":"tabi","fr":"paire de tabi","zh":"足袋"}},"c613":{"ipf":"FtrIcon/SocksTexFluffy","img":["6","5","0","3","2","1","4"],"var":[8,1,12,2,0,4,7],"clr":[[2,1],[5,1],[10,1],[6,1],[3,1],[13,1],[7,1]],"sel":150,"buy":600,"hap":51,"stl":2,"lbl":[9,1],"iid":[9984,9983,5181,9981,9980,9979,9982],"ord":true,"cat":true,"sze":0,"src":89,"evt":26,"hui":["dog07","dog09","hrs03","kgr00","shp02"],"loc":{"zh-cn":"毛绒袜","de":"Paar Frottee-Socken","fr-fr":"p. chaussettes tissu éponge","it":"paio di calzini di spugna","nl":"badstoffen sokken","ru":"махровые носки","ja":"もこもこソックス","ko":"수면 양말","zh-tw":"毛絨襪","fr-us":"p. de bas en tissu éponge","en":"terry-cloth socks","es":"calcetín de felpa"}},"c540":{"ipf":"FtrIcon/SocksTexLine","img":["3","1","2","0","5","6","4","7"],"var":[1,10,2,0,32,218,5,4],"clr":[[1,5],[1,11],[1,6],[1,4],[2,5],[2,6],[2,4],[2,13]],"sel":120,"buy":480,"hap":51,"stl":[0,4],"lbl":[0,2,5],"iid":[9968,9966,9967,4746,9970,9971,9969,9972],"ord":true,"cat":true,"sze":0,"src":89,"hui":["bea00","brd09","bul07","dog04","elp01","hrs02","pgn06","tig02"],"loc":{"zh-cn":"条纹袜","de":"Paar Sportsocken","fr-fr":"paire de chaussettes sport","it":"paio di calzini con righe","nl":"sportsokken","ru":"носки без пятки","ja":"ラインソックス","ko":"라인 양말","zh-tw":"條紋襪","fr-us":"paire de bas de sport","en":"tube socks","es":"calcetín cómodo"}},"c600":{"ipf":"FtrIcon/SocksTexFootcover","img":["7","6","1","3","4","0","5","2"],"var":[11,6,12,117,2,0,4,16],"clr":[1,9,10,6,6,4,13,8],"sel":120,"buy":480,"hap":51,"stl":[0,4],"lbl":[0,2,5],"iid":[10016,10015,10010,10012,10013,5167,10014,10011],"ord":true,"cat":true,"sze":0,"src":89,"loc":{"zh-cn":"隐形袜","de":"Paar Füßlinge","fr-fr":"p. de chaussettes ballerines","it":"paio di fantasmini","nl":"kousenvoetjes","ru":"следки","ja":"フットカバー","ko":"덧양말","zh-tw":"隱形襪","fr-us":"p. de bas ballerines","en":"ultra no-show socks","es":"calcetín invisible"}},"c1053":{"ipf":"FtrIcon/SocksTexVividleggings","img":["2","3","7","5","6","0","4","1"],"var":[1,12,10,3,2,9,0,4],"clr":[5,10,11,0,6,3,4,13],"sel":112,"buy":450,"hap":51,"stl":0,"lbl":[2,10,7],"iid":[9802,9803,9807,9805,9806,9585,9804,9801],"ord":true,"cat":true,"sze":0,"src":89,"loc":{"zh-cn":"鲜艳紧身裤","de":"Einfarb-Leggings","it":"paio di legging briosi","nl":"felgekleurde legging","ru":"яркие леггинсы","ja":"ビビッドなレギンス","ko":"비비드 레깅스","zh-tw":"鮮豔緊身褲","en":"vivid leggings","es":"malla de color vívido","fr":"legging vif"}},"c1002":{"img":["FtrIcon/SocksTexVividsocks0","FtrIcon/SocksTexVividsocks5","FtrIcon/SocksTexVividsocks6","FtrIcon/SocksTexVividsocks7","FtrIcon/SocksTexStandard1","FtrIcon/SocksTexVividsocks2","FtrIcon/SocksTexVividsocks3","FtrIcon/SocksTexVividsocks4"],"var":[1,12,10,3,2,9,0,4],"clr":[5,10,11,0,6,3,4,13],"sel":120,"buy":480,"hap":51,"stl":0,"lbl":[0,10,7],"iid":[9643,10024,10025,10026,6898,10021,10022,10023],"ord":true,"cat":true,"sze":0,"src":89,"hui":"squ13","loc":{"zh-cn":"鲜艳袜子","de":"Paar Einfarb-Socken","fr-fr":"paire de socquettes vives","it":"paio di calzini briosi","nl":"felgekleurde sokken","ru":"яркие носки","ja":"ビビッドなソックス","ko":"비비드 양말","zh-tw":"鮮豔襪子","fr-us":"p. de bas simples","en":"vivid socks","es":"calcetín de color vívido"}},"c1051":{"ipf":"FtrIcon/SocksTexVividtights","img":["2","3","7","5","6","0","4","1"],"var":[1,12,10,3,2,9,0,4],"clr":[5,10,11,0,6,3,4,13],"sel":180,"buy":720,"hap":51,"stl":0,"lbl":[10,7],"iid":[9688,9689,9693,9691,9692,9582,9690,9687],"ord":true,"cat":true,"sze":0,"src":89,"hui":"squ13","loc":{"zh-cn":"鲜艳裤袜","de":"Einfarb-Strumpfhose","it":"paio di calze briose","nl":"felgekleurde panty","ru":"яркие чулки","ja":"ビビッドなタイツ","ko":"비비드 타이츠","zh-tw":"鮮豔褲襪","en":"vivid tights","es":"media de color vívido","fr":"collant vif"}},"c887":{"ipf":"FtrIcon/SocksTexWave","img":["4","3","0","2","1"],"var":[8,2,0,4,16],"clr":[[9,2],6,[4,3],[13,10],[8,7]],"sel":150,"buy":600,"hap":23,"stl":[1,0],"lbl":0,"iid":[9936,9935,5813,9934,9933],"ord":true,"cat":true,"sze":0,"src":[92,93],"hui":["crd04","hrs03"],"loc":{"zh-cn":"青海波袜子","de":"Paar Wellensöckchen","fr-fr":"paire de socquettes vagues","it":"paio di calzini a squame","nl":"sokken met golvenprint","ru":"носки с волнами","ja":"せいがいはソックス","ko":"파도무늬 양말","zh-tw":"青海波襪子","fr-us":"p. de bas vagues","en":"wave-print socks","es":"calcetín ondas"}}}
+{
+    "c621": {
+        "ipf": "FtrIcon/SocksTexAerobics",
+        "img": [
+            "0",
+            "3",
+            "2",
+            "1",
+            "4"
+        ],
+        "var": [
+            258,
+            261,
+            260,
+            259,
+            262
+        ],
+        "clr": [
+            [
+                10,
+                5
+            ],
+            [
+                10,
+                3
+            ],
+            [
+                11,
+                13
+            ],
+            [
+                6,
+                3
+            ],
+            [
+                4,
+                0
+            ]
+        ],
+        "sel": 175,
+        "buy": 700,
+        "hap": 23,
+        "stl": 4,
+        "lbl": 5,
+        "iid": [
+            5197,
+            9796,
+            9795,
+            9794,
+            9797
+        ],
+        "ord": true,
+        "cat": true,
+        "sze": 0,
+        "src": [
+            92,
+            93
+        ],
+        "hui": "pbr02",
+        "loc": {
+            "zh-cn": "有氧运动紧身裤",
+            "de": "Aerobic-Leggings",
+            "fr-fr": "legging d'aérobic",
+            "it": "paio di legging da aerobica",
+            "nl": "aerobicslegging",
+            "ru": "леггинсы для аэробики",
+            "ja": "エアロビレギンス",
+            "ko": "에어로빅 레깅스",
+            "zh-tw": "有氧運動緊身褲",
+            "fr-us": "legging d'aérobique",
+            "en": "aerobics leggings",
+            "es": "malla con calentador"
+        }
+    },
+    "c536": {
+        "ipf": "FtrIcon/SocksTexAlan",
+        "img": [
+            "1",
+            "5",
+            "2",
+            "3",
+            "4",
+            "0"
+        ],
+        "var": [
+            11,
+            6,
+            1,
+            2,
+            0,
+            7
+        ],
+        "clr": [
+            1,
+            9,
+            5,
+            6,
+            4,
+            7
+        ],
+        "sel": 180,
+        "buy": 720,
+        "hap": 51,
+        "stl": [
+            0,
+            5
+        ],
+        "lbl": [
+            0,
+            1
+        ],
+        "iid": [
+            9058,
+            9062,
+            9059,
+            9060,
+            9061,
+            4742
+        ],
+        "ord": true,
+        "cat": true,
+        "sze": 0,
+        "src": 89,
+        "evt": 26,
+        "loc": {
+            "zh-cn": "毛线袜",
+            "de": "Paar Aranmustersocken",
+            "es-es": "calcetín de punto trenzado",
+            "fr-fr": "paire de chaussettes Aran",
+            "it": "paio di calzini Aran",
+            "nl": "Aran-sokken",
+            "ru": "носки аранской вязки",
+            "ja": "アランニットのソックス",
+            "ko": "아란 니트 양말",
+            "zh-tw": "手編阿倫花樣針織襪",
+            "es-us": "calcetín tejido trenzado",
+            "fr-us": "paire de bas Aran",
+            "en": "Aran-knit socks"
+        }
+    },
+    "c880": {
+        "ipf": "FtrIcon/SocksTexArgyle",
+        "img": [
+            "5",
+            "4",
+            "1",
+            "7",
+            "6",
+            "2",
+            "0",
+            "3"
+        ],
+        "var": [
+            11,
+            8,
+            1,
+            12,
+            10,
+            2,
+            0,
+            7
+        ],
+        "clr": [
+            [
+                1,
+                5
+            ],
+            [
+                2,
+                10
+            ],
+            [
+                5,
+                1
+            ],
+            [
+                10,
+                1
+            ],
+            [
+                11,
+                1
+            ],
+            [
+                6,
+                0
+            ],
+            [
+                4,
+                3
+            ],
+            [
+                7,
+                8
+            ]
+        ],
+        "sel": 180,
+        "buy": 720,
+        "hap": 51,
+        "stl": [
+            5,
+            0
+        ],
+        "lbl": [
+            0,
+            4,
+            3
+        ],
+        "iid": [
+            9925,
+            9924,
+            9921,
+            9927,
+            9926,
+            9922,
+            5806,
+            9923
+        ],
+        "ord": true,
+        "cat": true,
+        "sze": 0,
+        "src": 89,
+        "hui": [
+            "cat23",
+            "hrs03",
+            "ost05"
+        ],
+        "loc": {
+            "zh-cn": "菱格纹袜",
+            "de": "Paar Argyle-Crew-Socken",
+            "es-es": "calcetín pijo",
+            "fr-fr": "p. de chaussettes argyle",
+            "it": "paio di calzini a rombi",
+            "nl": "argyle-sokken",
+            "ru": "носки аргайл",
+            "ja": "アーガイルソックス",
+            "ko": "아가일 양말",
+            "zh-tw": "菱格紋襪",
+            "es-us": "calcetín rombos alto",
+            "fr-us": "p. de bas écossais",
+            "en": "argyle crew socks"
+        }
+    },
+    "c519": {
+        "ipf": "FtrIcon/SocksTexRibbon",
+        "img": [
+            "3",
+            "2",
+            "0",
+            "1",
+            "5",
+            "4"
+        ],
+        "var": [
+            11,
+            6,
+            12,
+            3,
+            143,
+            0
+        ],
+        "clr": [
+            [
+                1,
+                10
+            ],
+            [
+                9,
+                1
+            ],
+            [
+                10,
+                9
+            ],
+            [
+                0,
+                6
+            ],
+            [
+                6,
+                10
+            ],
+            [
+                3,
+                0
+            ]
+        ],
+        "sel": 150,
+        "buy": 600,
+        "hap": 23,
+        "stl": 2,
+        "lbl": [
+            0,
+            9,
+            10,
+            8
+        ],
+        "iid": [
+            9055,
+            9054,
+            4718,
+            9053,
+            9057,
+            9056
+        ],
+        "ord": true,
+        "cat": true,
+        "sze": 0,
+        "src": [
+            92,
+            93
+        ],
+        "evt": 119,
+        "hui": "hrs03",
+        "loc": {
+            "zh-cn": "蝴蝶结袜子",
+            "de": "Paar Schleifchensocken",
+            "fr-fr": "p. de chaussettes à nœud",
+            "it": "paio di calzini con fiocco",
+            "nl": "sokken met een strikje",
+            "ru": "носки с бантиком сзади",
+            "ja": "リボンソックス",
+            "ko": "리본 양말",
+            "zh-tw": "蝴蝶結襪子",
+            "fr-us": "p. de bas à nœud",
+            "en": "back-bow socks",
+            "es": "calcetín lazo trasero"
+        }
+    },
+    "c604": {
+        "ipf": "FtrIcon/SocksTexFolded",
+        "img": [
+            "0",
+            "1",
+            "2",
+            "3"
+        ],
+        "var": [
+            11,
+            8,
+            6,
+            16
+        ],
+        "clr": [
+            1,
+            2,
+            9,
+            8
+        ],
+        "sel": 120,
+        "buy": 480,
+        "hap": 51,
+        "stl": [
+            5,
+            0
+        ],
+        "lbl": [
+            4,
+            3
+        ],
+        "iid": [
+            5171,
+            10017,
+            10018,
+            10019
+        ],
+        "ord": true,
+        "cat": true,
+        "sze": 0,
+        "src": 89,
+        "hui": "duk04",
+        "loc": {
+            "zh-cn": "三折袜",
+            "de": "Paar Bündchensocken",
+            "it": "paio di calzini con trina",
+            "nl": "sokken met omslag",
+            "ru": "короткие белые носки",
+            "ja": "みつおりソックス",
+            "ko": "접는 양말",
+            "zh-tw": "三折襪",
+            "en": "bobby socks",
+            "es": "calcetín sencillo",
+            "fr": "paire de socquettes simples"
+        }
+    },
+    "c612": {
+        "ipf": "FtrIcon/SocksTexMultiblock",
+        "img": [
+            "5",
+            "7",
+            "6",
+            "1",
+            "3",
+            "0",
+            "2",
+            "4"
+        ],
+        "var": [
+            11,
+            12,
+            14,
+            2,
+            0,
+            4,
+            16,
+            7
+        ],
+        "clr": [
+            [
+                1,
+                12
+            ],
+            [
+                10,
+                12
+            ],
+            [
+                6,
+                12
+            ],
+            [
+                6,
+                12
+            ],
+            [
+                4,
+                12
+            ],
+            [
+                13,
+                12
+            ],
+            [
+                8,
+                12
+            ],
+            [
+                7,
+                12
+            ]
+        ],
+        "sel": 210,
+        "buy": 840,
+        "hap": 23,
+        "stl": [
+            2,
+            5
+        ],
+        "lbl": 0,
+        "iid": [
+            9899,
+            9901,
+            9900,
+            9895,
+            9897,
+            5180,
+            9896,
+            9898
+        ],
+        "ord": true,
+        "cat": true,
+        "sze": 0,
+        "src": [
+            92,
+            93
+        ],
+        "hui": [
+            "dog07",
+            "rbt00"
+        ],
+        "loc": {
+            "zh-cn": "多色格子袜",
+            "de": "Paar Bunt-Socken",
+            "fr-fr": "paire chaussettes carreaux",
+            "it": "paio di calzini variopinti",
+            "nl": "sokken met kleurvlakken",
+            "ru": "носки в цветную клетку",
+            "ja": "マルチブロックソックス",
+            "ko": "컬러 블록 양말",
+            "zh-tw": "多色方塊襪",
+            "fr-us": "paire de bas à carreaux",
+            "en": "color-blocked socks",
+            "es": "calcetín composición color"
+        }
+    },
+    "c603": {
+        "ipf": "FtrIcon/SocksTexCompression",
+        "img": [
+            "4",
+            "2",
+            "1",
+            "3",
+            "0"
+        ],
+        "var": [
+            1,
+            12,
+            3,
+            15,
+            0
+        ],
+        "clr": [
+            [
+                9,
+                5
+            ],
+            [
+                9,
+                10
+            ],
+            [
+                9,
+                0
+            ],
+            [
+                9,
+                6
+            ],
+            [
+                9,
+                4
+            ]
+        ],
+        "sel": 150,
+        "buy": 600,
+        "hap": 23,
+        "stl": 4,
+        "lbl": [
+            2,
+            5,
+            3
+        ],
+        "iid": [
+            9793,
+            9791,
+            9790,
+            9792,
+            5170
+        ],
+        "ord": true,
+        "cat": true,
+        "sze": 0,
+        "src": [
+            92,
+            93
+        ],
+        "hui": [
+            "brd09",
+            "pbr00"
+        ],
+        "loc": {
+            "zh-cn": "压力裤袜",
+            "de": "Kompressionsstrumpfhose",
+            "it": "paio di calze contenitive",
+            "nl": "compressielegging",
+            "ru": "компрессионные чулки",
+            "ja": "コンプレッションタイツ",
+            "ko": "압박 타이츠",
+            "zh-tw": "壓力褲襪",
+            "en": "compression tights",
+            "es": "malla de compresión",
+            "fr": "collant de contention"
+        }
+    },
+    "c926": {
+        "ipf": "FtrIcon/SocksTexCountry",
+        "img": [
+            "3",
+            "0",
+            "1",
+            "2"
+        ],
+        "var": [
+            274,
+            271,
+            272,
+            273
+        ],
+        "clr": [
+            [
+                1,
+                9
+            ],
+            [
+                1,
+                5
+            ],
+            [
+                1,
+                6
+            ],
+            [
+                1,
+                4
+            ]
+        ],
+        "sel": 180,
+        "buy": 720,
+        "hap": 51,
+        "stl": [
+            5,
+            0
+        ],
+        "lbl": [
+            4,
+            3
+        ],
+        "iid": [
+            8944,
+            6044,
+            8942,
+            8943
+        ],
+        "ord": true,
+        "cat": true,
+        "sze": 0,
+        "src": 89,
+        "hui": [
+            "chn09",
+            "der04",
+            "squ06"
+        ],
+        "loc": {
+            "zh-cn": "英国传统服装袜子",
+            "de": "Paar Country-Socken",
+            "fr-fr": "paire de chaussettes de kilt",
+            "it": "paio di calzini country",
+            "nl": "kiltsokken",
+            "ru": "кантри-носки",
+            "ja": "カントリーソックス",
+            "ko": "컨트리 양말",
+            "zh-tw": "英國傳統服裝襪子",
+            "fr-us": "paire de bas de kilt",
+            "en": "country socks",
+            "es": "calcetín para kilt"
+        }
+    },
+    "c626": {
+        "ipf": "FtrIcon/SocksTexCrocheting",
+        "img": [
+            "1",
+            "2",
+            "3",
+            "0"
+        ],
+        "var": [
+            8,
+            4,
+            0,
+            7
+        ],
+        "clr": [
+            2,
+            10,
+            3,
+            7
+        ],
+        "sel": 150,
+        "buy": 600,
+        "hap": 51,
+        "stl": [
+            5,
+            0
+        ],
+        "lbl": [
+            0,
+            1
+        ],
+        "iid": [
+            8939,
+            8940,
+            8941,
+            5202
+        ],
+        "ord": true,
+        "cat": true,
+        "sze": 0,
+        "src": 89,
+        "hui": [
+            "hrs03",
+            "mus08"
+        ],
+        "loc": {
+            "zh-cn": "钩针编织袜",
+            "de": "Paar Häkelsocken",
+            "es-es": "calcetín de croché",
+            "fr-fr": "paire chaussettes crochet",
+            "it": "paio di calzini all'uncinetto",
+            "nl": "gehaakte sokken",
+            "ru": "вязаные крючком носки",
+            "ja": "かぎばりあみソックス",
+            "ko": "손뜨개 양말",
+            "zh-tw": "鉤針編織襪",
+            "es-us": "calcetín de crochet",
+            "fr-us": "paire de bas crochet",
+            "en": "crocheted socks"
+        }
+    },
+    "c539": {
+        "ipf": "FtrIcon/SocksTexDenimleggings",
+        "img": [
+            "1",
+            "3",
+            "2",
+            "0"
+        ],
+        "var": [
+            256,
+            9,
+            257,
+            0
+        ],
+        "clr": [
+            4,
+            3,
+            3,
+            4
+        ],
+        "sel": 135,
+        "buy": 540,
+        "hap": 51,
+        "stl": 0,
+        "lbl": [
+            0,
+            2,
+            5
+        ],
+        "iid": [
+            9782,
+            9784,
+            9783,
+            4745
+        ],
+        "ord": true,
+        "cat": true,
+        "sze": 0,
+        "src": 89,
+        "loc": {
+            "zh-cn": "牛仔紧身裤",
+            "de": "Jeansleggings",
+            "es-es": "malla denim",
+            "it": "paio di legging di jeans",
+            "nl": "jegging",
+            "ru": "джеггинсы",
+            "ja": "デニムレギンス",
+            "ko": "데님 레깅스",
+            "zh-tw": "牛仔緊身褲",
+            "es-us": "malla de jean",
+            "en": "denim leggings",
+            "fr": "legging en jean"
+        }
+    },
+    "c1188": {
+        "ipf": "FtrIcon/SocksTexDotknee",
+        "img": [
+            "3",
+            "0",
+            "1",
+            "2"
+        ],
+        "var": [
+            8,
+            6,
+            3,
+            158
+        ],
+        "clr": [
+            2,
+            9,
+            0,
+            6
+        ],
+        "sel": 180,
+        "buy": 720,
+        "hap": 51,
+        "stl": [
+            2,
+            0
+        ],
+        "lbl": 0,
+        "iid": [
+            12181,
+            12174,
+            12179,
+            12180
+        ],
+        "ord": true,
+        "cat": true,
+        "sze": 0,
+        "src": 89,
+        "loc": {
+            "zh-cn": "点点膝上袜",
+            "de": "Paar Punkt-Kniestrümpfe",
+            "es-es": "calcetín topos alto",
+            "it": "paio di calzettoni a pois",
+            "nl": "kniekousen met stippen",
+            "ru": "гольфы в горох",
+            "ja": "ドットのニーハイソックス",
+            "ko": "도트 니하이 삭스",
+            "zh-tw": "點點膝上襪",
+            "es-us": "calcetín a lunares alto",
+            "en": "dotted knee-high socks",
+            "fr": "p. chauss. longues à pois"
+        }
+    },
+    "c628": {
+        "ipf": "FtrIcon/SocksTexEmbroidery",
+        "img": [
+            "1",
+            "2",
+            "4",
+            "5",
+            "0",
+            "3"
+        ],
+        "var": [
+            6,
+            2,
+            0,
+            4,
+            16,
+            7
+        ],
+        "clr": [
+            [
+                9,
+                1
+            ],
+            [
+                6,
+                0
+            ],
+            [
+                4,
+                11
+            ],
+            [
+                13,
+                10
+            ],
+            [
+                8,
+                5
+            ],
+            [
+                7,
+                5
+            ]
+        ],
+        "sel": 250,
+        "buy": 1000,
+        "hap": 51,
+        "stl": [
+            2,
+            5
+        ],
+        "lbl": [
+            0,
+            9,
+            10
+        ],
+        "iid": [
+            9907,
+            9908,
+            9910,
+            9911,
+            5204,
+            9909
+        ],
+        "ord": true,
+        "cat": true,
+        "sze": 0,
+        "src": 89,
+        "hui": [
+            "bea13",
+            "cat00",
+            "elp03",
+            "elp10",
+            "mnk07"
+        ],
+        "loc": {
+            "zh-cn": "花纹刺绣裤袜",
+            "de": "Blumenstick-Strumpfhose",
+            "it": "paio di calze a fiori ricamati",
+            "nl": "geborduurde bloemenpanty",
+            "ru": "расшитые цветами чулки",
+            "ja": "はながらししゅうのタイツ",
+            "ko": "꽃무늬 자수 타이츠",
+            "zh-tw": "花紋刺繡褲襪",
+            "en": "embroidered-flower tights",
+            "es": "media con flores bordadas",
+            "fr": "collant à fleurs brodées"
+        }
+    },
+    "c1059": {
+        "ipf": "FtrIcon/SocksTexDailysocks",
+        "img": [
+            "5",
+            "3",
+            "1",
+            "2",
+            "0",
+            "4"
+        ],
+        "var": [
+            11,
+            8,
+            6,
+            5,
+            16,
+            7
+        ],
+        "clr": [
+            1,
+            2,
+            9,
+            4,
+            8,
+            7
+        ],
+        "sel": 150,
+        "buy": 600,
+        "hap": 51,
+        "stl": 0,
+        "lbl": [
+            0,
+            3
+        ],
+        "iid": [
+            10038,
+            10036,
+            10034,
+            10035,
+            9645,
+            10037
+        ],
+        "ord": true,
+        "cat": true,
+        "sze": 0,
+        "src": 89,
+        "hui": "ham09",
+        "loc": {
+            "zh-cn": "通勤袜子",
+            "de": "Paar Alltagssocken",
+            "es-es": "calcetín de diario",
+            "fr-fr": "p. chaussettes ordinaires",
+            "it": "paio di calzini ordinari",
+            "nl": "alledaagse sokken",
+            "ru": "повседневные носки",
+            "ja": "デイリーソックス",
+            "ko": "데일리 양말",
+            "zh-tw": "通勤襪子",
+            "es-us": "calcetín diario",
+            "fr-us": "p. de bas ordinaires",
+            "en": "everyday socks"
+        }
+    },
+    "c1050": {
+        "ipf": "FtrIcon/SocksTexDailytights",
+        "img": [
+            "3",
+            "1",
+            "2",
+            "0",
+            "4",
+            "5"
+        ],
+        "var": [
+            11,
+            110,
+            8,
+            6,
+            5,
+            7
+        ],
+        "clr": [
+            1,
+            2,
+            2,
+            9,
+            4,
+            7
+        ],
+        "sel": 180,
+        "buy": 720,
+        "hap": 51,
+        "stl": 0,
+        "lbl": [
+            0,
+            3
+        ],
+        "iid": [
+            9684,
+            9682,
+            9683,
+            9581,
+            9685,
+            9686
+        ],
+        "ord": true,
+        "cat": true,
+        "sze": 0,
+        "src": 89,
+        "hui": [
+            "cat17",
+            "cbr07",
+            "hrs02",
+            "pgn14"
+        ],
+        "loc": {
+            "zh-cn": "通勤裤袜",
+            "de": "Alltagsstrumpfhose",
+            "es-es": "media de diario",
+            "it": "paio di calze ordinarie",
+            "nl": "alledaagse panty",
+            "ru": "повседневные чулки",
+            "ja": "デイリータイツ",
+            "ko": "데일리 타이츠",
+            "zh-tw": "通勤褲襪",
+            "es-us": "media diaria",
+            "en": "everyday tights",
+            "fr": "collant ordinaire"
+        }
+    },
+    "c48": {
+        "ipf": "FtrIcon/SocksTexAmitights",
+        "img": [
+            "1",
+            "0",
+            "2"
+        ],
+        "var": [
+            11,
+            6,
+            1
+        ],
+        "clr": [
+            1,
+            9,
+            5
+        ],
+        "sel": 120,
+        "buy": 480,
+        "hap": 51,
+        "stl": [
+            5,
+            1
+        ],
+        "lbl": [
+            10,
+            7
+        ],
+        "iid": [
+            9659,
+            3096,
+            9660
+        ],
+        "ord": true,
+        "cat": true,
+        "sze": 0,
+        "src": 89,
+        "hui": [
+            "der08",
+            "hip03",
+            "hrs16"
+        ],
+        "loc": {
+            "zh-cn": "网袜",
+            "de": "Modestrumpfhose",
+            "it": "paio di calze a rete",
+            "nl": "netpanty",
+            "ru": "чулки в сеточку",
+            "ja": "あみタイツ",
+            "ko": "망사 타이츠",
+            "zh-tw": "網襪",
+            "en": "fishnet tights",
+            "es": "media de rejilla",
+            "fr": "collant filet"
+        }
+    },
+    "c879": {
+        "ipf": "FtrIcon/SocksTexFlowerdot",
+        "img": [
+            "0",
+            "4",
+            "1",
+            "3",
+            "2"
+        ],
+        "var": [
+            11,
+            6,
+            12,
+            3,
+            0
+        ],
+        "clr": [
+            1,
+            9,
+            [
+                10,
+                1
+            ],
+            [
+                0,
+                1
+            ],
+            [
+                3,
+                1
+            ]
+        ],
+        "sel": 180,
+        "buy": 720,
+        "hap": 51,
+        "stl": [
+            5,
+            2
+        ],
+        "lbl": [
+            9,
+            4,
+            10,
+            7
+        ],
+        "iid": [
+            5804,
+            9920,
+            9917,
+            9919,
+            9918
+        ],
+        "ord": true,
+        "cat": true,
+        "sze": 0,
+        "src": 89,
+        "hui": [
+            "bea13",
+            "mnk07",
+            "squ07"
+        ],
+        "loc": {
+            "zh-cn": "花朵点点裤袜",
+            "de": "Blümchenstrumpfhose",
+            "it": "paio di calze a punti floreali",
+            "nl": "panty met bloemen",
+            "ru": "чулки в цветочек",
+            "ja": "フラワードットタイツ",
+            "ko": "플라워 도트 타이츠",
+            "zh-tw": "花朵點點褲襪",
+            "en": "flowery-dot tights",
+            "es": "media florecitas",
+            "fr": "collant à petites fleurs"
+        }
+    },
+    "c605": {
+        "ipf": "FtrIcon/SocksTexFrilledknee",
+        "img": [
+            "0",
+            "2",
+            "5",
+            "3",
+            "7",
+            "1",
+            "4",
+            "6"
+        ],
+        "var": [
+            6,
+            1,
+            12,
+            16,
+            3,
+            2,
+            15,
+            4
+        ],
+        "clr": [
+            [
+                9,
+                1
+            ],
+            [
+                5,
+                1
+            ],
+            [
+                10,
+                1
+            ],
+            [
+                11,
+                1
+            ],
+            [
+                0,
+                1
+            ],
+            [
+                6,
+                1
+            ],
+            [
+                3,
+                1
+            ],
+            [
+                13,
+                1
+            ]
+        ],
+        "sel": 210,
+        "buy": 840,
+        "hap": 23,
+        "stl": 2,
+        "lbl": [
+            0,
+            9,
+            10,
+            7
+        ],
+        "iid": [
+            5172,
+            11590,
+            11593,
+            11591,
+            11595,
+            11589,
+            11592,
+            11594
+        ],
+        "ord": true,
+        "cat": true,
+        "sze": 0,
+        "src": [
+            92,
+            93
+        ],
+        "evt": 119,
+        "hui": [
+            "dog05",
+            "elp04",
+            "hrs01"
+        ],
+        "loc": {
+            "zh-cn": "蕾丝花边膝上袜",
+            "de": "Paar Rüschenkniestrümpfe",
+            "it": "p. calzini vezzosi al ginoc.",
+            "nl": "kniekousen met ruches",
+            "ru": "гольфы с оборками",
+            "ja": "フリルつきニーハイソックス",
+            "ko": "프릴 니하이 삭스",
+            "zh-tw": "蕾絲花邊膝上襪",
+            "en": "frilly knee-high socks",
+            "es": "calcetín encaje alto",
+            "fr": "p. chauss. longues dentelle"
+        }
+    },
+    "c607": {
+        "ipf": "FtrIcon/SocksTexFrilled",
+        "img": [
+            "0",
+            "2",
+            "1",
+            "3",
+            "5",
+            "4"
+        ],
+        "var": [
+            11,
+            12,
+            3,
+            2,
+            0,
+            4
+        ],
+        "clr": [
+            1,
+            [
+                10,
+                1
+            ],
+            [
+                0,
+                1
+            ],
+            [
+                6,
+                1
+            ],
+            [
+                3,
+                1
+            ],
+            [
+                13,
+                1
+            ]
+        ],
+        "sel": 180,
+        "buy": 720,
+        "hap": 51,
+        "stl": [
+            2,
+            0
+        ],
+        "lbl": [
+            0,
+            9,
+            4,
+            10
+        ],
+        "iid": [
+            5174,
+            8935,
+            8934,
+            8936,
+            8938,
+            8937
+        ],
+        "ord": true,
+        "cat": true,
+        "sze": 0,
+        "src": 89,
+        "hui": [
+            "kgr10",
+            "hrs01"
+        ],
+        "loc": {
+            "zh-cn": "蕾丝花边袜",
+            "de": "Paar Rüschensöckchen",
+            "es-es": "calcetín con volantes",
+            "fr-fr": "paire socquettes à dentelle",
+            "it": "paio di calzini vezzosi",
+            "nl": "sokken met ruches",
+            "ru": "носки с оборками",
+            "ja": "フリルソックス",
+            "ko": "프릴 양말",
+            "zh-tw": "蕾絲花邊襪",
+            "es-us": "calcetín con volados",
+            "fr-us": "p. de bas à dentelle",
+            "en": "frilly socks"
+        }
+    },
+    "c723": {
+        "ipf": "FtrIcon/SocksTexCharacter",
+        "img": [
+            "4",
+            "2",
+            "0",
+            "3",
+            "1"
+        ],
+        "var": [
+            6,
+            1,
+            12,
+            2,
+            0
+        ],
+        "clr": [
+            [
+                9,
+                2
+            ],
+            [
+                5,
+                0
+            ],
+            [
+                10,
+                3
+            ],
+            [
+                6,
+                4
+            ],
+            [
+                4,
+                6
+            ]
+        ],
+        "sel": 150,
+        "buy": 600,
+        "hap": 23,
+        "stl": [
+            4,
+            2
+        ],
+        "lbl": [
+            0,
+            1
+        ],
+        "iid": [
+            9995,
+            9993,
+            5406,
+            9994,
+            9992
+        ],
+        "ord": true,
+        "cat": true,
+        "sze": 0,
+        "src": [
+            92,
+            93
+        ],
+        "evt": 15,
+        "hui": [
+            "dog07",
+            "hrs03"
+        ],
+        "loc": {
+            "zh-cn": "卡通图案袜",
+            "de": "Paar Charaktersocken",
+            "fr-fr": "p. de chaussettes rigolotes",
+            "it": "paio di calzini con faccina",
+            "nl": "sokken met een gezichtje",
+            "ru": "носки с рожицами",
+            "ja": "キャラクターソックス",
+            "ko": "캐릭터 양말",
+            "zh-tw": "卡通圖案襪",
+            "fr-us": "p. de bas rigolos",
+            "en": "funny-face socks",
+            "es": "calcetín caritas"
+        }
+    },
+    "c541": {
+        "ipf": "FtrIcon/SocksTexGarter",
+        "img": [
+            "1",
+            "0",
+            "3",
+            "2"
+        ],
+        "var": [
+            11,
+            6,
+            1,
+            4
+        ],
+        "clr": [
+            1,
+            9,
+            5,
+            13
+        ],
+        "sel": 245,
+        "buy": 980,
+        "hap": 23,
+        "stl": [
+            1,
+            5
+        ],
+        "lbl": [
+            4,
+            10,
+            7
+        ],
+        "iid": [
+            9661,
+            4747,
+            9663,
+            9662
+        ],
+        "ord": true,
+        "cat": true,
+        "sze": 0,
+        "src": [
+            92,
+            93
+        ],
+        "hui": [
+            "cat08",
+            "rbt07"
+        ],
+        "loc": {
+            "zh-cn": "吊带袜",
+            "de": "Paar Strumpfbandstrümpfe",
+            "es-es": "calcetín con liguero",
+            "fr-fr": "paire de fixe-chaussettes",
+            "it": "paio calzini con giarrettiera",
+            "nl": "sokken met ophouders",
+            "ru": "носки с подтяжками",
+            "ja": "ガーターつきストッキング",
+            "ko": "가터 스타킹",
+            "zh-tw": "吊帶襪",
+            "es-us": "calcetín con liga",
+            "fr-us": "paire de fixe-bas",
+            "en": "garter socks"
+        }
+    },
+    "c749": {
+        "ipf": "FtrIcon/SocksTexChimayo",
+        "img": [
+            "4",
+            "0",
+            "5",
+            "1",
+            "2",
+            "3"
+        ],
+        "var": [
+            12,
+            3,
+            2,
+            143,
+            4,
+            7
+        ],
+        "clr": [
+            [
+                10,
+                12
+            ],
+            [
+                0,
+                12
+            ],
+            [
+                6,
+                12
+            ],
+            [
+                3,
+                12
+            ],
+            [
+                13,
+                12
+            ],
+            [
+                7,
+                12
+            ]
+        ],
+        "sel": 237,
+        "buy": 950,
+        "hap": 51,
+        "stl": [
+            4,
+            3
+        ],
+        "lbl": 2,
+        "iid": [
+            9915,
+            5444,
+            9916,
+            9912,
+            9913,
+            9914
+        ],
+        "ord": true,
+        "cat": true,
+        "sze": 0,
+        "src": 89,
+        "hui": [
+            "dog07",
+            "hrs03"
+        ],
+        "loc": {
+            "zh-cn": "奇马约图腾袜",
+            "de": "Paar Chimayo-Socken",
+            "es-es": "calcetín Chimayó",
+            "fr-fr": "p. de chaussettes Chimayo",
+            "it": "paio calzini stile geometrico",
+            "nl": "Chimayo-sokken",
+            "ru": "абстрактные носки",
+            "ja": "チマヨがらソックス",
+            "ko": "치마요무늬 양말",
+            "zh-tw": "奇馬約圖騰襪",
+            "es-us": "calcetín étnico",
+            "fr-us": "p. de bas Chimayo",
+            "en": "geometric-print socks"
+        }
+    },
+    "c620": {
+        "ipf": "FtrIcon/SocksTexHandknit",
+        "img": [
+            "2",
+            "0",
+            "1"
+        ],
+        "var": [
+            10,
+            2,
+            4
+        ],
+        "clr": [
+            11,
+            6,
+            13
+        ],
+        "sel": 175,
+        "buy": 700,
+        "hap": 51,
+        "stl": [
+            0,
+            5
+        ],
+        "lbl": [
+            2,
+            1
+        ],
+        "iid": [
+            9077,
+            5196,
+            9076
+        ],
+        "ord": true,
+        "cat": true,
+        "sze": 0,
+        "src": 89,
+        "hui": [
+            "hip03",
+            "hrs03",
+            "mus08"
+        ],
+        "loc": {
+            "zh-cn": "手工编织袜",
+            "de": "Paar Stricksocken",
+            "es-es": "calcetín de punto",
+            "it": "paio di calzini di maglia",
+            "nl": "handgebreide sokken",
+            "ru": "вязаные носки",
+            "ja": "てあみのソックス",
+            "ko": "털실 양말",
+            "zh-tw": "手工編織襪",
+            "es-us": "calcetín tejido",
+            "en": "hand-knit socks",
+            "fr": "p. chauss. tricotées main"
+        }
+    },
+    "c610": {
+        "ipf": "FtrIcon/SocksTexHole",
+        "img": [
+            "0",
+            "1",
+            "2"
+        ],
+        "var": [
+            0,
+            5,
+            11
+        ],
+        "clr": [
+            4,
+            4,
+            7
+        ],
+        "sel": 10,
+        "hap": 53,
+        "stl": 0,
+        "lbl": [
+            6,
+            1
+        ],
+        "iid": [
+            5178,
+            9070,
+            9071
+        ],
+        "cat": true,
+        "sze": 0,
+        "src": 21,
+        "hui": [
+            "bea03",
+            "pig08"
+        ],
+        "loc": {
+            "zh-cn": "破洞袜",
+            "de": "Paar Loch-Socken",
+            "fr-fr": "paire chaussettes trouée",
+            "it": "paio di calzini strappati",
+            "nl": "sokken met gaten",
+            "ru": "дырявые носки",
+            "ja": "あなあきソックス",
+            "ko": "구멍 난 양말",
+            "zh-tw": "破洞襪",
+            "fr-us": "paire de bas troués",
+            "en": "holey socks",
+            "es": "calcetín raído"
+        }
+    },
+    "c608": {
+        "ipf": "FtrIcon/SocksTexHoletights",
+        "img": [
+            "0",
+            "3",
+            "1",
+            "7",
+            "5",
+            "2",
+            "6",
+            "4"
+        ],
+        "var": [
+            6,
+            1,
+            12,
+            3,
+            2,
+            9,
+            0,
+            4
+        ],
+        "clr": [
+            9,
+            5,
+            10,
+            0,
+            6,
+            3,
+            4,
+            13
+        ],
+        "sel": 87,
+        "buy": 350,
+        "hap": 51,
+        "stl": [
+            1,
+            4
+        ],
+        "lbl": [
+            0,
+            6,
+            7
+        ],
+        "iid": [
+            5176,
+            9666,
+            9664,
+            9670,
+            9668,
+            9665,
+            9669,
+            9667
+        ],
+        "ord": true,
+        "cat": true,
+        "sze": 0,
+        "src": 89,
+        "loc": {
+            "zh-cn": "破洞裤袜",
+            "de": "Löcher-Strumpfhose",
+            "it": "paio di calze strappate",
+            "nl": "panty met gaten",
+            "ru": "дырявые чулки",
+            "ja": "あなあきタイツ",
+            "ko": "구멍 난 타이츠",
+            "zh-tw": "破洞褲襪",
+            "en": "holey tights",
+            "es": "media raída",
+            "fr": "collant filé"
+        }
+    },
+    "c1275": {
+        "ipf": "FtrIcon/SocksTexHalloween",
+        "img": [
+            "2",
+            "5",
+            "4",
+            "0",
+            "3",
+            "1"
+        ],
+        "var": [
+            11,
+            6,
+            1,
+            10,
+            2,
+            4
+        ],
+        "clr": [
+            [
+                1,
+                2
+            ],
+            [
+                9,
+                2
+            ],
+            [
+                5,
+                13
+            ],
+            [
+                11,
+                5
+            ],
+            6,
+            [
+                13,
+                10
+            ]
+        ],
+        "sel": 180,
+        "buy": 720,
+        "hap": 51,
+        "stl": [
+            0,
+            4
+        ],
+        "lbl": [
+            0,
+            6,
+            10
+        ],
+        "iid": [
+            13373,
+            13376,
+            13375,
+            13029,
+            13374,
+            13372
+        ],
+        "ord": true,
+        "cat": true,
+        "sze": 0,
+        "src": 89,
+        "evt": [
+            43,
+            44
+        ],
+        "vad": 10,
+        "loc": {
+            "zh-cn": "粗横纹长袜",
+            "de": "Paar Ringel-Kniestrümpfe",
+            "it": "paio di calze a righe oriz.",
+            "nl": "horizontale-strepen-panty",
+            "ru": "чулки в полоску",
+            "ja": "ボーダータイツ",
+            "ko": "줄무늬 타이츠",
+            "zh-tw": "粗橫紋褲襪",
+            "en": "horizontal-striped tights",
+            "es": "media rayas horizontales",
+            "fr": "collant rayures horizontales"
+        }
+    },
+    "c1296": {
+        "img": "FtrIcon/SocksTexKeroppi0",
+        "clr": [
+            5,
+            1
+        ],
+        "sel": 180,
+        "buy": 720,
+        "hap": 201,
+        "stl": [
+            2,
+            1
+        ],
+        "lbl": [
+            0,
+            9
+        ],
+        "iid": 13183,
+        "sze": 0,
+        "src": [
+            0,
+            12
+        ],
+        "vad": 6,
+        "hui": "rbt20",
+        "tag": 3,
+        "loc": {
+            "zh-cn": "Kerokerokeroppi膝上袜",
+            "de": "Paar Keroppi-Socken",
+            "fr-fr": "p. chauss. Kerokerokeroppi",
+            "it": "paio calze Kerokerokeroppi",
+            "nl": "Kerokerokeroppi-sokken",
+            "ru": "носки Kerokerokeroppi",
+            "ja": "けろけろけろっぴなハイソックス",
+            "ko": "케로케로케로피 하이 삭스",
+            "zh-tw": "Kerokerokeroppi膝上襪",
+            "fr-us": "p. de bas Kerokerokeroppi",
+            "en": "Kerokerokeroppi socks",
+            "es": "calcetín Kerokerokeroppi"
+        }
+    },
+    "c625": {
+        "ipf": "FtrIcon/SocksTexKids",
+        "img": [
+            "7",
+            "0",
+            "6",
+            "3",
+            "2",
+            "4",
+            "1",
+            "5"
+        ],
+        "var": [
+            270,
+            263,
+            269,
+            266,
+            265,
+            267,
+            264,
+            268
+        ],
+        "clr": [
+            [
+                9,
+                2
+            ],
+            [
+                5,
+                3
+            ],
+            [
+                10,
+                0
+            ],
+            [
+                0,
+                13
+            ],
+            [
+                6,
+                10
+            ],
+            [
+                3,
+                5
+            ],
+            [
+                4,
+                11
+            ],
+            [
+                13,
+                6
+            ]
+        ],
+        "sel": 150,
+        "buy": 600,
+        "hap": 23,
+        "stl": [
+            2,
+            0
+        ],
+        "lbl": [
+            0,
+            2,
+            1,
+            5
+        ],
+        "iid": [
+            9991,
+            5201,
+            9990,
+            9987,
+            9986,
+            9988,
+            9985,
+            9989
+        ],
+        "ord": true,
+        "cat": true,
+        "sze": 0,
+        "src": [
+            92,
+            93
+        ],
+        "hui": "kgr10",
+        "loc": {
+            "zh-cn": "儿童袜",
+            "de": "Paar Kindersöckchen",
+            "fr-fr": "paire de socquettes enfant",
+            "it": "paio di calzini da bimbo",
+            "nl": "kindersokken",
+            "ru": "детские носки",
+            "ja": "キッズソックス",
+            "ko": "어린이용 양말",
+            "zh-tw": "兒童襪",
+            "fr-us": "paire de bas enfant",
+            "en": "kiddie socks",
+            "es": "calcetín infantil"
+        }
+    },
+    "c1286": {
+        "img": "FtrIcon/SocksTexKikilala0",
+        "clr": [
+            1,
+            10
+        ],
+        "sel": 180,
+        "buy": 720,
+        "hap": 201,
+        "stl": 2,
+        "lbl": [
+            0,
+            9
+        ],
+        "iid": 13172,
+        "sze": 0,
+        "src": [
+            0,
+            12
+        ],
+        "vad": 6,
+        "hui": "shp14",
+        "tag": 3,
+        "loc": {
+            "zh-cn": "Kiki & Lala袜",
+            "de": "Paar Kiki-&-Lala-Söckchen",
+            "fr-fr": "p. chaussettes Kiki & Lala",
+            "it": "paio di calzini Kiki & Lala",
+            "nl": "Kiki-&-Lala-sokken",
+            "ru": "носочки Kiki & Lala",
+            "ja": "キキ&ララなソックス",
+            "ko": "리틀트윈스타 양말",
+            "zh-tw": "Kiki & Lala襪",
+            "fr-us": "paire de bas Kiki & Lala",
+            "en": "Kiki & Lala socks",
+            "es": "calcetín Kiki & Lala"
+        }
+    },
+    "c1252": {
+        "img": "FtrIcon/SocksTexBandage0",
+        "clr": 7,
+        "sel": 60,
+        "buy": 240,
+        "hap": 51,
+        "stl": 0,
+        "lbl": [
+            0,
+            1
+        ],
+        "iid": 12966,
+        "ord": true,
+        "cat": true,
+        "sze": 0,
+        "src": 89,
+        "vad": 2,
+        "hui": "cat13",
+        "loc": {
+            "zh-cn": "膝盖创可贴",
+            "de": "Paar Kniepflaster",
+            "es-es": "par de tiritas de rodilla",
+            "it": "paio di cerotti per ginocchia",
+            "nl": "kniepleisters",
+            "ru": "пластыри на колено",
+            "ja": "ひざのばんそうこう",
+            "ko": "무릎 반창고",
+            "zh-tw": "膝蓋絆創帶",
+            "es-us": "par de curitas para rodilla",
+            "en": "knee bandages",
+            "fr": "sparadrap pour le genou"
+        }
+    },
+    "c1407": {
+        "ipf": "FtrIcon/SocksTexProtector",
+        "img": [
+            "0",
+            "1",
+            "2",
+            "3",
+            "4"
+        ],
+        "var": [
+            255,
+            251,
+            252,
+            253,
+            254
+        ],
+        "clr": [
+            [
+                9,
+                5
+            ],
+            [
+                9,
+                4
+            ],
+            [
+                9,
+                0
+            ],
+            [
+                9,
+                10
+            ],
+            [
+                1,
+                9
+            ]
+        ],
+        "sel": 135,
+        "buy": 540,
+        "hap": 23,
+        "stl": 4,
+        "lbl": [
+            0,
+            5
+        ],
+        "iid": [
+            14423,
+            139,
+            140,
+            141,
+            142
+        ],
+        "ord": true,
+        "cat": true,
+        "sze": 0,
+        "src": [
+            92,
+            93
+        ],
+        "vad": 2,
+        "loc": {
+            "zh-cn": "护膝",
+            "de": "Paar Knieschoner",
+            "it": "tutore",
+            "nl": "kniebandages",
+            "ru": "ортез на колено",
+            "ja": "ひざあて",
+            "ko": "무릎 보호대",
+            "zh-tw": "護膝",
+            "en": "knee braces",
+            "es": "rodillera",
+            "fr": "paire de genouillères"
+        }
+    },
+    "c1134": {
+        "ipf": "FtrIcon/SocksTexKatesocks",
+        "img": [
+            "1",
+            "2",
+            "5",
+            "4",
+            "3",
+            "0"
+        ],
+        "var": [
+            74,
+            75,
+            78,
+            77,
+            76,
+            73
+        ],
+        "clr": [
+            9,
+            5,
+            10,
+            0,
+            4,
+            13
+        ],
+        "sel": 235,
+        "buy": 940,
+        "hap": 351,
+        "stl": [
+            1,
+            0
+        ],
+        "lbl": [
+            0,
+            4,
+            5,
+            7
+        ],
+        "iid": [
+            11761,
+            11762,
+            11765,
+            11764,
+            11763,
+            9883
+        ],
+        "ord": true,
+        "cat": true,
+        "sze": 0,
+        "src": 84,
+        "loc": {
+            "zh-cn": "凯丝的袜子",
+            "de": "Paar Samthea-Socken",
+            "fr-fr": "paire de chaussettes Maria",
+            "it": "paio di calzini Bice",
+            "nl": "Labelle-sokken",
+            "ru": "носки «Лэйблеск»",
+            "ja": "ケイトのソックス",
+            "ko": "케이트의 양말",
+            "zh-tw": "凱絲襪子",
+            "fr-us": "paire de bas Maria",
+            "en": "Labelle socks",
+            "es": "calcetín Trini"
+        }
+    },
+    "c1133": {
+        "ipf": "FtrIcon/SocksTexKatetights",
+        "img": [
+            "1",
+            "2",
+            "5",
+            "4",
+            "3",
+            "0"
+        ],
+        "var": [
+            74,
+            75,
+            78,
+            77,
+            76,
+            73
+        ],
+        "clr": [
+            9,
+            5,
+            10,
+            11,
+            4,
+            13
+        ],
+        "sel": 310,
+        "buy": 1240,
+        "hap": 351,
+        "stl": [
+            5,
+            2
+        ],
+        "lbl": [
+            0,
+            4,
+            10,
+            7
+        ],
+        "iid": [
+            11756,
+            11757,
+            11760,
+            11759,
+            11758,
+            9882
+        ],
+        "ord": true,
+        "cat": true,
+        "sze": 0,
+        "src": 84,
+        "loc": {
+            "zh-cn": "凯丝的裤袜",
+            "de": "Samthea-Strumpfhose",
+            "it": "paio di calze Bice",
+            "nl": "Labelle-panty",
+            "ru": "чулки «Лэйблеск»",
+            "ja": "ケイトのタイツ",
+            "ko": "케이트의 타이츠",
+            "zh-tw": "凱絲褲襪",
+            "en": "Labelle tights",
+            "es": "media Trini",
+            "fr": "collant Maria"
+        }
+    },
+    "c606": {
+        "ipf": "FtrIcon/SocksTexLace",
+        "img": [
+            "0",
+            "3",
+            "1",
+            "2",
+            "4"
+        ],
+        "var": [
+            11,
+            6,
+            12,
+            2,
+            7
+        ],
+        "clr": [
+            1,
+            [
+                9,
+                1
+            ],
+            [
+                10,
+                1
+            ],
+            [
+                6,
+                1
+            ],
+            [
+                7,
+                1
+            ]
+        ],
+        "sel": 180,
+        "buy": 720,
+        "hap": 51,
+        "stl": [
+            5,
+            0
+        ],
+        "lbl": [
+            0,
+            9,
+            4,
+            10
+        ],
+        "iid": [
+            5173,
+            8933,
+            8931,
+            8932,
+            10170
+        ],
+        "ord": true,
+        "cat": true,
+        "sze": 0,
+        "src": 89,
+        "hui": [
+            "duk03",
+            "pig04",
+            "shp12"
+        ],
+        "loc": {
+            "zh-cn": "蕾丝袜",
+            "de": "Paar Spitzensöckchen",
+            "fr-fr": "paire chaussettes dentelle",
+            "it": "paio di calzini merlettati",
+            "nl": "sokken met kant",
+            "ru": "носки с кружевами",
+            "ja": "レースのソックス",
+            "ko": "레이스 양말",
+            "zh-tw": "蕾絲襪",
+            "fr-us": "paire de bas en dentelle",
+            "en": "lace socks",
+            "es": "calcetín encaje"
+        }
+    },
+    "c619": {
+        "ipf": "FtrIcon/SockstTexOverlapping",
+        "img": [
+            "4",
+            "5",
+            "2",
+            "3",
+            "1",
+            "0"
+        ],
+        "var": [
+            1,
+            10,
+            3,
+            2,
+            0,
+            4
+        ],
+        "clr": [
+            [
+                2,
+                5
+            ],
+            [
+                2,
+                11
+            ],
+            [
+                2,
+                0
+            ],
+            [
+                2,
+                6
+            ],
+            [
+                2,
+                4
+            ],
+            [
+                2,
+                13
+            ]
+        ],
+        "sel": 180,
+        "buy": 720,
+        "hap": 51,
+        "stl": [
+            0,
+            4
+        ],
+        "lbl": [
+            0,
+            1
+        ],
+        "iid": [
+            9905,
+            9906,
+            9903,
+            9904,
+            9902,
+            5195
+        ],
+        "ord": true,
+        "cat": true,
+        "sze": 0,
+        "src": 89,
+        "evt": 26,
+        "hui": "hrs03",
+        "loc": {
+            "zh-cn": "多层袜",
+            "de": "Paar Abstrakt-Strümpfe",
+            "fr-fr": "p. chaussettes superposées",
+            "it": "paio di calzini a strati",
+            "nl": "laagjessokken",
+            "ru": "многослойные носки",
+            "ja": "かさねばきソックス",
+            "ko": "레이어드 양말",
+            "zh-tw": "多層襪",
+            "fr-us": "p. de bas superposés",
+            "en": "layered socks",
+            "es": "calcetín múltiple"
+        }
+    },
+    "c602": {
+        "ipf": "FtrIcon/SocksTexLegwarmer",
+        "img": [
+            "2",
+            "1",
+            "3",
+            "5",
+            "0",
+            "4"
+        ],
+        "var": [
+            8,
+            6,
+            12,
+            0,
+            4,
+            165
+        ],
+        "clr": [
+            2,
+            9,
+            10,
+            4,
+            13,
+            13
+        ],
+        "sel": 110,
+        "buy": 440,
+        "hap": 51,
+        "stl": [
+            4,
+            0
+        ],
+        "lbl": [
+            2,
+            1
+        ],
+        "iid": [
+            9786,
+            9785,
+            9787,
+            9789,
+            5169,
+            9788
+        ],
+        "ord": true,
+        "cat": true,
+        "sze": 0,
+        "src": 89,
+        "evt": 26,
+        "hui": "der06",
+        "loc": {
+            "zh-cn": "袜套",
+            "de": "Paar Beinwärmer",
+            "fr-fr": "paire de jambières",
+            "it": "paio di scaldamuscoli",
+            "nl": "beenwarmers",
+            "ru": "гетры",
+            "ja": "レッグウォーマー",
+            "ko": "발 토시",
+            "zh-tw": "保暖襪套",
+            "fr-us": "paire de bas réchauffement",
+            "en": "leg warmers",
+            "es": "calentador"
+        }
+    },
+    "c601": {
+        "ipf": "FtrIcon/SocksTexMixtweed",
+        "img": [
+            "0",
+            "5",
+            "6",
+            "1",
+            "2",
+            "4",
+            "3",
+            "7"
+        ],
+        "var": [
+            1,
+            10,
+            14,
+            30,
+            9,
+            0,
+            4,
+            12
+        ],
+        "clr": [
+            5,
+            11,
+            0,
+            6,
+            3,
+            4,
+            13,
+            7
+        ],
+        "sel": 200,
+        "buy": 800,
+        "hap": 51,
+        "stl": [
+            0,
+            4
+        ],
+        "lbl": [
+            0,
+            1
+        ],
+        "iid": [
+            5168,
+            9067,
+            9068,
+            9063,
+            9064,
+            9066,
+            9065,
+            9069
+        ],
+        "ord": true,
+        "cat": true,
+        "sze": 0,
+        "src": 89,
+        "loc": {
+            "zh-cn": "混色粗花呢袜",
+            "de": "Paar Mixed-Tweed-Socken",
+            "fr-fr": "p. de chaussettes tweed",
+            "it": "paio di calzini di lana mista",
+            "nl": "mêleesokken",
+            "ru": "мелированные носки",
+            "ja": "ミックスツイードソックス",
+            "ko": "믹스 트위드 양말",
+            "zh-tw": "混色斜紋軟呢襪",
+            "fr-us": "p. de bas en tweed",
+            "en": "mixed-tweed socks",
+            "es": "calcetín de tweed"
+        }
+    },
+    "c1054": {
+        "ipf": "FtrIcon/SocksTexNeonleggings",
+        "img": [
+            "1",
+            "2",
+            "0",
+            "3",
+            "4"
+        ],
+        "var": [
+            12,
+            10,
+            3,
+            2,
+            4
+        ],
+        "clr": [
+            [
+                10,
+                13
+            ],
+            [
+                11,
+                10
+            ],
+            [
+                0,
+                11
+            ],
+            [
+                6,
+                3
+            ],
+            [
+                13,
+                4
+            ]
+        ],
+        "sel": 135,
+        "buy": 540,
+        "hap": 51,
+        "stl": [
+            4,
+            0
+        ],
+        "lbl": [
+            2,
+            10,
+            7
+        ],
+        "iid": [
+            9808,
+            9809,
+            9586,
+            9810,
+            9811
+        ],
+        "ord": true,
+        "cat": true,
+        "sze": 0,
+        "src": 89,
+        "loc": {
+            "zh-cn": "荧光色紧身裤",
+            "de": "Neon-Leggings",
+            "it": "paio di legging neon",
+            "nl": "neonlegging",
+            "ru": "неоновые леггинсы",
+            "ja": "ネオンレギンス",
+            "ko": "네온 레깅스",
+            "zh-tw": "螢光色緊身褲",
+            "en": "neon leggings",
+            "es": "malla de colores neón",
+            "fr": "legging fluo"
+        }
+    },
+    "c1052": {
+        "ipf": "FtrIcon/SocksTexNeontights",
+        "img": [
+            "1",
+            "2",
+            "0",
+            "3",
+            "4"
+        ],
+        "var": [
+            12,
+            10,
+            3,
+            2,
+            4
+        ],
+        "clr": [
+            [
+                10,
+                13
+            ],
+            [
+                11,
+                10
+            ],
+            [
+                0,
+                11
+            ],
+            [
+                6,
+                3
+            ],
+            [
+                13,
+                4
+            ]
+        ],
+        "sel": 180,
+        "buy": 720,
+        "hap": 51,
+        "stl": [
+            4,
+            0
+        ],
+        "lbl": [
+            10,
+            7
+        ],
+        "iid": [
+            9694,
+            9695,
+            9583,
+            9696,
+            9697
+        ],
+        "ord": true,
+        "cat": true,
+        "sze": 0,
+        "src": 89,
+        "hui": "elp04",
+        "loc": {
+            "zh-cn": "荧光色裤袜",
+            "de": "Neon-Strumpfhose",
+            "it": "paio di calze neon",
+            "nl": "neonpanty",
+            "ru": "неоновые чулки",
+            "ja": "ネオンタイツ",
+            "ko": "네온 타이츠",
+            "zh-tw": "螢光色褲襪",
+            "en": "neon tights",
+            "es": "media de colores neón",
+            "fr": "collant fluo"
+        }
+    },
+    "c535": {
+        "ipf": "FtrIcon/SocksTexSneakerin",
+        "img": [
+            "1",
+            "0",
+            "2",
+            "4",
+            "7",
+            "5",
+            "3",
+            "6"
+        ],
+        "var": [
+            11,
+            8,
+            32,
+            10,
+            3,
+            2,
+            9,
+            5
+        ],
+        "clr": [
+            [
+                1,
+                5
+            ],
+            [
+                2,
+                9
+            ],
+            [
+                5,
+                2
+            ],
+            [
+                11,
+                13
+            ],
+            [
+                0,
+                3
+            ],
+            [
+                6,
+                4
+            ],
+            [
+                3,
+                1
+            ],
+            [
+                4,
+                0
+            ]
+        ],
+        "sel": 120,
+        "buy": 480,
+        "hap": 51,
+        "stl": [
+            0,
+            4
+        ],
+        "lbl": [
+            0,
+            2,
+            1,
+            5
+        ],
+        "iid": [
+            10003,
+            4741,
+            10004,
+            10006,
+            10009,
+            10007,
+            10005,
+            10008
+        ],
+        "ord": true,
+        "cat": true,
+        "sze": 0,
+        "src": 89,
+        "hui": [
+            "cbr06",
+            "pbr06"
+        ],
+        "loc": {
+            "zh-cn": "船型袜",
+            "de": "Paar Low-Socken",
+            "fr-fr": "paire de mini-socquettes",
+            "it": "paio di calzini corti",
+            "nl": "sneakersokken",
+            "ru": "невидимые носки",
+            "ja": "スニーカーインソックス",
+            "ko": "발목 양말",
+            "zh-tw": "船型襪",
+            "fr-us": "p. de mini-bas",
+            "en": "no-show socks",
+            "es": "calcetín oculto"
+        }
+    },
+    "c1144": {
+        "img": "FtrIcon/SocksTexBorderRco",
+        "clr": [
+            0,
+            11
+        ],
+        "sel": 2000,
+        "exp": 400,
+        "exc": 0,
+        "hap": 151,
+        "stl": [
+            4,
+            0
+        ],
+        "lbl": [
+            0,
+            2,
+            1
+        ],
+        "iid": 5629,
+        "cat": true,
+        "sze": 0,
+        "src": 2,
+        "loc": {
+            "zh-cn": "Nook Inc.袜子",
+            "de": "Paar Nook-Inc.-Socken",
+            "fr-fr": "p. de chaussettes Nook Inc.",
+            "it": "paio di calzini Nook Inc.",
+            "nl": "Nook Inc.-sokken",
+            "ru": "носки Nook Inc.",
+            "ja": "たぬきかいはつソックス",
+            "ko": "Nook Inc. 양말",
+            "zh-tw": "Nook Inc.襪子",
+            "fr-us": "p. de bas Nook Inc.",
+            "en": "Nook Inc. socks",
+            "es": "calcetín de Nook Inc."
+        }
+    },
+    "c542": {
+        "ipf": "FtrIcon/SocksTexNordic",
+        "img": [
+            "4",
+            "2",
+            "5",
+            "6",
+            "3",
+            "0",
+            "1"
+        ],
+        "var": [
+            8,
+            1,
+            2,
+            9,
+            0,
+            5,
+            26
+        ],
+        "clr": [
+            [
+                2,
+                9
+            ],
+            [
+                5,
+                9
+            ],
+            [
+                6,
+                9
+            ],
+            [
+                3,
+                9
+            ],
+            [
+                4,
+                9
+            ],
+            [
+                4,
+                9
+            ],
+            [
+                7,
+                9
+            ]
+        ],
+        "sel": 210,
+        "buy": 840,
+        "hap": 51,
+        "stl": [
+            5,
+            0
+        ],
+        "lbl": [
+            0,
+            2,
+            1
+        ],
+        "iid": [
+            9892,
+            9890,
+            9893,
+            9894,
+            9891,
+            4748,
+            9889
+        ],
+        "ord": true,
+        "cat": true,
+        "sze": 0,
+        "src": 89,
+        "evt": 26,
+        "hui": [
+            "der09",
+            "dog07",
+            "duk15",
+            "tig00"
+        ],
+        "loc": {
+            "zh-cn": "北欧风袜子",
+            "de": "Paar Norwegerstrümpfe",
+            "fr-fr": "p. de chaussettes nordiques",
+            "it": "paio di calzini yodel",
+            "nl": "Scandinavische sokken",
+            "ru": "северные носки",
+            "ja": "ノルディックなソックス",
+            "ko": "노르딕풍 양말",
+            "zh-tw": "北歐風襪子",
+            "fr-us": "p. de bas nordiques",
+            "en": "nordic socks",
+            "es": "calcetín nórdico"
+        }
+    },
+    "c928": {
+        "ipf": "FtrIcon/SocksTexStripedot",
+        "img": [
+            "1",
+            "0"
+        ],
+        "var": [
+            11,
+            6
+        ],
+        "clr": [
+            1,
+            9
+        ],
+        "sel": 235,
+        "buy": 940,
+        "hap": 51,
+        "stl": [
+            5,
+            0
+        ],
+        "lbl": [
+            0,
+            4,
+            10,
+            7
+        ],
+        "iid": [
+            9674,
+            6046
+        ],
+        "ord": true,
+        "cat": true,
+        "sze": 0,
+        "src": 89,
+        "hui": [
+            "elp04",
+            "squ03"
+        ],
+        "loc": {
+            "zh-cn": "花纹丝袜",
+            "de": "Paar Musterstrümpfe",
+            "it": "paio di calze decorate",
+            "nl": "panty met patroon",
+            "ru": "чулки с узором",
+            "ja": "デザインストッキング",
+            "ko": "디자인 스타킹",
+            "zh-tw": "花紋絲襪",
+            "en": "patterned stockings",
+            "es": "media con estampado",
+            "fr": "collant à motifs"
+        }
+    },
+    "c611": {
+        "ipf": "FtrIcon/SocksTexBobble",
+        "img": [
+            "0",
+            "3",
+            "2",
+            "1",
+            "4"
+        ],
+        "var": [
+            12,
+            10,
+            2,
+            0,
+            4
+        ],
+        "clr": [
+            [
+                10,
+                1
+            ],
+            [
+                11,
+                1
+            ],
+            [
+                6,
+                1
+            ],
+            [
+                3,
+                1
+            ],
+            [
+                13,
+                1
+            ]
+        ],
+        "sel": 180,
+        "buy": 720,
+        "hap": 51,
+        "stl": 2,
+        "lbl": [
+            0,
+            9,
+            1
+        ],
+        "iid": [
+            5179,
+            9074,
+            9073,
+            9072,
+            9075
+        ],
+        "ord": true,
+        "cat": true,
+        "sze": 0,
+        "src": 89,
+        "evt": 26,
+        "loc": {
+            "zh-cn": "毛球袜",
+            "de": "Paar Puschel-Socken",
+            "fr-fr": "paire chaussettes pompons",
+            "it": "paio di calzini con pon-pon",
+            "nl": "sokken met pompons",
+            "ru": "носки с помпонами",
+            "ja": "ポンポンソックス",
+            "ko": "폼폼 양말",
+            "zh-tw": "毛球襪",
+            "fr-us": "paire de bas à pompons",
+            "en": "pom-pom socks",
+            "es": "calcetín con pompones"
+        }
+    },
+    "c622": {
+        "ipf": "FtrIcon/SocksTexPucker",
+        "img": [
+            "1",
+            "0",
+            "3",
+            "2",
+            "4"
+        ],
+        "var": [
+            1,
+            33,
+            2,
+            0,
+            4
+        ],
+        "clr": [
+            5,
+            11,
+            6,
+            4,
+            13
+        ],
+        "sel": 150,
+        "buy": 600,
+        "hap": 51,
+        "stl": [
+            5,
+            0
+        ],
+        "lbl": 0,
+        "iid": [
+            9078,
+            5198,
+            9080,
+            9079,
+            9081
+        ],
+        "ord": true,
+        "cat": true,
+        "sze": 0,
+        "src": 89,
+        "hui": "cow00",
+        "loc": {
+            "zh-cn": "泡泡袜",
+            "de": "Paar Mäusezahnsocken",
+            "fr-fr": "p. chaussettes déformées",
+            "it": "paio di calzini arricciati",
+            "nl": "gerimpelde sokken",
+            "ru": "носки пико",
+            "ja": "くしゅくしゅソックス",
+            "ko": "꾸깃꾸깃한 양말",
+            "zh-tw": "泡泡襪",
+            "fr-us": "p. de bas déformés",
+            "en": "puckered socks",
+            "es": "calcetín plisado"
+        }
+    },
+    "c629": {
+        "ipf": "FtrIcon/SocksTexRun",
+        "img": [
+            "0",
+            "1",
+            "3",
+            "2"
+        ],
+        "var": [
+            12,
+            3,
+            2,
+            0
+        ],
+        "clr": [
+            [
+                9,
+                10
+            ],
+            [
+                9,
+                0
+            ],
+            [
+                9,
+                6
+            ],
+            [
+                9,
+                4
+            ]
+        ],
+        "sel": 137,
+        "buy": 550,
+        "hap": 51,
+        "stl": 4,
+        "lbl": [
+            2,
+            5,
+            3
+        ],
+        "iid": [
+            5214,
+            9798,
+            9800,
+            9799
+        ],
+        "ord": true,
+        "cat": true,
+        "sze": 0,
+        "src": 89,
+        "hui": [
+            "gor01",
+            "ost02"
+        ],
+        "loc": {
+            "zh-cn": "跑步紧身裤",
+            "de": "Läuferleggings",
+            "it": "paio di calze da corsa",
+            "nl": "hardlooplegging",
+            "ru": "чулки для пробежек",
+            "ja": "ランニングタイツ",
+            "ko": "러닝 타이츠",
+            "zh-tw": "跑步緊身褲",
+            "en": "running tights",
+            "es": "malla para correr",
+            "fr": "collant de course à pied"
+        }
+    },
+    "c1060": {
+        "ipf": "FtrIcon/SocksTexNuancesocks",
+        "img": [
+            "1",
+            "4",
+            "5",
+            "6",
+            "0",
+            "2",
+            "3",
+            "7"
+        ],
+        "var": [
+            1,
+            4,
+            13,
+            30,
+            2,
+            0,
+            5,
+            16
+        ],
+        "clr": [
+            5,
+            10,
+            0,
+            6,
+            6,
+            4,
+            13,
+            8
+        ],
+        "sel": 120,
+        "buy": 480,
+        "hap": 51,
+        "stl": [
+            5,
+            0
+        ],
+        "lbl": 0,
+        "iid": [
+            10027,
+            10030,
+            10031,
+            10032,
+            9644,
+            10028,
+            10029,
+            10033
+        ],
+        "ord": true,
+        "cat": true,
+        "sze": 0,
+        "src": 89,
+        "hui": [
+            "hrs03",
+            "pig01"
+        ],
+        "loc": {
+            "zh-cn": "同色系袜子",
+            "de": "Paar Transparenz-Socken",
+            "it": "paio di calzini semiopachi",
+            "nl": "semi-doorzichtige sokken",
+            "ru": "полупрозрачные носки",
+            "ja": "ニュアンスソックス",
+            "ko": "반투명 양말",
+            "zh-tw": "同色系襪子",
+            "en": "semi-opaque socks",
+            "es": "calcetín semiopaco",
+            "fr": "p. chauss. semi-opaques"
+        }
+    },
+    "c1049": {
+        "ipf": "FtrIcon/SocksTexNuancetights",
+        "img": [
+            "6",
+            "5",
+            "0",
+            "1",
+            "7",
+            "2",
+            "4",
+            "3"
+        ],
+        "var": [
+            1,
+            12,
+            16,
+            3,
+            160,
+            2,
+            0,
+            4
+        ],
+        "clr": [
+            5,
+            10,
+            11,
+            0,
+            6,
+            6,
+            4,
+            13
+        ],
+        "sel": 180,
+        "buy": 720,
+        "hap": 51,
+        "stl": [
+            5,
+            0
+        ],
+        "lbl": 0,
+        "iid": [
+            9680,
+            9679,
+            9580,
+            9675,
+            9681,
+            9676,
+            9678,
+            9677
+        ],
+        "ord": true,
+        "cat": true,
+        "sze": 0,
+        "src": 89,
+        "loc": {
+            "zh-cn": "同色系裤袜",
+            "de": "Transparenz-Strumpfhose",
+            "it": "paio di calze semiopache",
+            "nl": "semi-doorzichtige panty",
+            "ru": "полупрозрачные чулки",
+            "ja": "ニュアンスタイツ",
+            "ko": "반투명 타이츠",
+            "zh-tw": "同色系褲襪",
+            "en": "semi-opaque tights",
+            "es": "media semiopaca",
+            "fr": "collant semi-opaque"
+        }
+    },
+    "c537": {
+        "ipf": "FtrIcon/SocksTexSequins",
+        "img": [
+            "4",
+            "2",
+            "1",
+            "0",
+            "3",
+            "7",
+            "5",
+            "6"
+        ],
+        "var": [
+            11,
+            6,
+            1,
+            12,
+            3,
+            2,
+            0,
+            4
+        ],
+        "clr": [
+            1,
+            9,
+            5,
+            10,
+            0,
+            6,
+            4,
+            13
+        ],
+        "sel": 235,
+        "buy": 940,
+        "hap": 23,
+        "stl": 3,
+        "lbl": [
+            10,
+            7
+        ],
+        "iid": [
+            11583,
+            11581,
+            11580,
+            4743,
+            11582,
+            11586,
+            11584,
+            11585
+        ],
+        "ord": true,
+        "cat": true,
+        "sze": 0,
+        "src": [
+            92,
+            93
+        ],
+        "hui": [
+            "duk03",
+            "elp04"
+        ],
+        "loc": {
+            "zh-cn": "亮片紧身裤",
+            "de": "Paillettenleggings",
+            "it": "paio di legging con lustrini",
+            "nl": "legging met pailletten",
+            "ru": "леггинсы с пайетками",
+            "ja": "スパンコールレギンス",
+            "ko": "스팽글 레깅스",
+            "zh-tw": "亮片緊身褲",
+            "en": "sequin leggings",
+            "es": "malla con lentejuelas",
+            "fr": "legging à sequins"
+        }
+    },
+    "c886": {
+        "ipf": "FtrIcon/SocksTexSeethrough",
+        "img": [
+            "5",
+            "1",
+            "3",
+            "4",
+            "0",
+            "2"
+        ],
+        "var": [
+            8,
+            32,
+            2,
+            117,
+            0,
+            16
+        ],
+        "clr": [
+            2,
+            5,
+            6,
+            6,
+            4,
+            8
+        ],
+        "sel": 150,
+        "buy": 600,
+        "hap": 23,
+        "stl": [
+            5,
+            2
+        ],
+        "lbl": [
+            0,
+            4,
+            10
+        ],
+        "iid": [
+            9932,
+            9928,
+            9930,
+            9931,
+            5812,
+            9929
+        ],
+        "ord": true,
+        "cat": true,
+        "sze": 0,
+        "src": [
+            92,
+            93
+        ],
+        "evt": 120,
+        "loc": {
+            "zh-cn": "透肤袜",
+            "de": "Paar Seidensocken",
+            "fr-fr": "paires de chaussettes fines",
+            "it": "paio di calzini traslucidi",
+            "nl": "doorschijnende sokken",
+            "ru": "тонкие носки",
+            "ja": "シースルーソックス",
+            "ko": "시스루 양말",
+            "zh-tw": "透膚襪",
+            "fr-us": "paire de bas fins",
+            "en": "sheer socks",
+            "es": "calcetín traslúcido"
+        }
+    },
+    "c1189": {
+        "ipf": "FtrIcon/SocksTexSimpleknee",
+        "img": [
+            "1",
+            "2",
+            "0",
+            "3"
+        ],
+        "var": [
+            11,
+            1,
+            12,
+            0
+        ],
+        "clr": [
+            1,
+            5,
+            10,
+            3
+        ],
+        "sel": 150,
+        "buy": 600,
+        "hap": 23,
+        "stl": [
+            2,
+            0
+        ],
+        "lbl": 0,
+        "iid": [
+            12182,
+            12183,
+            12175,
+            12184
+        ],
+        "ord": true,
+        "cat": true,
+        "sze": 0,
+        "src": [
+            92,
+            93
+        ],
+        "hui": [
+            "brd17",
+            "pgn11"
+        ],
+        "loc": {
+            "zh-cn": "简约膝上袜",
+            "de": "Paar Simpel-Kniestrümpfe",
+            "it": "paio di calzettoni semplici",
+            "nl": "eenvoudige kniekousen",
+            "ru": "простые гольфы",
+            "ja": "シンプルなニーハイソックス",
+            "ko": "심플 니하이 삭스",
+            "zh-tw": "簡約膝上襪",
+            "en": "simple knee-high socks",
+            "es": "calcetín sencillo alto",
+            "fr": "p. chauss. longues simples"
+        }
+    },
+    "c624": {
+        "ipf": "FtrIcon/SocksTexOnepoint",
+        "img": [
+            "2",
+            "3",
+            "1",
+            "6",
+            "7",
+            "5",
+            "0",
+            "4"
+        ],
+        "var": [
+            11,
+            8,
+            6,
+            1,
+            12,
+            10,
+            5,
+            0
+        ],
+        "clr": [
+            [
+                1,
+                9
+            ],
+            [
+                2,
+                3
+            ],
+            [
+                9,
+                1
+            ],
+            [
+                5,
+                9
+            ],
+            [
+                10,
+                1
+            ],
+            [
+                11,
+                0
+            ],
+            [
+                4,
+                5
+            ],
+            [
+                4,
+                3
+            ]
+        ],
+        "sel": 180,
+        "buy": 720,
+        "hap": 51,
+        "stl": 0,
+        "lbl": [
+            0,
+            4
+        ],
+        "iid": [
+            9083,
+            9084,
+            9082,
+            9087,
+            9088,
+            9086,
+            5200,
+            9085
+        ],
+        "ord": true,
+        "cat": true,
+        "sze": 0,
+        "src": 89,
+        "hui": "duk03",
+        "loc": {
+            "zh-cn": "单一图案袜",
+            "de": "Paar Logo-Socken",
+            "fr-fr": "paire de chaussettes à logo",
+            "it": "paio di calzini con logo",
+            "nl": "sokken met detail",
+            "ru": "носки с акцентом",
+            "ja": "ワンポイントソックス",
+            "ko": "원 포인트 양말",
+            "zh-tw": "小圖案襪",
+            "fr-us": "paire de bas à logo",
+            "en": "simple-accent socks",
+            "es": "calcetín con detalle"
+        }
+    },
+    "c609": {
+        "ipf": "FtrIcon/SocksTexFootball",
+        "img": [
+            "6",
+            "4",
+            "1",
+            "5",
+            "2",
+            "3",
+            "0"
+        ],
+        "var": [
+            11,
+            6,
+            1,
+            10,
+            2,
+            9,
+            0
+        ],
+        "clr": [
+            [
+                1,
+                9
+            ],
+            [
+                9,
+                1
+            ],
+            [
+                5,
+                1
+            ],
+            [
+                11,
+                1
+            ],
+            [
+                6,
+                1
+            ],
+            [
+                3,
+                1
+            ],
+            [
+                4,
+                1
+            ]
+        ],
+        "sel": 200,
+        "buy": 800,
+        "hap": 23,
+        "stl": 4,
+        "lbl": [
+            5,
+            3
+        ],
+        "iid": [
+            9978,
+            9976,
+            9973,
+            9977,
+            9974,
+            9975,
+            5177
+        ],
+        "ord": true,
+        "cat": true,
+        "sze": 0,
+        "src": [
+            92,
+            93
+        ],
+        "hui": [
+            "brd04",
+            "cat20",
+            "ham00",
+            "hrs03"
+        ],
+        "loc": {
+            "zh-cn": "足球袜",
+            "de": "Paar Fußballstutzen",
+            "es-es": "media fútbol",
+            "fr-fr": "paire chaussettes de foot",
+            "it": "paio di calzettoni da calcio",
+            "nl": "voetbalsokken",
+            "ru": "футбольные носки",
+            "ja": "サッカーソックス",
+            "ko": "축구 양말",
+            "zh-tw": "足球襪",
+            "es-us": "media de fútbol",
+            "fr-us": "paire de bas de soccer",
+            "en": "soccer socks"
+        }
+    },
+    "c627": {
+        "ipf": "FtrIcon/SocksTexSpider",
+        "img": [
+            "1",
+            "0",
+            "2",
+            "3"
+        ],
+        "var": [
+            11,
+            6,
+            10,
+            4
+        ],
+        "clr": [
+            1,
+            9,
+            11,
+            13
+        ],
+        "sel": 180,
+        "buy": 720,
+        "hap": 23,
+        "stl": 1,
+        "lbl": [
+            6,
+            10,
+            7
+        ],
+        "iid": [
+            9671,
+            5203,
+            9672,
+            9673
+        ],
+        "ord": true,
+        "cat": true,
+        "sze": 0,
+        "src": [
+            92,
+            93
+        ],
+        "evt": 120,
+        "hui": "mus02",
+        "loc": {
+            "zh-cn": "蜘蛛裤袜",
+            "de": "Spinnennetz-Strumpfhose",
+            "it": "paio di calze a ragnatela",
+            "nl": "spinnenwebpanty",
+            "ru": "чулки с узором-паутиной",
+            "ja": "スパイダーなタイツ",
+            "ko": "거미줄 타이츠",
+            "zh-tw": "蜘蛛褲襪",
+            "en": "spider-web tights",
+            "es": "media de telaraña",
+            "fr": "collant toile d'araignée"
+        }
+    },
+    "c47": {
+        "ipf": "FtrIcon/SocksTexTights",
+        "img": [
+            "2",
+            "1",
+            "0",
+            "3",
+            "4"
+        ],
+        "var": [
+            11,
+            8,
+            6,
+            16,
+            7
+        ],
+        "clr": [
+            1,
+            2,
+            9,
+            8,
+            7
+        ],
+        "sel": 120,
+        "buy": 480,
+        "hap": 51,
+        "stl": 0,
+        "lbl": [
+            0,
+            3
+        ],
+        "iid": [
+            9656,
+            9655,
+            3095,
+            9657,
+            9658
+        ],
+        "ord": true,
+        "cat": true,
+        "sze": 0,
+        "src": 89,
+        "hui": [
+            "der00",
+            "duk04"
+        ],
+        "loc": {
+            "zh-cn": "丝袜",
+            "de": "Paar Strümpfe",
+            "fr-fr": "paire de bas",
+            "it": "paio di calze",
+            "nl": "kousen",
+            "ru": "чулки",
+            "ja": "ストッキング",
+            "ko": "스타킹",
+            "zh-tw": "絲襪",
+            "fr-us": "collant",
+            "en": "stockings",
+            "es": "media"
+        }
+    },
+    "c538": {
+        "ipf": "FtrIcon/SocksTexLeggings",
+        "img": [
+            "3",
+            "1",
+            "2",
+            "4",
+            "6",
+            "0",
+            "5"
+        ],
+        "var": [
+            11,
+            8,
+            134,
+            6,
+            2,
+            5,
+            16
+        ],
+        "clr": [
+            1,
+            2,
+            2,
+            9,
+            6,
+            4,
+            8
+        ],
+        "sel": 112,
+        "buy": 450,
+        "hap": 51,
+        "stl": 0,
+        "lbl": [
+            0,
+            2,
+            5
+        ],
+        "iid": [
+            9778,
+            9776,
+            9777,
+            9779,
+            9781,
+            4744,
+            9780
+        ],
+        "ord": true,
+        "cat": true,
+        "sze": 0,
+        "src": 89,
+        "hui": "pgn00",
+        "loc": {
+            "zh-cn": "弹性紧身裤",
+            "de": "Stretchleggings",
+            "it": "paio di legging elastici",
+            "nl": "stretchlegging",
+            "ru": "эластичные леггинсы",
+            "ja": "ストレッチレギンス",
+            "ko": "스트레치 레깅스",
+            "zh-tw": "彈性緊身褲",
+            "en": "stretch leggings",
+            "es": "malla elástica",
+            "fr": "legging stretch"
+        }
+    },
+    "c623": {
+        "ipf": "FtrIcon/SocksTexBorder",
+        "img": [
+            "0",
+            "5",
+            "4",
+            "3",
+            "2",
+            "1",
+            "7",
+            "6"
+        ],
+        "var": [
+            157,
+            1,
+            10,
+            3,
+            2,
+            9,
+            0,
+            4
+        ],
+        "clr": [
+            [
+                9,
+                1
+            ],
+            [
+                5,
+                1
+            ],
+            [
+                11,
+                1
+            ],
+            [
+                0,
+                1
+            ],
+            [
+                6,
+                1
+            ],
+            [
+                3,
+                1
+            ],
+            [
+                4,
+                1
+            ],
+            [
+                13,
+                1
+            ]
+        ],
+        "sel": 150,
+        "buy": 600,
+        "hap": 51,
+        "stl": 0,
+        "lbl": [
+            0,
+            1
+        ],
+        "iid": [
+            5199,
+            9999,
+            9998,
+            9997,
+            9996,
+            6902,
+            10001,
+            10000
+        ],
+        "ord": true,
+        "cat": true,
+        "sze": 0,
+        "src": 89,
+        "hui": [
+            "dog07",
+            "hrs03",
+            "hrs01"
+        ],
+        "loc": {
+            "zh-cn": "粗横纹袜",
+            "de": "Paar Ringelsocken",
+            "fr-fr": "paire de chaussettes rayées",
+            "it": "paio di calzini a strisce",
+            "nl": "gestreepte sokken",
+            "ru": "полосатые носки",
+            "ja": "ボーダーソックス",
+            "ko": "가로 줄무늬 양말",
+            "zh-tw": "粗橫紋襪",
+            "fr-us": "paire de bas rayés",
+            "en": "striped socks",
+            "es": "calcetín a rayas"
+        }
+    },
+    "c927": {
+        "ipf": "FtrIcon/SocksTexStripe",
+        "img": [
+            "1",
+            "0",
+            "2",
+            "7",
+            "4",
+            "6",
+            "3",
+            "5"
+        ],
+        "var": [
+            8,
+            1,
+            12,
+            10,
+            3,
+            2,
+            9,
+            4
+        ],
+        "clr": [
+            [
+                2,
+                9
+            ],
+            [
+                5,
+                9
+            ],
+            [
+                10,
+                9
+            ],
+            [
+                11,
+                9
+            ],
+            [
+                0,
+                9
+            ],
+            [
+                6,
+                9
+            ],
+            [
+                3,
+                9
+            ],
+            [
+                13,
+                9
+            ]
+        ],
+        "sel": 180,
+        "buy": 720,
+        "hap": 51,
+        "stl": 3,
+        "lbl": [
+            10,
+            7
+        ],
+        "iid": [
+            9937,
+            6045,
+            9938,
+            9943,
+            9940,
+            9942,
+            9939,
+            9941
+        ],
+        "ord": true,
+        "cat": true,
+        "sze": 0,
+        "src": 89,
+        "loc": {
+            "zh-cn": "条纹袜子",
+            "de": "Streifenstrumpfhose",
+            "es-es": "media rayas",
+            "it": "paio di calze a strisce",
+            "nl": "verticale-strepen-panty",
+            "ru": "полосатые чулки",
+            "ja": "ストライプソックス",
+            "ko": "세로 줄무늬 양말",
+            "zh-tw": "條紋襪子",
+            "es-us": "media a rayas",
+            "en": "striped tights",
+            "fr": "collant à rayures verticales"
+        }
+    },
+    "c543": {
+        "ipf": "FtrIcon/SocksTexTabi",
+        "img": [
+            "0",
+            "1",
+            "2"
+        ],
+        "var": [
+            11,
+            6,
+            5
+        ],
+        "clr": [
+            1,
+            9,
+            4
+        ],
+        "sel": 300,
+        "buy": 1200,
+        "hap": 51,
+        "stl": 0,
+        "lbl": [
+            0,
+            4,
+            10
+        ],
+        "iid": [
+            4749,
+            8929,
+            8930
+        ],
+        "ord": true,
+        "cat": true,
+        "sze": 0,
+        "src": 89,
+        "hui": [
+            "cat01",
+            "der11",
+            "duk06",
+            "mus16",
+            "ost08",
+            "pbr03",
+            "squ19"
+        ],
+        "loc": {
+            "de": "Paar Tabi-Socken",
+            "it": "paio di tabi",
+            "nl": "tabi",
+            "ru": "носки таби",
+            "ja": "たび",
+            "ko": "일본풍 버선",
+            "en": "tabi",
+            "es": "tabi",
+            "fr": "paire de tabi",
+            "zh": "足袋"
+        }
+    },
+    "c613": {
+        "ipf": "FtrIcon/SocksTexFluffy",
+        "img": [
+            "6",
+            "5",
+            "0",
+            "3",
+            "2",
+            "1",
+            "4"
+        ],
+        "var": [
+            8,
+            1,
+            12,
+            2,
+            0,
+            4,
+            7
+        ],
+        "clr": [
+            [
+                2,
+                1
+            ],
+            [
+                5,
+                1
+            ],
+            [
+                10,
+                1
+            ],
+            [
+                6,
+                1
+            ],
+            [
+                3,
+                1
+            ],
+            [
+                13,
+                1
+            ],
+            [
+                7,
+                1
+            ]
+        ],
+        "sel": 150,
+        "buy": 600,
+        "hap": 51,
+        "stl": 2,
+        "lbl": [
+            9,
+            1
+        ],
+        "iid": [
+            9984,
+            9983,
+            5181,
+            9981,
+            9980,
+            9979,
+            9982
+        ],
+        "ord": true,
+        "cat": true,
+        "sze": 0,
+        "src": 89,
+        "evt": 26,
+        "hui": [
+            "dog07",
+            "dog09",
+            "hrs03",
+            "kgr00",
+            "shp02"
+        ],
+        "loc": {
+            "zh-cn": "毛绒袜",
+            "de": "Paar Frottee-Socken",
+            "fr-fr": "p. chaussettes tissu éponge",
+            "it": "paio di calzini di spugna",
+            "nl": "badstoffen sokken",
+            "ru": "махровые носки",
+            "ja": "もこもこソックス",
+            "ko": "수면 양말",
+            "zh-tw": "毛絨襪",
+            "fr-us": "p. de bas en tissu éponge",
+            "en": "terry-cloth socks",
+            "es": "calcetín de felpa"
+        }
+    },
+    "c540": {
+        "ipf": "FtrIcon/SocksTexLine",
+        "img": [
+            "3",
+            "1",
+            "2",
+            "0",
+            "5",
+            "6",
+            "4",
+            "7"
+        ],
+        "var": [
+            1,
+            10,
+            2,
+            0,
+            32,
+            218,
+            5,
+            4
+        ],
+        "clr": [
+            [
+                1,
+                5
+            ],
+            [
+                1,
+                11
+            ],
+            [
+                1,
+                6
+            ],
+            [
+                1,
+                4
+            ],
+            [
+                2,
+                5
+            ],
+            [
+                2,
+                6
+            ],
+            [
+                2,
+                4
+            ],
+            [
+                2,
+                13
+            ]
+        ],
+        "sel": 120,
+        "buy": 480,
+        "hap": 51,
+        "stl": [
+            0,
+            4
+        ],
+        "lbl": [
+            0,
+            2,
+            5
+        ],
+        "iid": [
+            9968,
+            9966,
+            9967,
+            4746,
+            9970,
+            9971,
+            9969,
+            9972
+        ],
+        "ord": true,
+        "cat": true,
+        "sze": 0,
+        "src": 89,
+        "hui": [
+            "bea00",
+            "brd09",
+            "bul07",
+            "dog04",
+            "elp01",
+            "hrs02",
+            "pgn06",
+            "tig02"
+        ],
+        "loc": {
+            "zh-cn": "条纹袜",
+            "de": "Paar Sportsocken",
+            "fr-fr": "paire de chaussettes sport",
+            "it": "paio di calzini con righe",
+            "nl": "sportsokken",
+            "ru": "носки без пятки",
+            "ja": "ラインソックス",
+            "ko": "라인 양말",
+            "zh-tw": "條紋襪",
+            "fr-us": "paire de bas de sport",
+            "en": "tube socks",
+            "es": "calcetín cómodo"
+        }
+    },
+    "c600": {
+        "ipf": "FtrIcon/SocksTexFootcover",
+        "img": [
+            "7",
+            "6",
+            "1",
+            "3",
+            "4",
+            "0",
+            "5",
+            "2"
+        ],
+        "var": [
+            11,
+            6,
+            12,
+            117,
+            2,
+            0,
+            4,
+            16
+        ],
+        "clr": [
+            1,
+            9,
+            10,
+            6,
+            6,
+            4,
+            13,
+            8
+        ],
+        "sel": 120,
+        "buy": 480,
+        "hap": 51,
+        "stl": [
+            0,
+            4
+        ],
+        "lbl": [
+            0,
+            2,
+            5
+        ],
+        "iid": [
+            10016,
+            10015,
+            10010,
+            10012,
+            10013,
+            5167,
+            10014,
+            10011
+        ],
+        "ord": true,
+        "cat": true,
+        "sze": 0,
+        "src": 89,
+        "loc": {
+            "zh-cn": "隐形袜",
+            "de": "Paar Füßlinge",
+            "fr-fr": "p. de chaussettes ballerines",
+            "it": "paio di fantasmini",
+            "nl": "kousenvoetjes",
+            "ru": "следки",
+            "ja": "フットカバー",
+            "ko": "덧양말",
+            "zh-tw": "隱形襪",
+            "fr-us": "p. de bas ballerines",
+            "en": "ultra no-show socks",
+            "es": "calcetín invisible"
+        }
+    },
+    "c1053": {
+        "ipf": "FtrIcon/SocksTexVividleggings",
+        "img": [
+            "2",
+            "3",
+            "7",
+            "5",
+            "6",
+            "0",
+            "4",
+            "1"
+        ],
+        "var": [
+            1,
+            12,
+            10,
+            3,
+            2,
+            9,
+            0,
+            4
+        ],
+        "clr": [
+            5,
+            10,
+            11,
+            0,
+            6,
+            3,
+            4,
+            13
+        ],
+        "sel": 112,
+        "buy": 450,
+        "hap": 51,
+        "stl": 0,
+        "lbl": [
+            2,
+            10,
+            7
+        ],
+        "iid": [
+            9802,
+            9803,
+            9807,
+            9805,
+            9806,
+            9585,
+            9804,
+            9801
+        ],
+        "ord": true,
+        "cat": true,
+        "sze": 0,
+        "src": 89,
+        "loc": {
+            "zh-cn": "鲜艳紧身裤",
+            "de": "Einfarb-Leggings",
+            "it": "paio di legging briosi",
+            "nl": "felgekleurde legging",
+            "ru": "яркие леггинсы",
+            "ja": "ビビッドなレギンス",
+            "ko": "비비드 레깅스",
+            "zh-tw": "鮮豔緊身褲",
+            "en": "vivid leggings",
+            "es": "malla de color vívido",
+            "fr": "legging vif"
+        }
+    },
+    "c1002": {
+        "img": [
+            "FtrIcon/SocksTexVividsocks0",
+            "FtrIcon/SocksTexVividsocks5",
+            "FtrIcon/SocksTexVividsocks6",
+            "FtrIcon/SocksTexVividsocks7",
+            "FtrIcon/SocksTexStandard1",
+            "FtrIcon/SocksTexVividsocks2",
+            "FtrIcon/SocksTexVividsocks3",
+            "FtrIcon/SocksTexVividsocks4"
+        ],
+        "var": [
+            1,
+            12,
+            10,
+            3,
+            2,
+            9,
+            0,
+            4
+        ],
+        "clr": [
+            5,
+            10,
+            11,
+            0,
+            6,
+            3,
+            4,
+            13
+        ],
+        "sel": 120,
+        "buy": 480,
+        "hap": 51,
+        "stl": 0,
+        "lbl": [
+            0,
+            10,
+            7
+        ],
+        "iid": [
+            9643,
+            10024,
+            10025,
+            10026,
+            6898,
+            10021,
+            10022,
+            10023
+        ],
+        "ord": true,
+        "cat": true,
+        "sze": 0,
+        "src": 89,
+        "hui": "squ13",
+        "loc": {
+            "zh-cn": "鲜艳袜子",
+            "de": "Paar Einfarb-Socken",
+            "fr-fr": "paire de socquettes vives",
+            "it": "paio di calzini briosi",
+            "nl": "felgekleurde sokken",
+            "ru": "яркие носки",
+            "ja": "ビビッドなソックス",
+            "ko": "비비드 양말",
+            "zh-tw": "鮮豔襪子",
+            "fr-us": "p. de bas simples",
+            "en": "vivid socks",
+            "es": "calcetín de color vívido"
+        }
+    },
+    "c1051": {
+        "ipf": "FtrIcon/SocksTexVividtights",
+        "img": [
+            "2",
+            "3",
+            "7",
+            "5",
+            "6",
+            "0",
+            "4",
+            "1"
+        ],
+        "var": [
+            1,
+            12,
+            10,
+            3,
+            2,
+            9,
+            0,
+            4
+        ],
+        "clr": [
+            5,
+            10,
+            11,
+            0,
+            6,
+            3,
+            4,
+            13
+        ],
+        "sel": 180,
+        "buy": 720,
+        "hap": 51,
+        "stl": 0,
+        "lbl": [
+            10,
+            7
+        ],
+        "iid": [
+            9688,
+            9689,
+            9693,
+            9691,
+            9692,
+            9582,
+            9690,
+            9687
+        ],
+        "ord": true,
+        "cat": true,
+        "sze": 0,
+        "src": 89,
+        "hui": "squ13",
+        "loc": {
+            "zh-cn": "鲜艳裤袜",
+            "de": "Einfarb-Strumpfhose",
+            "it": "paio di calze briose",
+            "nl": "felgekleurde panty",
+            "ru": "яркие чулки",
+            "ja": "ビビッドなタイツ",
+            "ko": "비비드 타이츠",
+            "zh-tw": "鮮豔褲襪",
+            "en": "vivid tights",
+            "es": "media de color vívido",
+            "fr": "collant vif"
+        }
+    },
+    "c887": {
+        "ipf": "FtrIcon/SocksTexWave",
+        "img": [
+            "4",
+            "3",
+            "0",
+            "2",
+            "1"
+        ],
+        "var": [
+            8,
+            2,
+            0,
+            4,
+            16
+        ],
+        "clr": [
+            [
+                9,
+                2
+            ],
+            6,
+            [
+                4,
+                3
+            ],
+            [
+                13,
+                10
+            ],
+            [
+                8,
+                7
+            ]
+        ],
+        "sel": 150,
+        "buy": 600,
+        "hap": 23,
+        "stl": [
+            1,
+            0
+        ],
+        "lbl": 0,
+        "iid": [
+            9936,
+            9935,
+            5813,
+            9934,
+            9933
+        ],
+        "ord": true,
+        "cat": true,
+        "sze": 0,
+        "src": [
+            92,
+            93
+        ],
+        "hui": [
+            "crd04",
+            "hrs03"
+        ],
+        "loc": {
+            "zh-cn": "青海波袜子",
+            "de": "Paar Wellensöckchen",
+            "fr-fr": "paire de socquettes vagues",
+            "it": "paio di calzini a squame",
+            "nl": "sokken met golvenprint",
+            "ru": "носки с волнами",
+            "ja": "せいがいはソックス",
+            "ko": "파도무늬 양말",
+            "zh-tw": "青海波襪子",
+            "fr-us": "p. de bas vagues",
+            "en": "wave-print socks",
+            "es": "calcetín ondas"
+        }
+    }
+}

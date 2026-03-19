@@ -1,10 +1,9 @@
 <template>
   <div class="space-y-4 motion-rise">
     <!-- 护照卡 -->
-    <div class="acnh-card">
-      <div
-        class="rounded-3xl p-4 border border-base-300 bg-base-100 relative"
-      >
+    <div
+      class="rounded-3xl p-4 border border-base-300 bg-base-100 relative"
+    >
         <button
           type="button"
           class="btn btn-circle btn-sm absolute top-3 right-3 bg-[#7CB342] text-white border-0 hover:bg-[#558B2F] min-h-0 h-9 w-9 acnh-btn"
@@ -196,7 +195,6 @@
           <button @click="cancelAvatarCrop">close</button>
         </form>
       </dialog>
-    </div>
   </div>
 </template>
 

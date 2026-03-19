@@ -115,7 +115,7 @@
     </Transition>
 
     <!-- 广场便签板 -->
-    <div ref="notesSectionRef" class="acnh-card bg-base-100 p-3.5 sm:p-5">
+    <div ref="notesSectionRef">
       <div class="flex items-center justify-between mb-3 gap-2">
         <h2 class="page-title flex items-center gap-2 shrink-0">
           <Icon icon="mdi:note-text-outline" class="w-6 h-6 shrink-0" />
@@ -143,6 +143,7 @@
               :key="note.id"
               :note="note"
               @click="handleNoteClick(note)"
+              @item-click="openItemDetail"
             />
             <div v-if="filteredNotes.length === 0" class="col-span-2 text-center text-sm text-white/60 py-8">
               {{ searchQuery.trim() ? '没有匹配的便签' : '还没有便签，先贴一张自己的需求吧～' }}
@@ -151,20 +152,46 @@
         </div>
       </div>
     </div>
+
+    <!-- 物品详情弹窗 -->
+    <dialog
+      ref="detailDialogRef"
+      class="modal catalogue-detail-modal"
+      aria-label="物品详情"
+      @close="onDetailDialogClose"
+    >
+      <div class="modal-box flex flex-col max-h-[90vh] p-0 overflow-hidden w-11/12 max-w-2xl sm:max-w-[95vw] sm:w-[95vw] sm:max-w-none sm:rounded-none sm:m-0 sm:h-screen">
+        <CatalogueDetailContent
+          :category="detailCategory"
+          :item-id="detailItemId"
+          @close="closeDetailDialog"
+        />
+      </div>
+      <form method="dialog" class="modal-backdrop">
+        <button type="submit" aria-label="关闭">关闭</button>
+      </form>
+    </dialog>
   </div>
 </template>
 
 <script setup>
 import { Icon } from '@iconify/vue'
-import { computed, ref, onMounted } from 'vue'
+import { computed, ref, onMounted, nextTick } from 'vue'
 import { RouterLink } from 'vue-router'
 import { useAuthStore } from '../stores/auth'
 import { supabase } from '../lib/supabase'
 import { CATALOGUE_CATEGORIES } from '../lib/acnh-api'
 import NoteCard from '../components/NoteCard.vue'
+import CatalogueDetailContent from '../components/catalogue/CatalogueDetailContent.vue'
 
 const authStore = useAuthStore()
 const notesSectionRef = ref(null)
+
+// 物品详情弹窗状态
+const showDetailDialog = ref(false)
+const detailCategory = ref('')
+const detailItemId = ref('')
+const detailDialogRef = ref(null)
 
 const searchQuery = ref('')
 const notes = ref([])
@@ -328,6 +355,31 @@ async function handleNoteClick(note) {
 
 function scrollToNotes() {
   notesSectionRef.value?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+}
+
+// 物品详情弹窗方法
+function openItemDetail(note) {
+  // 根据便签类型确定对应的图鉴分类
+  const categoryMap = {
+    material: 'misc',
+    furniture: 'housewares',
+    other: 'misc'
+  }
+  
+  detailCategory.value = categoryMap[note.item_type] || 'misc'
+  detailItemId.value = note.item_name
+  showDetailDialog.value = true
+  nextTick(() => {
+    detailDialogRef.value?.showModal()
+  })
+}
+
+function closeDetailDialog() {
+  detailDialogRef.value?.close()
+}
+
+function onDetailDialogClose() {
+  showDetailDialog.value = false
 }
 
 onMounted(() => {

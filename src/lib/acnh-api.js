@@ -673,12 +673,19 @@ export function parseCalendarEvents(rawData, hemisphere = 'north') {
     const icon = ev.img ? `https://nh-cdn.catalogue.ac/${String(ev.img).replace(/\.png$/, '')}.png` : null
     const item = { type: 'event', title, icon, id }
 
-    if (ev.type === 'weekday' && Array.isArray(arr) && arr.length >= 3) {
-      const [month, nth, weekday] = arr
-      const year = new Date().getFullYear()
-      for (let y = year - 1; y <= year + 1; y++) {
-        const d = getNthWeekday(month, nth, weekday, y)
-        if (d) addEvent(`${month}/${d}`, { ...item, year: y })
+    if (ev.type === 'weekday') {
+      // catalogue 部分 weekday 事件同时提供 nh/sh（半球差异），
+      // 但也有事件仅提供 date: [month, nth, weekday]（不做半球差异）。
+      const weekdaySpec =
+        Array.isArray(arr) && arr.length >= 3 ? arr : (Array.isArray(dateArr) && dateArr.length >= 3 ? dateArr : null)
+
+      if (weekdaySpec) {
+        const [month, nth, weekday] = weekdaySpec
+        const year = new Date().getFullYear()
+        for (let y = year - 1; y <= year + 1; y++) {
+          const d = getNthWeekday(month, nth, weekday, y)
+          if (d) addEvent(`${month}/${d}`, { ...item, year: y })
+        }
       }
     } else if ((ev.type === 'range' || !ev.type) && Array.isArray(dateArr)) {
       if (dateArr.length >= 4) {

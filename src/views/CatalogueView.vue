@@ -1,14 +1,7 @@
 <template>
-  <div class="space-y-4 relative motion-rise">
-    <div class="acnh-card bg-base-100 p-3.5 sm:p-5">
-      <h1 class="page-title mb-1 flex items-center gap-2">
-        <Icon icon="mdi:book-open-page-variant" class="w-6 h-6 shrink-0" />
-        动森图鉴
-      </h1>
-      <p class="page-desc">动森全图鉴清单 · 点亮数据同步至云端</p>
-
-      <!-- 分类 Tab：横向滑动，大触控 -->
-      <div class="flex gap-2 overflow-x-auto pb-2 -mx-1 scrollbar-hide mb-4 snap-x snap-mandatory">
+  <div class="catalogue-page space-y-4 relative motion-rise">
+    <!-- 分类 Tab：横向滑动，大触控 -->
+    <div class="flex gap-2 overflow-x-auto pb-2 -mx-1 scrollbar-hide snap-x snap-mandatory">
         <button
           v-for="cat in categories"
           :key="cat.id"
@@ -21,142 +14,135 @@
           <Icon :icon="cat.icon" class="w-3 h-3 xs:w-4 xs:h-4 shrink-0" />
           {{ cat.label }}
         </button>
-      </div>
+    </div>
 
-      <!-- 搜索 + 筛选按钮：页面只保留这两个入口 -->
-      <div class="mb-4 flex gap-2">
-        <label class="input input-bordered rounded-2xl flex items-center gap-2 h-12 flex-1 min-w-0">
-          <Icon icon="mdi:magnify" class="w-5 h-5 opacity-60 shrink-0" />
-          <input
-            v-model.trim="searchQuery"
-            type="text"
-            class="grow text-base min-w-0"
-            :placeholder="searchPlaceholder"
-          />
-          <button
-            v-if="searchQuery"
-            class="btn btn-ghost min-h-0 h-9 w-9 p-0 rounded-full shrink-0"
-            @click="searchQuery = ''"
-            aria-label="clear"
-          >
-            <Icon icon="mdi:close" class="w-5 h-5" />
-          </button>
-        </label>
+    <!-- 搜索 + 筛选按钮 -->
+    <div class="flex gap-2">
+      <label class="input input-bordered rounded-2xl flex items-center gap-2 h-12 flex-1 min-w-0">
+        <Icon icon="mdi:magnify" class="w-5 h-5 opacity-60 shrink-0" />
+        <input
+          v-model.trim="searchQuery"
+          type="text"
+          class="grow text-base min-w-0"
+          :placeholder="searchPlaceholder"
+        />
         <button
-          type="button"
-          class="btn btn-outline rounded-2xl h-12 min-w-[60px] xs:min-w-[80px] flex items-center gap-1 shrink-0"
-          @click="openFilterDrawer"
+          v-if="searchQuery"
+          class="btn btn-ghost min-h-0 h-9 w-9 p-0 rounded-full shrink-0"
+          @click="searchQuery = ''"
+          aria-label="clear"
         >
-          <Icon icon="mdi:filter-variant" class="w-5 h-5" />
-          <span class="hidden xs:inline">筛选</span>
+          <Icon icon="mdi:close" class="w-5 h-5" />
         </button>
-      </div>
+      </label>
+      <button
+        type="button"
+        class="btn btn-outline rounded-2xl h-12 min-w-[60px] xs:min-w-[80px] flex items-center gap-1 shrink-0"
+        @click="openFilterDrawer"
+      >
+        <Icon icon="mdi:filter-variant" class="w-5 h-5" />
+        <span class="hidden xs:inline">筛选</span>
+      </button>
+    </div>
 
-      <!-- 统计 -->
-      <div class="flex flex-wrap gap-x-4 gap-y-1 mb-4 p-4 rounded-xl bg-[#E8F5E9]/50 text-sm">
-        <span>{{ activeCategory === 'villagers' ? '曾拥有' : '已收集' }}: <strong class="text-base">{{ collectedCount }}</strong> / {{ totalCount }}</span>
-        <span class="text-[#558B2F] font-semibold">{{ progressPercent }}%</span>
-      </div>
+    <!-- 加载中 -->
+    <div v-if="loading" class="text-center py-12">
+      <span class="loading loading-spinner loading-lg text-[#7CB342]"></span>
+      <p class="mt-2 text-sm text-gray-600">加载中...</p>
+    </div>
 
-      <!-- 加载中 -->
-      <div v-if="loading" class="text-center py-12">
-        <span class="loading loading-spinner loading-lg text-[#7CB342]"></span>
-        <p class="mt-2 text-sm text-gray-600">加载中...</p>
-      </div>
+    <!-- 加载失败 -->
+    <div v-else-if="catalogLoadError" class="text-center py-12">
+      <p class="text-amber-800 text-sm mb-2">{{ catalogLoadError }}</p>
+      <button class="btn btn-sm bg-[#7CB342] text-white" @click="loadCategoryData">重试</button>
+    </div>
 
-      <!-- 加载失败 -->
-      <div v-else-if="catalogLoadError" class="text-center py-12">
-        <p class="text-amber-800 text-sm mb-2">{{ catalogLoadError }}</p>
-        <button class="btn btn-sm bg-[#7CB342] text-white" @click="loadCategoryData">重试</button>
-      </div>
-
-      <!-- 物品网格：移动端 3 列，触控友好 -->
-      <div v-else class="grid grid-cols-2 min-[380px]:grid-cols-3 gap-2 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 motion-stagger">
+    <!-- 物品网格：移动端 3 列，触控友好 -->
+    <div v-else class="grid grid-cols-2 min-[380px]:grid-cols-3 gap-2 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 motion-stagger">
+      <div
+        v-for="item in paginatedItems"
+        :key="getItemKey(item)"
+        :class="[
+          'item relative rounded-xl border-2 p-2 cursor-pointer transition-all flex flex-col items-center active:scale-[0.98] tap-lift motion-pop',
+          isCollected(item) ? 'bg-[#C8E6C9] border-[#7CB342] dark:bg-[#2E7D32]/40 dark:border-[#66BB6A]' : isInWishlist(item) ? 'bg-pink-100 border-pink-300 dark:bg-pink-900/30 dark:border-pink-600' : 'bg-white border-gray-200 dark:bg-base-200 dark:border-base-300',
+          (catalogueMode === 'view' || catalogueMode === 'wish') && 'hover:ring-2 hover:ring-[#7CB342]/50'
+        ]"
+        @click="onItemClick(item)"
+      >
+        <span v-if="item.isNew" class="new">新增</span>
+        <div class="w-full aspect-square flex items-center justify-center bg-base-200 rounded-lg overflow-hidden">
+          <img
+            :src="getIconUrl(item)"
+            :alt="getName(item)"
+            class="w-full h-full object-contain"
+            loading="lazy"
+            @error="onImgError"
+          />
+        </div>
+        <p class="text-xs text-center mt-1 truncate w-full px-0.5" :title="getItemTitle(item)">
+          {{ getName(item) }}
+        </p>
+        <p v-if="activeCategory === 'villagers' && item.species" class="text-[10px] text-gray-500 truncate w-full">
+          {{ getSpeciesName(item.species) }}
+        </p>
+        <p v-if="['houseware','misc','wallmounted'].includes(activeCategory) && item.variantCount > 1" class="text-[10px] text-gray-500 truncate w-full">
+          {{ item.variantCount }} 种颜色
+        </p>
         <div
-          v-for="item in paginatedItems"
-          :key="getItemKey(item)"
-          :class="[
-            'item relative rounded-xl border-2 p-2 cursor-pointer transition-all flex flex-col items-center active:scale-[0.98] tap-lift motion-pop',
-            isCollected(item) ? 'bg-[#C8E6C9] border-[#7CB342] dark:bg-[#2E7D32]/40 dark:border-[#66BB6A]' : isInWishlist(item) ? 'bg-pink-100 border-pink-300 dark:bg-pink-900/30 dark:border-pink-600' : 'bg-white border-gray-200 dark:bg-base-200 dark:border-base-300',
-            (catalogueMode === 'view' || catalogueMode === 'wish') && 'hover:ring-2 hover:ring-[#7CB342]/50'
-          ]"
-          @click="onItemClick(item)"
+          v-if="['houseware','misc','wallmounted'].includes(activeCategory) && hasProperties(item)"
+          class="properties mt-0.5 flex items-center justify-center gap-1"
         >
-          <span v-if="item.isNew" class="new">新增</span>
-          <div class="w-full aspect-square flex items-center justify-center bg-base-200 rounded-lg overflow-hidden">
-            <img
-              :src="getIconUrl(item)"
-              :alt="getName(item)"
-              class="w-full h-full object-contain"
-              loading="lazy"
-              @error="onImgError"
-            />
-          </div>
-          <p class="text-xs text-center mt-1 truncate w-full px-0.5" :title="getItemTitle(item)">
-            {{ getName(item) }}
-          </p>
-          <p v-if="activeCategory === 'villagers' && item.species" class="text-[10px] text-gray-500 truncate w-full">
-            {{ getSpeciesName(item.species) }}
-          </p>
-          <p v-if="['houseware','misc','wallmounted'].includes(activeCategory) && item.variantCount > 1" class="text-[10px] text-gray-500 truncate w-full">
-            {{ item.variantCount }} 种颜色
-          </p>
-          <div
-            v-if="['houseware','misc','wallmounted'].includes(activeCategory) && hasProperties(item)"
-            class="properties mt-0.5 flex items-center justify-center gap-1"
-          >
-            <span
-              v-if="item.cat"
-              class="icon-catalog"
-              data-tt="details.cat"
-              tabindex="0"
-            />
-            <span
-              v-if="item.diy"
-              class="icon-crafting"
-              data-tt="details.diy"
-              tabindex="0"
-            />
-            <span
-              v-if="item.bcu"
-              class="icon-customize-variant"
-              data-tt="details.bcu"
-              tabindex="0"
-            />
-            <span
-              v-if="item.sea"
-              class="icon-seasonal"
-              data-tt="details.sea"
-              tabindex="0"
-            />
-          </div>
-          <div v-if="isCollected(item)" class="absolute top-1 right-1">
-            <Icon icon="mdi:check-circle" class="w-5 h-5 text-[#558B2F]" />
-          </div>
-          <div v-if="isInWishlist(item)" class="absolute top-1 left-1" title="心愿单">
-            <Icon icon="mdi:heart" class="w-5 h-5 text-pink-500 dark:text-pink-400" />
-          </div>
+          <span
+            v-if="item.cat"
+            class="icon-catalog"
+            data-tt="details.cat"
+            tabindex="0"
+          />
+          <span
+            v-if="item.diy"
+            class="icon-crafting"
+            data-tt="details.diy"
+            tabindex="0"
+          />
+          <span
+            v-if="item.bcu"
+            class="icon-customize-variant"
+            data-tt="details.bcu"
+            tabindex="0"
+          />
+          <span
+            v-if="item.sea"
+            class="icon-seasonal"
+            data-tt="details.sea"
+            tabindex="0"
+          />
+        </div>
+        <div v-if="isCollected(item)" class="absolute top-1 right-1">
+          <Icon icon="mdi:check-circle" class="w-5 h-5 text-[#558B2F]" />
+        </div>
+        <div v-if="isInWishlist(item)" class="absolute top-1 left-1" title="心愿单">
+          <Icon icon="mdi:heart" class="w-5 h-5 text-pink-500 dark:text-pink-400" />
         </div>
       </div>
+    </div>
 
-      <!-- 分页：大按钮便于点击 -->
-      <div v-if="totalPages > 1" class="flex justify-center items-center gap-2 mt-6 flex-wrap">
-        <button
-          class="btn min-h-(--touch-min)"
-          :disabled="page <= 1"
-          @click="page = Math.max(1, page - 1)"
-        >
-          上一页
-        </button>
-        <span class="flex items-center px-4 text-sm">{{ page }} / {{ totalPages }}</span>
-        <button
-          class="btn min-h-(--touch-min)"
-          :disabled="page >= totalPages"
-          @click="page = Math.min(totalPages, page + 1)"
-        >
-          下一页
-        </button>
-      </div>
+    <!-- 分页：大按钮便于点击 -->
+    <div v-if="totalPages > 1" class="flex justify-center items-center gap-2 mt-6 flex-wrap">
+      <button
+        class="btn min-h-(--touch-min)"
+        :disabled="page <= 1"
+        @click="page = Math.max(1, page - 1)"
+      >
+        上一页
+      </button>
+      <span class="flex items-center px-4 text-sm">{{ page }} / {{ totalPages }}</span>
+      <button
+        class="btn min-h-(--touch-min)"
+        :disabled="page >= totalPages"
+        @click="page = Math.min(totalPages, page + 1)"
+      >
+        下一页
+      </button>
     </div>
 
     <!-- FAB 模式切换：选中后自动收起 -->

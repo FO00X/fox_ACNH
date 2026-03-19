@@ -1,13 +1,6 @@
 <template>
-  <div class="space-y-4">
-    <div class="acnh-card bg-base-100 p-4 sm:p-5">
-      <h1 class="page-title mb-1 flex items-center gap-2">
-        <Icon icon="mdi:sprout" class="w-6 h-6 shrink-0" />
-        大头菜价格预测
-      </h1>
-      <p class="page-desc">输入本周价格，给出建议与剩余时段区间预测</p>
-
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+  <div class="space-y-4 motion-rise">
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
         <div class="rounded-2xl border border-base-300 bg-base-100 px-4 py-3 min-h-[60px]">
           <p class="text-xs text-base-content/60 mb-0.5">本周起始（自动）</p>
           <p class="font-semibold text-base">{{ weekStart }}</p>
@@ -134,10 +127,8 @@
           {{ saveMessage }}
         </p>
       </div>
-    </div>
 
-    <div class="acnh-card bg-base-100 p-4">
-      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-2">
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-2">
         <h2 class="text-lg font-bold text-[#558B2F]">结果</h2>
         <div class="text-sm text-gray-600">
           <span class="mr-2">当前最高：<strong class="text-gray-900">{{ bestPrice ?? '-' }}</strong></span>
@@ -212,7 +203,6 @@
           <p>{{ bestSellSuggestion }}</p>
         </div>
       </div>
-    </div>
   </div>
 </template>
 

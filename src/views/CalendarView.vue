@@ -1,11 +1,11 @@
 <template>
   <div class="calendar-page">
-    <div v-if="loadError" class="acnh-card bg-base-100 p-4 mb-4">
-      <p class="text-amber-800 text-sm mb-2">{{ loadError }}</p>
+    <div v-if="loadError" class="p-4 mb-4 rounded-2xl bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800">
+      <p class="text-amber-800 dark:text-amber-200 text-sm mb-2">{{ loadError }}</p>
       <button class="btn btn-sm bg-[#7CB342] text-white" @click="loadData">重试</button>
     </div>
 
-    <div class="acnh-card bg-base-100 p-4 sm:p-5 flex-1 min-w-0">
+    <div class="flex-1 min-w-0">
       <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
         <div class="flex items-center gap-2 flex-wrap">
           <button
@@ -216,7 +216,10 @@ const birthdayMap = computed(() => {
     const b = v.birthday
     if (!b) continue
     const parts = b.split('/').map(Number)
-    const [day, month] = parts.length >= 2 ? [parts[0], parts[1]] : [1, 1]
+    // villagers 的 birthday 来自 vbd: [month(0-11), day]，transformVillagers 组装为 `${month}/${day}`
+    // 这里需要按 month/day 解析，并将 0-based month 转为 1-based，才能对齐 dateKey（如 "3/17"）
+    const [rawMonth, day] = parts.length >= 2 ? [parts[0], parts[1]] : [0, 1]
+    const month = (Number.isFinite(rawMonth) ? rawMonth : 0) + 1
     const key = `${month}/${day}`
     if (!map[key]) map[key] = []
     map[key].push({ ...v, fileName: v['file-name'] })

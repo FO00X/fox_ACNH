@@ -222,6 +222,36 @@
               </div>
             </div>
 
+            <!-- 室内/室外家具要求 + 可解锁物品 -->
+            <div v-if="requirementsGroups.some(g => g.items.length)" class="box rounded-2xl border border-base-300 bg-base-200/30 p-4 space-y-2" data-title="需求与解锁">
+              <div v-for="g in requirementsGroups" :key="g.key" v-show="g.items.length" class="detail">
+                <span class="label text-base-content/70 text-sm">{{ g.label }}：</span>
+                <div class="flex flex-wrap gap-1 mt-1">
+                  <button
+                    v-for="it in g.items"
+                    :key="it.id"
+                    type="button"
+                    class="item-link big btn btn-ghost btn-sm gap-1.5 inline-flex flex-col items-center"
+                    :title="it.id"
+                  >
+                    <img v-if="it.iconUrl" :src="it.iconUrl" :alt="it.name" loading="lazy" class="w-10 h-10 object-contain rounded" @error="onFtrImgError" />
+                    <div v-else class="w-10 h-10 rounded bg-base-100/80 border border-base-200 flex items-center justify-center text-base-content/50">
+                      <Icon icon="mdi:help-circle-outline" class="w-5 h-5" />
+                    </div>
+                    <span class="name text-xs">{{ it.name }}</span>
+                    <span
+                      v-if="!it.iconUrl"
+                      class="mt-0.5 max-w-26 break-all text-[10px] leading-tight text-base-content/50"
+                    >
+                      {{ it.debugName || it.name }}<br />
+                      {{ it.debugIconUrl || '(no iconUrl)' }}<br />
+                      <span v-if="it.debugTriedIds?.length">try: {{ it.debugTriedIds.join(',') }}</span>
+                    </span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
             <!-- 快乐家乐园（可折叠） -->
             <div v-if="hhpGroups.some(g => g.items.length)" class="box collapsible rounded-2xl border border-base-300 bg-base-200/30 overflow-hidden" data-title="集合啦！动物森友会 快乐家乐园">
               <button type="button" class="toggle flex items-center justify-between w-full p-4 text-left font-medium" @click="hhpOpen = !hhpOpen">
@@ -300,7 +330,38 @@ function toItemLink(obj, fallbackName = '') {
   const id = obj.id ?? obj.key ?? obj
   const img = (typeof obj === 'object' && (obj.img ?? obj.ipf ?? obj.fileName)) || (typeof id === 'string' ? id : '')
   const name = (typeof obj === 'object' && (obj.loc?.['zh-cn'] ?? obj.loc?.zh ?? obj.name ?? obj.loc?.en)) || fallbackName
-  const iconPath = typeof img === 'string' ? img.replace(/\.png$/, '') : ''
+
+  const tryResolveIconPath = () => {
+    // 1) 字符串 img（最常见：FtrIcon/xxx 或 xxx）
+    if (typeof img === 'string' && img) return img.replace(/\.png$/i, '')
+
+    // 2) 变体数组：配合 ipf 拼接出第一张图（规则参考 catalogue 的家具图标策略）
+    if (Array.isArray(obj?.img) && obj.img.length > 0) {
+      const firstSuffix = String(obj.img[0] ?? '')
+      const ipf = typeof obj?.ipf === 'string' ? obj.ipf.replace(/\.png$/i, '') : ''
+      // ipf 常见：FtrIcon/FtrBoomerang_Remake_
+      if (ipf) {
+        const ipfClean = ipf.replace(/^FtrIcon\//i, '')
+        return `${ipfClean}${firstSuffix}`
+      }
+      return firstSuffix
+    }
+
+    // 3) 兜底：fileName
+    if (typeof obj?.fileName === 'string' && obj.fileName) return obj.fileName.replace(/\.png$/i, '')
+
+    return ''
+  }
+
+  const resolved = tryResolveIconPath()
+
+  // img 可能是完整 URL
+  if (resolved && /^https?:\/\//i.test(resolved)) {
+    return { id: String(id), iconUrl: resolved.endsWith('.png') ? resolved : `${resolved}.png`, name: name || String(id) }
+  }
+
+  // catalogue 相对路径（常见：FtrIcon/xxx）
+  const iconPath = resolved ? String(resolved).replace(/^FtrIcon\//i, '') : ''
   return { id: String(id), iconUrl: iconPath ? `${FTR_ICON}/${iconPath}.png` : '', name: name || String(id) }
 }
 
@@ -310,27 +371,128 @@ function toItemLinks(val, fallbackName = '') {
   return arr.map((o) => toItemLink(o, fallbackName)).filter(Boolean)
 }
 
+function getDataDict(key) {
+  return props.catalogueRaw?.data?.[key] || props.catalogueRaw?.[key] || null
+}
+
+function toItemLinkFromDict(dict, id, fallbackName = '') {
+  if (!dict || id == null) return null
+  const key = String(id)
+  const obj = dict?.[key]
+  if (!obj) return { id: key, iconUrl: '', name: fallbackName || key }
+  return toItemLink({ ...obj, id: key }, fallbackName)
+}
+
+function findByHui(dict, hui) {
+  if (!dict || !hui) return null
+  for (const [id, obj] of Object.entries(dict)) {
+    if (obj && typeof obj === 'object' && String(obj.hui || '') === String(hui)) return { id, ...obj }
+  }
+  return null
+}
+
+const allDataIndex = computed(() => {
+  const data = props.catalogueRaw?.data
+  const map = new Map()
+  if (!data || typeof data !== 'object') return map
+  for (const [cat, dict] of Object.entries(data)) {
+    if (!dict || typeof dict !== 'object') continue
+    for (const [id, obj] of Object.entries(dict)) {
+      if (!map.has(id)) map.set(id, { cat, id, obj })
+    }
+  }
+  return map
+})
+
+function normalizeLookupIds(rawId) {
+  if (rawId == null) return []
+  const s = String(rawId)
+  // 复合 id（如 "3122-3"）在数据里通常没有直接 key，降级用主 id 尝试查找
+  const base = s.includes('-') ? s.split('-')[0] : s
+  const set = new Set([s, base].filter(Boolean))
+  return [...set]
+}
+
+function resolveItemCard(rawId, fallbackName = '物品') {
+  const candidates = normalizeLookupIds(rawId)
+  for (const id of candidates) {
+    const hit = allDataIndex.value.get(id)
+    if (hit?.obj) return toItemLink({ ...hit.obj, id }, fallbackName)
+  }
+  // 查不到也给一张卡片，至少不丢信息
+  const idText = rawId == null ? '' : String(rawId)
+  return idText
+    ? {
+        id: idText,
+        iconUrl: '',
+        name: `${fallbackName}（${idText}）`,
+        debugName: fallbackName,
+        debugIconUrl: '',
+        debugTriedIds: candidates
+      }
+    : null
+}
+
 const photoItem = computed(() => {
+  // villagers.json 未直接带 photo id：从 photos.json 反查 hui == villagerId
+  const dict = getDataDict('photos')
+  const hit = findByHui(dict, villagerId.value)
+  if (hit) return toItemLink({ ...hit, id: hit.id }, `${props.displayName}的照片`)
+  // 兼容其它来源
   const r = props.rawItem
   const raw = r?.bromide ?? r?.photo ?? r?.Photo
   return toItemLink(raw, `${props.displayName}的照片`)
 })
 
 const posterItem = computed(() => {
+  // villagers.json 未直接带 poster id：从 posters.json 反查 hui == villagerId
+  const dict = getDataDict('posters')
+  const hit = findByHui(dict, villagerId.value)
+  if (hit) return toItemLink({ ...hit, id: hit.id }, `${props.displayName}的海报`)
+  // 兼容其它来源
   const r = props.rawItem
   const raw = r?.poster ?? r?.Poster
   return toItemLink(raw, `${props.displayName}的海报`)
 })
 
-const topsItems = computed(() => toItemLinks(props.rawItem?.tops ?? props.rawItem?.Tops, '服饰'))
+const topsItems = computed(() => {
+  const r = props.rawItem || {}
+  // 优先 villagers.json 字段 vdc（单个物品 id，分类不固定，做全库兜底查找）
+  if (r.vdc != null) {
+    return [resolveItemCard(r.vdc, '服饰')].filter(Boolean)
+  }
+  // 兼容其它来源 tops / Tops
+  return toItemLinks(r.tops ?? r.Tops, '服饰')
+})
 const umbrellaItem = computed(() => {
   const r = props.rawItem
+  // villagers.json: vdu 为雨伞 id
+  if (r?.vdu != null) return toItemLinkFromDict(getDataDict('umbrellas'), r.vdu, '雨伞')
   const raw = r?.umbrella ?? r?.Umbrella
   return toItemLink(raw, '雨伞')
 })
 
 const houseItems = computed(() => {
-  const house = props.rawItem?.house ?? props.rawItem?.House ?? {}
+  const r = props.rawItem || {}
+  // villagers.json: vdm/vdw/vdf 分别是音乐/墙壁/地板 id
+  const itemsFromVillagersJson = [
+    { key: 'mjk', label: '音乐', items: r.vdm != null ? [toItemLinkFromDict(getDataDict('music'), r.vdm, '音乐')].filter(Boolean) : [] },
+    { key: 'wall', label: '墙壁', items: r.vdw != null ? [toItemLinkFromDict(getDataDict('walls'), r.vdw, '墙壁')].filter(Boolean) : [] },
+    { key: 'floor', label: '地板', items: r.vdf != null ? [toItemLinkFromDict(getDataDict('floors'), r.vdf, '地板')].filter(Boolean) : [] }
+  ]
+  const hasAny = itemsFromVillagersJson.some((g) => g.items.length)
+  if (hasAny) {
+    // 其它分组在 villagers.json 没有直接字段，仍保留占位（空数组会在模板 v-show 下隐藏）
+    return [
+      ...itemsFromVillagersJson,
+      { key: 'diy', label: 'DIY 工作台', items: [] },
+      { key: 'kitchen', label: '厨房设备', items: [] },
+      { key: 'ftr', label: '家具', items: [] }
+    ]
+  }
+
+  // 兼容其它来源 house/House
+  const house = r.house ?? r.House ?? {}
   return [
     { key: 'mjk', label: '音乐', items: toItemLinks(house.mjk ?? house.Mjk) },
     { key: 'wall', label: '墙壁', items: toItemLinks(house.wall ?? house.Wall) },
@@ -351,6 +513,23 @@ const hhpGroups = computed(() => {
   ]
 })
 
+const requirementsGroups = computed(() => {
+  const r = props.rawItem || {}
+  const indoor = Array.isArray(r.rif) ? r.rif : (r.rif != null ? [r.rif] : [])
+  const outdoor = Array.isArray(r.rof) ? r.rof : (r.rof != null ? [r.rof] : [])
+  const unlock = Array.isArray(r.vfr) ? r.vfr : (r.vfr != null ? [r.vfr] : [])
+  const vwb = r.vwb != null ? [r.vwb] : []
+  const vke = r.vke != null ? [r.vke] : []
+
+  return [
+    { key: 'rif', label: '室内家具要求', items: indoor.map((id) => resolveItemCard(id, '家具')).filter(Boolean) },
+    { key: 'rof', label: '室外家具要求', items: outdoor.map((id) => resolveItemCard(id, '家具')).filter(Boolean) },
+    { key: 'unlock', label: '可解锁物品', items: unlock.map((id) => resolveItemCard(id, '物品')).filter(Boolean) },
+    { key: 'vwb', label: '（vwb）', items: vwb.map((id) => resolveItemCard(id, '物品')).filter(Boolean) },
+    { key: 'vke', label: '（vke）', items: vke.map((id) => resolveItemCard(id, '物品')).filter(Boolean) }
+  ]
+})
+
 const versionLabel = computed(() => props.rawItem?.vad ?? '')
 
 const speciesCode = computed(() => {
@@ -366,7 +545,8 @@ const speciesLabel = computed(() => {
 
 const birthdayLabel = computed(() => {
   const vbd = props.rawItem?.vbd
-  if (vbd && Array.isArray(vbd) && vbd.length >= 2) return `${vbd[0]}月${vbd[1]}日`
+  // villagers.json: vbd = [month(0-11), day]
+  if (vbd && Array.isArray(vbd) && vbd.length >= 2) return `${Number(vbd[0]) + 1}月${vbd[1]}日`
   const bd = props.item?.birthday
   if (!bd) return ''
   const parts = String(bd).split('/').map(Number)
@@ -430,11 +610,15 @@ const hobbyCode = computed(() => {
   return code ? String(code) : ''
 })
 
-const heightText = computed(() => props.rawItem?.vht ?? '')
+const heightText = computed(() => {
+  const r = props.rawItem || {}
+  return r.vhe != null ? String(r.vhe) : (r.vht != null ? String(r.vht) : '')
+})
 
 const STYLE_MAP = { simple: '简单', cute: '可爱', cool: '酷', elegant: '优雅', gorgeous: '华丽', formal: '正式', active: '活泼', rustic: '乡村' }
 const styleItems = computed(() => {
-  const arr = props.rawItem?.stl
+  const r = props.rawItem || {}
+  const arr = r.vst ?? r.stl
   if (!Array.isArray(arr) || arr.length === 0) return []
   return arr.map((s) => {
     const code = props.catalogueRaw ? mapFromCatalogueMaps(props.catalogueRaw, 'stl', s) : s
@@ -444,7 +628,8 @@ const styleItems = computed(() => {
 
 const COLOR_MAP = { aqua: '水色', beige: '米色', black: '黑色', blue: '蓝色', brown: '棕色', colorful: '彩色', gray: '灰色', green: '绿色', orange: '橙色', pink: '粉色', purple: '紫色', red: '红色', white: '白色', yellow: '黄色' }
 const colorItems = computed(() => {
-  const arr = props.rawItem?.clr
+  const r = props.rawItem || {}
+  const arr = r.vcl ?? r.clr
   if (!Array.isArray(arr) || arr.length === 0) return []
   return arr.map((c) => {
     const code = props.catalogueRaw ? mapFromCatalogueMaps(props.catalogueRaw, 'clr', c) : c

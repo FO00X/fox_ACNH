@@ -1,9 +1,9 @@
 <template>
   <header class="sticky top-0 z-40 bg-linear-to-r from-[#7CB342]/95 to-[#8BC34A]/95 backdrop-blur-md shadow-md border-b-2 border-[#558B2F]/50 safe-area-pt">
     <div class="flex items-center justify-between min-h-(--header-height) h-14 px-4 max-w-lg mx-auto touch-row">
-      <RouterLink to="/" class="flex items-center gap-2 active:opacity-80 min-h-(--touch-min) -ml-1 pl-1 tap-lift">
-        <Icon icon="mdi:leaf" class="w-6 h-6 xs:w-7 xs:h-7 text-white shrink-0 motion-pop" />
-        <span class="text-sm xs:text-base font-bold text-white">动森小岛</span>
+      <RouterLink :to="headerLinkTo" class="flex items-center gap-2 active:opacity-80 min-h-(--touch-min) -ml-1 pl-1 tap-lift">
+        <Icon :icon="headerIcon" class="w-6 h-6 xs:w-7 xs:h-7 text-white shrink-0 motion-pop" />
+        <span class="text-sm xs:text-base font-bold text-white">{{ headerTitle }}</span>
       </RouterLink>
 
       <div class="flex items-center gap-1">
@@ -35,6 +35,7 @@
   </header>
   </template>
 <script setup>
+import { computed } from 'vue'
 import { Icon } from '@iconify/vue'
 import { RouterLink, useRoute } from 'vue-router'
 import { useAuthStore } from '../stores/auth'
@@ -43,4 +44,20 @@ import { useUiStore } from '../stores/ui'
 const route = useRoute()
 const authStore = useAuthStore()
 const uiStore = useUiStore()
+
+const routeMeta = {
+  Home: { title: '广场', icon: 'mdi:palm-tree', to: '/' },
+  Catalogue: { title: '图鉴', icon: 'mdi:book-open-page-variant', to: '/catalogue' },
+  CatalogueDetail: { title: '图鉴', icon: 'mdi:book-open-page-variant', to: '/catalogue' },
+  Board: { title: '看板', icon: 'mdi:pin', to: '/board' },
+  Dashboard: { title: '小岛', icon: 'mdi:island', to: '/dashboard' },
+  Calendar: { title: '日历', icon: 'mdi:calendar', to: '/calendar' },
+  Turnips: { title: '大头菜', icon: 'mdi:sprout', to: '/turnips' }
+}
+
+const meta = computed(() => routeMeta[route.name] || { title: '动森小岛', icon: 'mdi:leaf', to: '/' })
+
+const headerTitle = computed(() => meta.value.title)
+const headerIcon = computed(() => meta.value.icon)
+const headerLinkTo = computed(() => meta.value.to)
 </script>
