@@ -49,6 +49,12 @@ const routes = [
     name: 'Turnips',
     component: () => import('../views/TurnipView.vue'),
     meta: { requiresAuth: true }
+  },
+  {
+    path: '/design-codes',
+    name: 'DesignCodes',
+    component: () => import('../views/DesignCodeView.vue'),
+    meta: { requiresAuth: true }
   }
 ]
 
