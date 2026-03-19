@@ -7,15 +7,9 @@
     <div class="absolute inset-0 rounded-lg border border-white/30 bg-gradient-to-br from-white/20 to-transparent pointer-events-none"></div>
     
     <!-- 便签内容 -->
-    <div class="font-semibold text-sm mb-1 break-words relative z-10">
-      <span 
-        class="cursor-pointer hover:text-blue-600 hover:underline transition-colors"
-        @click.stop="emit('item-click', note)"
-      >
-        {{ note.item_name }}
-      </span>
-      <span v-if="note.quantity > 1"> ×{{ note.quantity }}</span>
-    </div>
+    <p class="font-semibold text-sm mb-1 break-words relative z-10">
+      {{ note.item_name }}<span v-if="note.quantity > 1"> ×{{ note.quantity }}</span>
+    </p>
     <p class="text-[11px] text-gray-600 mb-1 truncate relative z-10">
       {{ note.ownerName }} · {{ note.ownerIsland }}
     </p>
@@ -50,7 +44,7 @@ const props = defineProps({
   note: { type: Object, required: true }
 })
 
-const emit = defineEmits(['click', 'item-click'])
+const emit = defineEmits(['click'])
 
 const baseClasses = computed(() => {
   const n = props.note

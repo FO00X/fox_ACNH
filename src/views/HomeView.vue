@@ -2,12 +2,17 @@
   <div class="plaza-page space-y-4 motion-rise">
 
     <!-- 日期与时间 -->
-    <div class="flex items-center justify-between gap-2 flex-wrap">
+    <button
+      type="button"
+      class="flex w-full items-center justify-between gap-2 flex-wrap text-left rounded-2xl p-1 -m-1 hover:bg-base-200/60 active:scale-[0.99] transition-transform tap-lift"
+      aria-label="打开日历"
+      @click="goCalendar"
+    >
       <p class="text-lg font-bold text-base-content">{{ dateLabel }}</p>
       <span class="badge badge-lg rounded-2xl bg-[#EFE0E0] text-base-content border-0 px-4 py-2">
         {{ timeLabel }}
       </span>
-    </div>
+    </button>
 
     <!-- 每日事项 -->
     <div class="rounded-3xl border border-base-300 bg-base-100 shadow-sm overflow-hidden">
@@ -26,18 +31,28 @@
           <Icon icon="mdi:cog-outline" class="w-5 h-5" />
         </button>
       </div>
-      <div class="p-4 grid grid-cols-4 gap-3">
-        <RouterLink
+      <div class="px-4 grid grid-cols-4 gap-3">
+        <button
           v-for="task in dailyTasks"
           :key="task.to"
-          :to="task.to"
+          type="button"
           class="flex flex-col items-center gap-1.5 rounded-2xl p-2 hover:bg-base-200/60 active:scale-95 transition-transform tap-lift"
+          @click="onDailyTaskClick(task)"
         >
-          <div class="w-12 h-12 rounded-full border-2 border-[#FFE082] bg-[#FFFDE7] flex items-center justify-center overflow-hidden shrink-0">
-            <Icon :icon="task.icon" class="w-6 h-6 text-[#F9A825]" />
+          <div
+            class="progress-ring w-12 h-12 rounded-full flex items-center justify-center shrink-0"
+            :class="isTaskDone(task.id) ? 'is-done' : ''"
+            :style="getTaskRingStyle(task.id)"
+            :title="`${getTaskProgress(task.id)}/${getTaskRequiredCount(task.id)}`"
+          >
+            <div class="progress-ring__inner w-10 h-10 rounded-full bg-[#FFFDE7] flex items-center justify-center">
+              <Icon :icon="task.icon" class="w-6 h-6 text-[#F9A825]" />
+            </div>
           </div>
-          <span class="text-xs font-medium text-center leading-tight">{{ task.label }}</span>
-        </RouterLink>
+          <span class="text-xs font-medium text-center leading-tight">
+            {{ task.label }}
+          </span>
+        </button>
       </div>
     </div>
 
@@ -69,10 +84,27 @@
                   :key="task.id"
                   class="flex items-center justify-between gap-3 rounded-2xl border border-base-200 bg-base-200/50 px-4 py-3"
                 >
-                  <span class="flex items-center gap-3">
-                    <Icon :icon="task.icon" class="w-6 h-6 text-[#F9A825]" />
-                    <span class="font-medium">{{ task.label }}</span>
-                  </span>
+                  <div class="flex items-center gap-3 min-w-0">
+                    <Icon :icon="task.icon" class="w-6 h-6 text-[#F9A825] shrink-0" />
+                    <div class="min-w-0">
+                      <p class="font-medium truncate">{{ task.label }}</p>
+                      <p class="text-xs opacity-70">
+                        今日：{{ getTaskProgress(task.id) }}/{{ getTaskRequiredCount(task.id) }}
+                        <span v-if="isTaskDone(task.id)" class="text-success font-medium">（已完成）</span>
+                      </p>
+                    </div>
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <label class="text-xs opacity-70 hidden sm:inline">次数</label>
+                    <input
+                      type="number"
+                      class="input input-bordered input-sm w-20 rounded-xl"
+                      min="1"
+                      max="99"
+                      :value="getTaskRequiredCount(task.id)"
+                      @change="setTaskRequiredCount(task.id, $event.target.value)"
+                      title="设置需要完成的次数（默认 1）"
+                    />
                   <button
                     type="button"
                     class="btn btn-outline btn-sm rounded-xl min-h-0 h-9"
@@ -81,6 +113,7 @@
                   >
                     移除
                   </button>
+                  </div>
                 </div>
                 <div v-if="dailyTasks.length === 0" class="rounded-2xl border-2 border-dashed border-base-300 px-4 py-6 text-center text-base-content/50">
                   暂无事项，从下方添加
@@ -106,9 +139,14 @@
           </div>
           
           <div class="px-6 py-4 border-t border-base-300 bg-base-100/95 backdrop-blur-sm">
-            <button type="button" class="btn btn-success rounded-2xl w-full h-12 text-base" @click="showDailyTasksDrawer = false">
+            <div class="flex gap-2">
+              <button type="button" class="btn btn-outline rounded-2xl flex-1 h-12" @click="resetTodayProgress">
+                重置今日进度
+              </button>
+              <button type="button" class="btn btn-success rounded-2xl flex-1 h-12 text-base" @click="showDailyTasksDrawer = false">
               完成
-            </button>
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -153,6 +191,104 @@
       </div>
     </div>
 
+    <!-- 便签弹窗 -->
+    <dialog
+      ref="noteDialogRef"
+      class="modal"
+      aria-label="便签详情"
+      @close="onNoteDialogClose"
+    >
+      <div class="modal-box max-w-lg w-11/12 p-0 overflow-hidden">
+        <div class="p-4 border-b border-base-200 flex items-start gap-3">
+          <div class="w-14 h-14 rounded-2xl bg-base-200/60 border border-base-300 flex items-center justify-center overflow-hidden shrink-0">
+            <img
+              v-if="noteResolved?.iconUrl"
+              :src="noteResolved.iconUrl"
+              :alt="noteResolved.displayName || activeNote?.item_name || ''"
+              class="w-full h-full object-contain"
+              loading="lazy"
+            />
+            <Icon v-else icon="mdi:package-variant-closed" class="w-7 h-7 opacity-60" />
+          </div>
+          <div class="min-w-0 flex-1">
+            <p class="font-bold text-base leading-snug wrap-break-word">
+              {{ noteResolved?.displayName || activeNote?.item_name || '' }}
+              <span v-if="activeNote?.quantity > 1" class="font-semibold opacity-70"> ×{{ activeNote.quantity }}</span>
+            </p>
+            <p class="text-xs opacity-70 mt-1">
+              {{ activeNote?.ownerName || '岛民' }} · {{ activeNote?.ownerIsland || '小岛' }}
+            </p>
+            <div class="mt-2 flex flex-wrap items-center gap-2">
+              <span
+                v-if="activeNote?.is_fulfilled"
+                class="badge badge-success badge-sm rounded-xl"
+              >
+                已完成
+              </span>
+              <span
+                v-else
+                class="badge badge-warning badge-sm rounded-xl"
+              >
+                未完成
+              </span>
+              <span v-if="noteResolveLoading" class="badge badge-ghost badge-sm rounded-xl">匹配中…</span>
+              <span v-else-if="noteResolved && !noteResolved.matched" class="badge badge-ghost badge-sm rounded-xl">未匹配到图鉴条目</span>
+              <span v-else-if="noteResolved?.matched" class="badge badge-ghost badge-sm rounded-xl">已匹配：{{ noteResolved.categoryLabel }}</span>
+            </div>
+          </div>
+          <button type="button" class="btn btn-ghost btn-sm btn-circle" aria-label="关闭" @click="closeNoteDialog">
+            <Icon icon="mdi:close" class="w-5 h-5" />
+          </button>
+        </div>
+
+        <div class="p-4 space-y-3">
+          <div class="rounded-2xl bg-base-200/40 border border-base-200 p-3 text-sm leading-relaxed">
+            <p class="opacity-80">
+              点击下方按钮可以去图鉴查看该物品/生物的详细信息，并在这里标记完成状态。
+            </p>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+            <button
+              type="button"
+              class="btn btn-outline rounded-2xl"
+              :disabled="!noteResolved?.matched"
+              @click="openResolvedDetail"
+            >
+              <Icon icon="mdi:information-outline" class="w-5 h-5" />
+              查看详情（弹窗）
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary rounded-2xl"
+              :disabled="!noteResolved?.matched"
+              @click="jumpToCatalogue"
+            >
+              <Icon icon="mdi:book-open-page-variant" class="w-5 h-5" />
+              跳转到图鉴
+            </button>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
+            <button
+              type="button"
+              class="btn rounded-2xl"
+              :class="activeNote?.is_fulfilled ? 'btn-outline' : 'btn-success'"
+              :disabled="noteActionLoading || !activeNote"
+              @click="toggleFulfilledFromDialog"
+            >
+              <Icon :icon="activeNote?.is_fulfilled ? 'mdi:undo-variant' : 'mdi:check-circle-outline'" class="w-5 h-5" />
+              {{ activeNote?.is_fulfilled ? '标记为未完成' : '标记为已完成' }}
+            </button>
+            <button type="button" class="btn btn-ghost rounded-2xl" @click="closeNoteDialog">关闭</button>
+          </div>
+        </div>
+      </div>
+      <form method="dialog" class="modal-backdrop">
+        <button type="submit" aria-label="关闭">关闭</button>
+      </form>
+    </dialog>
+
     <!-- 物品详情弹窗 -->
     <dialog
       ref="detailDialogRef"
@@ -160,7 +296,7 @@
       aria-label="物品详情"
       @close="onDetailDialogClose"
     >
-      <div class="modal-box flex flex-col max-h-[90vh] p-0 overflow-hidden w-11/12 max-w-2xl sm:max-w-[95vw] sm:w-[95vw] sm:max-w-none sm:rounded-none sm:m-0 sm:h-screen">
+      <div class="modal-box flex flex-col max-h-[90vh] p-0 overflow-hidden w-11/12 max-w-2xl sm:w-[95vw] sm:max-w-[95vw] sm:rounded-none sm:m-0 sm:h-screen">
         <CatalogueDetailContent
           :category="detailCategory"
           :item-id="detailItemId"
@@ -177,14 +313,15 @@
 <script setup>
 import { Icon } from '@iconify/vue'
 import { computed, ref, onMounted, nextTick } from 'vue'
-import { RouterLink } from 'vue-router'
+import { RouterLink, useRouter } from 'vue-router'
 import { useAuthStore } from '../stores/auth'
 import { supabase } from '../lib/supabase'
-import { CATALOGUE_CATEGORIES } from '../lib/acnh-api'
+import { CATALOGUE_CATEGORIES, fetchAcnhData, getIconUrl as getIconUrlFromApi } from '../lib/acnh-api'
 import NoteCard from '../components/NoteCard.vue'
 import CatalogueDetailContent from '../components/catalogue/CatalogueDetailContent.vue'
 
 const authStore = useAuthStore()
+const router = useRouter()
 const notesSectionRef = ref(null)
 
 // 物品详情弹窗状态
@@ -192,6 +329,14 @@ const showDetailDialog = ref(false)
 const detailCategory = ref('')
 const detailItemId = ref('')
 const detailDialogRef = ref(null)
+
+// 便签弹窗状态
+const noteDialogRef = ref(null)
+const activeNote = ref(null)
+const noteResolveLoading = ref(false)
+const noteActionLoading = ref(false)
+const noteResolved = ref(null)
+const noteResolveCache = new Map()
 
 const searchQuery = ref('')
 const notes = ref([])
@@ -210,6 +355,8 @@ const timeLabel = computed(() => {
 
 // 每日事项：可配置，持久化到 localStorage
 const DAILY_TASKS_STORAGE_KEY = 'acnh_daily_task_ids'
+const DAILY_TASKS_REQUIRED_COUNTS_KEY = 'acnh_daily_task_required_counts'
+const DAILY_TASKS_PROGRESS_KEY = 'acnh_daily_task_progress'
 const DAILY_TASKS_POOL = [
   { id: 'dialogue', icon: 'mdi:account-group', label: '对话', to: '/dashboard' },
   { id: 'fossil', icon: 'mdi:bone', label: '挖化石', to: '/catalogue' },
@@ -233,6 +380,111 @@ function loadDailyTaskIds() {
 
 const dailyTaskIds = ref(loadDailyTaskIds())
 const showDailyTasksDrawer = ref(false)
+
+const todayKey = computed(() => {
+  const d = new Date()
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
+})
+
+function loadRequiredCounts() {
+  try {
+    const raw = localStorage.getItem(DAILY_TASKS_REQUIRED_COUNTS_KEY)
+    if (!raw) return {}
+    const parsed = JSON.parse(raw)
+    return parsed && typeof parsed === 'object' ? parsed : {}
+  } catch (_) {
+    return {}
+  }
+}
+
+function saveRequiredCounts(map) {
+  try {
+    localStorage.setItem(DAILY_TASKS_REQUIRED_COUNTS_KEY, JSON.stringify(map || {}))
+  } catch (_) {}
+}
+
+function loadProgressAll() {
+  try {
+    const raw = localStorage.getItem(DAILY_TASKS_PROGRESS_KEY)
+    if (!raw) return {}
+    const parsed = JSON.parse(raw)
+    return parsed && typeof parsed === 'object' ? parsed : {}
+  } catch (_) {
+    return {}
+  }
+}
+
+function saveProgressAll(map) {
+  try {
+    localStorage.setItem(DAILY_TASKS_PROGRESS_KEY, JSON.stringify(map || {}))
+  } catch (_) {}
+}
+
+const requiredCounts = ref(loadRequiredCounts())
+const progressAll = ref(loadProgressAll())
+
+const todayProgress = computed(() => {
+  const all = progressAll.value || {}
+  const row = all[todayKey.value]
+  return row && typeof row === 'object' ? row : {}
+})
+
+function getTaskRequiredCount(taskId) {
+  const n = Number(requiredCounts.value?.[taskId])
+  return Number.isFinite(n) && n >= 1 ? Math.min(Math.floor(n), 99) : 1
+}
+
+function setTaskRequiredCount(taskId, value) {
+  const n = Number(value)
+  const val = Number.isFinite(n) ? Math.min(Math.max(1, Math.floor(n)), 99) : 1
+  requiredCounts.value = { ...(requiredCounts.value || {}), [taskId]: val }
+  saveRequiredCounts(requiredCounts.value)
+}
+
+function getTaskProgress(taskId) {
+  const n = Number(todayProgress.value?.[taskId] || 0)
+  return Number.isFinite(n) && n >= 0 ? Math.floor(n) : 0
+}
+
+function isTaskDone(taskId) {
+  return getTaskProgress(taskId) >= getTaskRequiredCount(taskId)
+}
+
+function bumpTaskProgress(taskId) {
+  const all = { ...(progressAll.value || {}) }
+  const day = todayKey.value
+  const row = { ...(all[day] || {}) }
+  row[taskId] = Math.min(getTaskProgress(taskId) + 1, 999)
+  all[day] = row
+  progressAll.value = all
+  saveProgressAll(all)
+}
+
+function resetTodayProgress() {
+  const all = { ...(progressAll.value || {}) }
+  all[todayKey.value] = {}
+  progressAll.value = all
+  saveProgressAll(all)
+}
+
+function onDailyTaskClick(task) {
+  if (!task?.id) return
+  bumpTaskProgress(task.id)
+}
+
+function getTaskRingStyle(taskId) {
+  const required = getTaskRequiredCount(taskId)
+  const done = getTaskProgress(taskId)
+  const ratio = required > 0 ? Math.max(0, Math.min(1, done / required)) : 0
+  const deg = Math.round(ratio * 360)
+  return {
+    background: `conic-gradient(var(--acnh-ring, #7CB342) ${deg}deg, rgba(0,0,0,0.12) 0deg)`
+  }
+}
+
+function goCalendar() {
+  router.push('/calendar')
+}
 
 const dailyTasks = computed(() => {
   const ids = new Set(dailyTaskIds.value)
@@ -318,39 +570,13 @@ async function loadNotes() {
 
 
 async function handleNoteClick(note) {
-  if (note.is_fulfilled) {
-    // 已完成的便签：切换回未完成状态
-    await supabase
-      .from('wishlist_items')
-      .update({
-        is_fulfilled: false,
-        fulfilled_by: null,
-        fulfilled_at: null
-      })
-      .eq('id', note.id)
-  } else {
-    // 未完成的便签：标记为已完成
-    if (note.isMine) {
-      await supabase
-        .from('wishlist_items')
-        .update({
-          is_fulfilled: true,
-          fulfilled_by: authStore.user.id,
-          fulfilled_at: new Date().toISOString()
-        })
-        .eq('id', note.id)
-    } else {
-      await supabase
-        .from('wishlist_items')
-        .update({
-          is_fulfilled: true,
-          fulfilled_by: authStore.user.id,
-          fulfilled_at: new Date().toISOString()
-        })
-        .eq('id', note.id)
-    }
-  }
-  await loadNotes()
+  activeNote.value = note
+  noteResolved.value = null
+  noteResolveLoading.value = true
+  nextTick(() => {
+    noteDialogRef.value?.showModal()
+  })
+  await resolveNoteToCatalogueEntry(note)
 }
 
 function scrollToNotes() {
@@ -380,6 +606,137 @@ function closeDetailDialog() {
 
 function onDetailDialogClose() {
   showDetailDialog.value = false
+}
+
+function closeNoteDialog() {
+  noteDialogRef.value?.close()
+}
+
+function onNoteDialogClose() {
+  activeNote.value = null
+  noteResolved.value = null
+  noteResolveLoading.value = false
+  noteActionLoading.value = false
+}
+
+function getItemDisplayName(item) {
+  const n = item?.name
+  if (!n) return ''
+  return n['name-CNzh'] || n['name-TWzh'] || n['name-USen'] || n['name-JPja'] || Object.values(n)[0] || ''
+}
+
+function normalizeName(s) {
+  return String(s || '')
+    .trim()
+    .toLowerCase()
+    .replace(/\s+/g, '')
+    .replace(/[·•\u00b7]/g, '')
+}
+
+function getItemIdForCategory(categoryId, item) {
+  if (['houseware', 'misc', 'wallmounted'].includes(categoryId) && item?.baseKey != null) return String(item.baseKey)
+  return item?.['file-name'] || item?.fileName || item?.id || ''
+}
+
+async function resolveNoteToCatalogueEntry(note) {
+  const name = (note?.item_name || '').trim()
+  const cacheKey = `${name}`
+  if (!name) {
+    noteResolved.value = { matched: false }
+    noteResolveLoading.value = false
+    return
+  }
+  if (noteResolveCache.has(cacheKey)) {
+    noteResolved.value = noteResolveCache.get(cacheKey)
+    noteResolveLoading.value = false
+    return
+  }
+
+  const target = normalizeName(name)
+  const categoryOrder = CATALOGUE_CATEGORIES.map((c) => c.id)
+  for (const categoryId of categoryOrder) {
+    try {
+      const items = await fetchAcnhData(categoryId)
+      if (!Array.isArray(items) || items.length === 0) continue
+
+      // 先精确匹配（去空格/点号）
+      let hit = items.find((it) => normalizeName(getItemDisplayName(it)) === target)
+      if (!hit && categoryId === 'villagers') {
+        // villagers 有时展示为 "名字 · 物种"
+        hit = items.find((it) => target.startsWith(normalizeName(getItemDisplayName(it))))
+      }
+      if (!hit) continue
+
+      const itemId = getItemIdForCategory(categoryId, hit)
+      const iconUrl = getIconUrlFromApi(categoryId, hit?.iconPath || hit?.['file-name'] || hit?.fileName || hit?.id || '')
+      const resolved = {
+        matched: true,
+        categoryId,
+        categoryLabel: CATALOGUE_CATEGORIES.find((c) => c.id === categoryId)?.label || categoryId,
+        itemId,
+        displayName: getItemDisplayName(hit) || name,
+        iconUrl
+      }
+      noteResolveCache.set(cacheKey, resolved)
+      noteResolved.value = resolved
+      noteResolveLoading.value = false
+      return
+    } catch (_) {
+      // ignore and continue
+    }
+  }
+
+  const resolved = { matched: false, displayName: name }
+  noteResolveCache.set(cacheKey, resolved)
+  noteResolved.value = resolved
+  noteResolveLoading.value = false
+}
+
+function openResolvedDetail() {
+  if (!noteResolved.value?.matched) return
+  detailCategory.value = noteResolved.value.categoryId
+  detailItemId.value = noteResolved.value.itemId
+  showDetailDialog.value = true
+  nextTick(() => {
+    detailDialogRef.value?.showModal()
+  })
+}
+
+function jumpToCatalogue() {
+  if (!noteResolved.value?.matched) return
+  try {
+    localStorage.setItem(
+      'acnh_catalogue_jump',
+      JSON.stringify({
+        categoryId: noteResolved.value.categoryId,
+        itemId: noteResolved.value.itemId,
+        search: activeNote.value?.item_name || ''
+      })
+    )
+  } catch (_) {}
+  closeNoteDialog()
+  router.push('/catalogue')
+}
+
+async function setFulfilled(note, fulfilled) {
+  if (!note?.id || !authStore.user) return
+  const payload = fulfilled
+    ? { is_fulfilled: true, fulfilled_by: authStore.user.id, fulfilled_at: new Date().toISOString() }
+    : { is_fulfilled: false, fulfilled_by: null, fulfilled_at: null }
+  await supabase.from('wishlist_items').update(payload).eq('id', note.id)
+}
+
+async function toggleFulfilledFromDialog() {
+  if (!activeNote.value) return
+  noteActionLoading.value = true
+  try {
+    await setFulfilled(activeNote.value, !activeNote.value.is_fulfilled)
+    await loadNotes()
+    // 重新定位 activeNote（loadNotes 生成了新对象）
+    activeNote.value = notes.value.find((n) => n.id === activeNote.value.id) || activeNote.value
+  } finally {
+    noteActionLoading.value = false
+  }
 }
 
 onMounted(() => {
@@ -451,5 +808,15 @@ onMounted(() => {
 
 .wood-background {
   animation: wood-grain 20s linear infinite;
+}
+
+/* 每日事项：圆环进度 */
+.progress-ring {
+  --acnh-ring: #7cb342;
+  padding: 2px;
+}
+
+.progress-ring.is-done {
+  --acnh-ring: #22c55e;
 }
 </style>

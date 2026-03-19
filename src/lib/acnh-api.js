@@ -55,13 +55,6 @@ function getFileNameFromPath(path) {
   return parts[parts.length - 1] || ''
 }
 
-export function getItemIconUrl(fileName) {
-  if (fileName?.includes('/')) {
-    return `${FTR_ICON_CDN}/${fileName}.png`
-  }
-  return `${FTR_ICON_CDN}/FtrIcon/${fileName}.png`
-}
-
 export function getIconUrl(type, fileName) {
   if (!fileName) return ''
   if (fileName.includes('/')) {
@@ -78,10 +71,6 @@ export function getIconUrl(type, fileName) {
   }
   const cdnPath = { fish: 'Fish', bugs: 'Bugs', sea: 'Sea', fossils: 'Fossils', art: 'Art' }[type] || type
   return `${ACNH_CDN_BASE}/${cdnPath}/${fileName}.png`
-}
-
-export function getImageUrl(type, fileName) {
-  return getIconUrl(type, fileName)
 }
 
 /** 鱼类图鉴小图（BookFishIcon），用于详情页 */
@@ -178,27 +167,6 @@ export function getArtImageUrl(fileName) {
   const base = String(fileName).replace(/^Ftr/i, '')
   const key = base.startsWith('Art') ? base : `Art${base}`
   return `${FTR_ICON_CDN}/art/Ftr${key}.png`
-}
-
-export function resolveIconUri(item, type) {
-  const path = item?.iconPath || item?.icon_uri
-  if (path) {
-    const p = String(path)
-    if (p.startsWith('http')) return p
-    // 已带目录的 catalogue 资源（如 FtrIcon/xxx、NpcIcon/xxx、BookFishIcon/xxx）
-    if (p.includes('/')) {
-      const clean = p.replace(/\.png$/i, '')
-      return `${FTR_ICON_CDN}/${clean}.png`
-    }
-    return getIconUrl(type, p)
-  }
-  const fn = item?.['file-name'] || item?.fileName
-  if (fn) return getIconUrl(type, fn)
-  return ''
-}
-
-export function resolveImageUri(item, type) {
-  return resolveIconUri(item, type)
 }
 
 import { useCatalogueStore } from '../stores/catalogue'
@@ -665,13 +633,38 @@ export function parseCalendarEvents(rawData, hemisphere = 'north') {
     return null
   }
 
+  // 将 date: [m1, d1, m2, d2] 展开为 month/day key（支持跨年：m1 > m2）
+  function addRangeDates(m1, d1, m2, d2, item) {
+    if (!Number.isFinite(m1) || !Number.isFinite(d1) || !Number.isFinite(m2) || !Number.isFinite(d2)) return
+    const normMonthDays = (m, d) => {
+      const lastD = new Date(2000, m, 0).getDate()
+      const dd = Math.min(Math.max(1, d), lastD)
+      return [m, dd, lastD]
+    }
+    const [sm, sd, smLast] = normMonthDays(m1, d1)
+    const [em, ed] = normMonthDays(m2, d2)
+
+    let m = sm
+    while (true) {
+      const lastD = new Date(2000, m, 0).getDate()
+      const firstD = m === sm ? Math.min(sd, lastD) : 1
+      const endD = m === em ? Math.min(ed, lastD) : lastD
+      for (let d = firstD; d <= endD; d++) addEvent(`${m}/${d}`, item)
+
+      if (m === em) break
+      m = m === 12 ? 1 : m + 1
+      // 防止异常数据导致死循环：最多跑 12 次
+      if (m === sm) break
+    }
+  }
+
   for (const [id, ev] of Object.entries(events || {})) {
     if (!ev || typeof ev !== 'object') continue
     const arr = hemisphere === 'south' ? ev.sh : ev.nh
     const dateArr = ev.date
     const title = getTitle(id)
     const icon = ev.img ? `https://nh-cdn.catalogue.ac/${String(ev.img).replace(/\.png$/, '')}.png` : null
-    const item = { type: 'event', title, icon, id }
+    const item = { type: 'event', title, icon, id, region: ev.region || null }
 
     if (ev.type === 'weekday') {
       // catalogue 部分 weekday 事件同时提供 nh/sh（半球差异），
@@ -690,11 +683,7 @@ export function parseCalendarEvents(rawData, hemisphere = 'north') {
     } else if ((ev.type === 'range' || !ev.type) && Array.isArray(dateArr)) {
       if (dateArr.length >= 4) {
         const [m1, d1, m2, d2] = dateArr
-        for (let m = m1; m <= m2; m++) {
-          const lastD = m === m2 ? d2 : new Date(2000, m, 0).getDate()
-          const firstD = m === m1 ? d1 : 1
-          for (let d = firstD; d <= lastD; d++) addEvent(`${m}/${d}`, item)
-        }
+        addRangeDates(m1, d1, m2, d2, item)
       } else if (dateArr.length >= 2) {
         addEvent(`${dateArr[0]}/${dateArr[1]}`, item)
       }

@@ -193,7 +193,7 @@
       aria-label="图鉴详情"
       @close="onDetailDialogClose"
     >
-      <div class="modal-box flex flex-col max-h-[90vh] p-0 overflow-hidden w-11/12 max-w-2xl sm:max-w-[95vw] sm:w-[95vw] sm:max-w-none sm:rounded-none sm:m-0 sm:h-screen">
+      <div class="modal-box flex flex-col max-h-[90vh] p-0 overflow-hidden w-11/12 max-w-2xl sm:w-[95vw] sm:max-w-[95vw] sm:rounded-none sm:m-0 sm:h-screen">
         <CatalogueDetailContent
           :category="detailCategory"
           :item-id="detailItemId"
@@ -721,6 +721,30 @@ watch(() => authStore.user, () => {
 onMounted(() => {
   loadCollected()
   loadWishlist()
+
+  // HomeView 便签弹窗跳转：预填分类/搜索，并可选自动打开详情
+  try {
+    const raw = localStorage.getItem('acnh_catalogue_jump')
+    if (raw) {
+      localStorage.removeItem('acnh_catalogue_jump')
+      const parsed = JSON.parse(raw)
+      const catId = parsed?.categoryId
+      const itemId = parsed?.itemId
+      const search = parsed?.search
+
+      if (catId && categories.some((c) => c.id === catId)) activeCategory.value = catId
+      if (typeof search === 'string') searchQuery.value = search
+
+      // 等数据加载后再尝试打开详情
+      loadCategoryData().then(() => {
+        if (!itemId) return
+        const hit = items.value.find((it) => getItemId(it) === String(itemId))
+        if (hit) openDetailDialog(hit)
+      })
+      return
+    }
+  } catch (_) {}
+
   loadCategoryData()
 })
 
