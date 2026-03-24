@@ -187,7 +187,7 @@
 
 <script setup>
 import { Icon } from '@iconify/vue'
-import { ref, computed, watch } from 'vue'
+import { ref, computed, watch, nextTick } from 'vue'
 import DetailDialog from './DetailDialog.vue'
 import DetailDialogHeader from './DetailDialogHeader.vue'
 import DetailDialogSide from './DetailDialogSide.vue'
@@ -200,6 +200,7 @@ import { fetchAcnhItem, fetchAcnhRawItem, fetchCatalogueRaw, getIconUrl as getIc
 import { useAuthStore } from '../../stores/auth'
 import { supabase } from '../../lib/supabase'
 import { useCatalogueCollected } from '../../composables/useCatalogueCollected'
+import { logActivity, ACTIVITY_KIND } from '../../lib/activityLog'
 
 const props = defineProps({
   category: { type: String, default: '' },
@@ -380,6 +381,21 @@ async function loadItem() {
     item.value = null
   } finally {
     loading.value = false
+    if (item.value && authStore.user?.id) {
+      await nextTick()
+      const rid = item.value.baseKey ?? item.value['file-name'] ?? item.value.fileName ?? item.value.id
+      logActivity(
+        authStore.user.id,
+        ACTIVITY_KIND.CATALOGUE_VIEW,
+        {
+          category: cat,
+          item_id: String(rid ?? ''),
+          item_name: displayName.value || ''
+        },
+        45000,
+        `view:${cat}:${rid}`
+      )
+    }
   }
 }
 

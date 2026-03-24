@@ -8,10 +8,10 @@
 
       <div class="flex items-center gap-1">
         <template v-if="authStore.isLoggedIn">
-          <button
+          <RouterLink
+            to="/dashboard"
             class="btn btn-ghost text-white min-h-(--touch-min) h-10 w-10 rounded-full p-0 flex items-center justify-center tap-lift"
-            :title="authStore.profile?.display_name || '账户'"
-            @click="uiStore.openSidebar"
+            :title="authStore.profile?.display_name || '我的小岛'"
           >
             <template v-if="authStore.profile?.avatar_url">
               <img :src="authStore.profile.avatar_url" alt="avatar" class="w-9 h-9 rounded-full object-cover" />
@@ -19,7 +19,7 @@
             <template v-else>
               <Icon icon="mdi:account-circle" class="w-8 h-8" />
             </template>
-          </button>
+          </RouterLink>
         </template>
         <template v-else>
           <RouterLink
@@ -39,11 +39,9 @@ import { computed } from 'vue'
 import { Icon } from '@iconify/vue'
 import { RouterLink, useRoute } from 'vue-router'
 import { useAuthStore } from '../stores/auth'
-import { useUiStore } from '../stores/ui'
 
 const route = useRoute()
 const authStore = useAuthStore()
-const uiStore = useUiStore()
 
 const routeMeta = {
   Home: { title: '广场', icon: 'mdi:palm-tree', to: '/' },
@@ -52,7 +50,8 @@ const routeMeta = {
   Board: { title: '看板', icon: 'mdi:pin', to: '/board' },
   Dashboard: { title: '小岛', icon: 'mdi:island', to: '/dashboard' },
   Calendar: { title: '日历', icon: 'mdi:calendar', to: '/calendar' },
-  Turnips: { title: '大头菜', icon: 'mdi:sprout', to: '/turnips' }
+  Turnips: { title: '大头菜', icon: 'mdi:sprout', to: '/turnips' },
+  Chat: { title: '全员聊天室', icon: 'mdi:chat', to: '/chat' }
 }
 
 const meta = computed(() => routeMeta[route.name] || { title: '动森小岛', icon: 'mdi:leaf', to: '/' })

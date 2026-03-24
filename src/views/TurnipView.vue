@@ -158,6 +158,7 @@ import { Icon } from '@iconify/vue'
 import { computed, onMounted, reactive, ref, watch } from 'vue'
 import { supabase } from '../lib/supabase'
 import { useAuthStore } from '../stores/auth'
+import { logActivity, ACTIVITY_KIND } from '../lib/activityLog'
 import { analyzeTurnipPossibilities, TURNIP_PATTERNS } from '../lib/turnip-prophet'
 
 const weekStart = ref('')
@@ -282,6 +283,18 @@ async function saveWeek() {
     }
     const { error } = await supabase.from('turnip_weeks').upsert(payload, { onConflict: 'user_id,week_start' })
     if (error) throw error
+    const filledSlots = Object.values(snapshotPrices()).filter((v) => v != null && v > 0).length
+    logActivity(
+      authStore.user.id,
+      ACTIVITY_KIND.TURNIP_RECORD,
+      {
+        week_start: weekStart.value,
+        buy_price: Number(buyPrice.value) || null,
+        filled_slots: filledSlots
+      },
+      90000,
+      `turnip:${weekStart.value}`
+    )
     autoSavedAt.value = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
   } catch (err) {
     console.error(err)

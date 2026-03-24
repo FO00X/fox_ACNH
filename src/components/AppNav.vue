@@ -35,6 +35,7 @@ const navLinks = [
   { to: '/', label: '广场', icon: 'mdi:palm-tree' },
   { to: '/turnips', label: '大头菜', icon: 'mdi:sprout' },
   { to: '/design-codes', label: '设计码', icon: 'mdi:palette' },
+  { to: '/chat', label: '聊天', icon: 'mdi:chat' },
   { to: '/catalogue', label: '图鉴', icon: 'mdi:book-open-page-variant' },
   { to: '/dashboard', label: '小岛', icon: 'mdi:island' }
 ]

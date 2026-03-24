@@ -142,7 +142,7 @@
         </h3>
 
         <!-- 设计码输入 -->
-        <div class="grid grid-cols-3 gap-2 mb-4">
+        <div class="grid grid-cols-4 gap-2 mb-4">
           <label class="form-control col-span-1">
             <span class="label-text text-xs text-gray-600">前缀</span>
             <select v-model="codePrefix" class="select select-bordered rounded-2xl h-12">
@@ -150,7 +150,7 @@
               <option value="MO">MO</option>
             </select>
           </label>
-          <label class="form-control col-span-2">
+          <label class="form-control col-span-3">
             <span class="label-text text-xs text-gray-600">设计码</span>
             <input
               v-model="codeBody"
@@ -259,11 +259,12 @@
       <div class="modal-box rounded-2xl max-w-4xl p-3 sm:p-4">
         <div class="flex items-center justify-between gap-3 px-1 pb-3">
           <div class="min-w-0">
-            <p class="text-sm font-semibold text-[#558B2F] truncate">
-              {{ selectedSet?.owner_name || (selectedSet?.owner_id === authStore.user?.id ? '我' : '岛民') }}
+            <p v-if="selectedSet?.design_code" class="text-base font-bold text-[#558B2F] truncate">
+              {{ selectedSet.design_code }}
             </p>
             <p class="text-xs text-gray-500">
-              <span v-if="selectedSet?.design_code">{{ selectedSet.design_code }} · </span>
+              {{ selectedSet?.owner_name || (selectedSet?.owner_id === authStore.user?.id ? '我' : '岛民') }}
+              <span v-if="selectedSet?.design_code"> · </span>
               {{ formatDate(selectedSet?.created_at) }}
             </p>
           </div>
@@ -459,8 +460,6 @@ function removePending(index) {
 
 // 上传所有图片
 async function uploadAll() {
-  if (pendingUploads.value.length === 0) return
-  
   uploading.value = true
   
   try {
@@ -488,8 +487,14 @@ async function uploadAll() {
         showUploadModal.value = false
         await loadMyDesignCodes()
         return
+      } else {
+        // 编辑模式但没有新图片也没有设计码，直接返回
+        return
       }
     }
+    
+    // 非编辑模式下必须有待上传图片
+    if (!editMode.value && pendingUploads.value.length === 0) return
 
     for (const item of pendingUploads.value) {
       const file = item.file

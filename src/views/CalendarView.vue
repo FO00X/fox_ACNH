@@ -169,12 +169,13 @@
 
 <script setup>
 import { Icon } from '@iconify/vue'
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, watch } from 'vue'
 import { fetchAcnhData, getIconUrl, parseCalendarEvents } from '../lib/acnh-api'
 import { VILLAGER_SPECIES_ZH } from '../lib/acnh-api'
 import { useAuthStore } from '../stores/auth'
 import { useCatalogueStore } from '../stores/catalogue'
 import { supabase } from '../lib/supabase'
+import { logActivity, ACTIVITY_KIND } from '../lib/activityLog'
 
 const NPC_ICON_CDN = 'https://nh-cdn.catalogue.ac/NpcIcon'
 
@@ -191,6 +192,7 @@ const villagers = ref([])
 const usersWithBirthday = ref([])
 const apiEventsMap = ref({})
 const loadError = ref(null)
+const myCollectedVillagers = ref([]) // 用户拥有的村民
 
 const displayYear = computed(() => currentDate.value.getFullYear())
 const displayMonth = computed(() => currentDate.value.getMonth())
@@ -415,6 +417,21 @@ function closeDetail() {
   showDetailDialog.value = false
 }
 
+async function loadMyCollectedVillagers() {
+  if (!authStore.user?.id) return
+  try {
+    const { data } = await supabase
+      .from('catalogue_collected')
+      .select('item_id')
+      .eq('user_id', authStore.user.id)
+      .eq('category', 'villagers')
+    myCollectedVillagers.value = (data || []).map(r => r.item_id)
+  } catch (err) {
+    console.error('加载拥有的村民失败:', err)
+    myCollectedVillagers.value = []
+  }
+}
+
 async function loadData() {
   loadError.value = null
   try {
@@ -431,11 +448,57 @@ async function loadData() {
       .not('birthday', 'is', null)
     if (profileError) throw profileError
     usersWithBirthday.value = profileRows || []
+
+    // 加载用户拥有的村民
+    await loadMyCollectedVillagers()
+
+    // 检查今天是否有生日并记录动态
+    checkAndLogBirthdays()
   } catch (err) {
     console.error(err)
     loadError.value = err?.message || '数据加载失败，请检查网络后重试'
     villagers.value = []
     usersWithBirthday.value = []
+  }
+}
+
+// 检查并记录生日动态
+function checkAndLogBirthdays() {
+  if (!authStore.user?.id) return
+
+  const today = new Date()
+  const todayKey = `${today.getMonth() + 1}/${today.getDate()}`
+
+  // 检查用户拥有的村民生日
+  const myVillagerBirthdays = (birthdayMap.value[todayKey] || []).filter(v =>
+    myCollectedVillagers.value.includes(v['file-name'] || v.id)
+  )
+
+  for (const v of myVillagerBirthdays) {
+    const villagerName = getVillagerName(v)
+    logActivity(
+      authStore.user.id,
+      ACTIVITY_KIND.VILLAGER_BIRTHDAY,
+      { villager_name: villagerName, villager_id: v['file-name'] || v.id },
+      86400000, // 24小时内只记录一次
+      `villager_birthday:${v['file-name'] || v.id}`
+    )
+  }
+
+  // 检查用户自己的生日
+  const myBirthday = authStore.profile?.birthday
+  if (myBirthday) {
+    const bDate = new Date(myBirthday)
+    const bKey = `${bDate.getMonth() + 1}/${bDate.getDate()}`
+    if (bKey === todayKey) {
+      logActivity(
+        authStore.user.id,
+        ACTIVITY_KIND.USER_BIRTHDAY,
+        { user_name: authStore.profile?.display_name || '岛民' },
+        86400000, // 24小时内只记录一次
+        'user_birthday'
+      )
+    }
   }
 }
 

@@ -366,6 +366,7 @@ import {
 import { useAuthStore } from '../stores/auth'
 import { supabase } from '../lib/supabase'
 import { useCatalogueCollected } from '../composables/useCatalogueCollected'
+import { logActivity, ACTIVITY_KIND } from '../lib/activityLog'
 
 const authStore = useAuthStore()
 const categories = CATALOGUE_CATEGORIES
@@ -509,6 +510,10 @@ async function addToWishlist(item) {
       quantity: 1
     })
     if (error) throw error
+    logActivity(authStore.user.id, ACTIVITY_KIND.WISHLIST_ADD, {
+      item_name: itemName.trim(),
+      item_type: itemType
+    })
     wishlistNames.value = new Set([...wishlistNames.value, itemName.trim()])
     wishlistToast.value = `${itemName} 已加入心愿单`
     wishlistToastTimeout = setTimeout(() => { wishlistToast.value = '' }, 2000)
@@ -523,7 +528,22 @@ async function toggleItem(item) {
   if (!authStore.user) return
   const itemId = getItemId(item)
   const category = activeCategory.value
+  const wasCollected = isCollected(item)
+  const title = getItemTitle(item)
   await toggleCollected(category, itemId)
+  if (!wasCollected) {
+    logActivity(authStore.user.id, ACTIVITY_KIND.CATALOGUE_OWNED_ADD, {
+      category,
+      item_id: String(itemId),
+      item_name: title
+    })
+  } else {
+    logActivity(authStore.user.id, ACTIVITY_KIND.CATALOGUE_OWNED_REMOVE, {
+      category,
+      item_id: String(itemId),
+      item_name: title
+    })
+  }
 }
 
 function getName(item) {

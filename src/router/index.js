@@ -20,12 +20,7 @@ const routes = [
     component: () => import('../views/DashboardView.vue'),
     meta: { requiresAuth: true }
   },
-  {
-    path: '/board',
-    name: 'Board',
-    component: () => import('../views/BoardView.vue'),
-    meta: { requiresAuth: true }
-  },
+
   {
     path: '/catalogue',
     name: 'Catalogue',
@@ -54,6 +49,12 @@ const routes = [
     path: '/design-codes',
     name: 'DesignCodes',
     component: () => import('../views/DesignCodeView.vue'),
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/chat',
+    name: 'Chat',
+    component: () => import('../views/ChatView.vue'),
     meta: { requiresAuth: true }
   }
 ]

@@ -316,6 +316,7 @@ import { computed, ref, onMounted, nextTick } from 'vue'
 import { RouterLink, useRouter } from 'vue-router'
 import { useAuthStore } from '../stores/auth'
 import { supabase } from '../lib/supabase'
+import { logActivity, ACTIVITY_KIND } from '../lib/activityLog'
 import { CATALOGUE_CATEGORIES, fetchAcnhData, getIconUrl as getIconUrlFromApi } from '../lib/acnh-api'
 import NoteCard from '../components/NoteCard.vue'
 import CatalogueDetailContent from '../components/catalogue/CatalogueDetailContent.vue'
@@ -451,6 +452,10 @@ function isTaskDone(taskId) {
 }
 
 function bumpTaskProgress(taskId) {
+  const uid = authStore.user?.id
+  const task = DAILY_TASKS_POOL.find((t) => t.id === taskId)
+  const label = task?.label || taskId
+  const before = getTaskProgress(taskId)
   const all = { ...(progressAll.value || {}) }
   const day = todayKey.value
   const row = { ...(all[day] || {}) }
@@ -458,6 +463,20 @@ function bumpTaskProgress(taskId) {
   all[day] = row
   progressAll.value = all
   saveProgressAll(all)
+  const after = row[taskId]
+  const required = getTaskRequiredCount(taskId)
+  if (uid) {
+    logActivity(
+      uid,
+      ACTIVITY_KIND.DAILY_TASK_PROGRESS,
+      { task_id: taskId, task_label: label, progress: after, required },
+      15000,
+      `dailyprog:${day}:${taskId}`
+    )
+    if (after >= required && before < required) {
+      logActivity(uid, ACTIVITY_KIND.DAILY_TASK_COMPLETE, { task_id: taskId, task_label: label })
+    }
+  }
 }
 
 function resetTodayProgress() {

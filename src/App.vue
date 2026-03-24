@@ -19,16 +19,12 @@
       </RouterView>
     </main>
     <AppNav v-if="authStore.isLoggedIn && !isLoginPage" />
-
-    <!-- 右侧抽屉侧边栏（登录后，点击头像打开） -->
-    <AppSidebar v-if="authStore.isLoggedIn && !isLoginPage" />
   </div>
 </template>
 
 <script setup>
 import AppHeader from './components/AppHeader.vue'
 import AppNav from './components/AppNav.vue'
-import AppSidebar from './components/AppSidebar.vue'
 import { useAuthStore } from './stores/auth'
 import { useUiStore } from './stores/ui'
 import { useRoute } from 'vue-router'
